@@ -672,6 +672,194 @@
     @media (max-width: 480px) {
       .footer-inner { grid-template-columns: 1fr; }
     }
+
+    /* ─── QUIZ ─── */
+    .quiz-section { padding: 80px 24px; background: #fff; }
+    .quiz-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #f5f5f7;
+      border-radius: 24px;
+      padding: 48px 40px;
+      transition: opacity .3s;
+    }
+    .quiz-step {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #86868b;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+    .quiz-progress {
+      height: 4px;
+      background: rgba(0,0,0,.08);
+      border-radius: 2px;
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .quiz-progress-bar {
+      height: 100%;
+      background: #1d1d1f;
+      border-radius: 2px;
+      transition: width .4s cubic-bezier(.25,.46,.45,.94);
+    }
+    .quiz-question {
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 24px;
+      color: #1d1d1f;
+      min-height: 3.6rem;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 16px 20px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(0,0,0,.08);
+      background: #fff;
+      font-size: 1.5rem;
+      font-family: inherit;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: all .25s cubic-bezier(.25,.46,.45,.94);
+    }
+    .quiz-option:hover {
+      border-color: #1d1d1f;
+      transform: translateX(4px);
+    }
+    .quiz-option.selected {
+      border-color: #1d1d1f;
+      background: #1d1d1f;
+      color: #fff;
+      transform: translateX(4px);
+    }
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quiz-nav-back {
+      font-size: 1.3rem;
+      color: #86868b;
+      padding: 8px 0;
+      transition: color .2s, transform .2s;
+    }
+    .quiz-nav-back:hover { color: #1d1d1f; transform: translateX(-3px); }
+    .quiz-nav-next {
+      padding: 12px 32px;
+      background: #1d1d1f;
+      color: #fff;
+      border-radius: 50px;
+      font-size: 1.35rem;
+      font-weight: 500;
+      transition: all .3s cubic-bezier(.25,.46,.45,.94);
+    }
+    .quiz-nav-next:hover:not(:disabled) {
+      background: #000;
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+    .quiz-nav-next:disabled {
+      opacity: .35;
+      cursor: default;
+    }
+    .quiz-result-products {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .quiz-result-product {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(0,0,0,.06);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .quiz-result-product:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+    .quiz-result-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      background: #f5f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .quiz-result-img img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+    .quiz-result-info { flex: 1; min-width: 0; }
+    .quiz-result-info .badge {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #86868b;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .quiz-result-info h4 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin: 2px 0 1px;
+    }
+    .quiz-result-info .desc {
+      font-size: 1.2rem;
+      color: #86868b;
+    }
+    .quiz-result-info .price {
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: #1d1d1f;
+      margin-top: 2px;
+    }
+    .quiz-result-shop {
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: #1d1d1f;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all .3s;
+      flex-shrink: 0;
+    }
+    .quiz-result-shop:hover {
+      background: #000;
+      transform: scale(1.04);
+    }
+    .quiz-restart {
+      margin-top: 24px;
+      font-size: 1.2rem;
+      color: #86868b;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color .2s;
+    }
+    .quiz-restart:hover { color: #1d1d1f; }
+
+    @media (max-width: 640px) {
+      .quiz-card { padding: 32px 24px; }
+      .quiz-question { font-size: 1.7rem; }
+      .quiz-result-product { flex-wrap: wrap; }
+      .quiz-result-shop { width: 100%; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -704,10 +892,27 @@
     <p>Pharmacist-formulated with high-potency actives and soothing botanicals. No compromise.</p>
     <div class="hero-actions">
       <a href="#" class="btn btn-fill">Shop bestsellers</a>
-      <a href="#" class="btn btn-outline">Take the quiz →</a>
+      <a href="#quiz" class="btn btn-outline">Take the quiz →</a>
     </div>
     <div class="hero-img">
       <img src="https://skinpiens.com/cdn/shop/files/PC_BANNER_fortress.svg?v=1775731597&width=900" alt="Skinpiens Fortress+">
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="quiz-section" id="quiz">
+    <div class="section-label" style="margin-bottom:8px;">Find Your Match</div>
+    <h2 class="section-title">Skin Quiz</h2>
+    <p class="section-desc">Answer 10 quick questions and we'll recommend the perfect products for your skin.</p>
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-step" id="quizStep">Question 1 of 10</div>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="quizBar" style="width:10%"></div></div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-nav">
+        <button class="quiz-nav-back" id="quizBack" onclick="prevQuestion()">&#8592; Back</button>
+        <button class="quiz-nav-next" id="quizNext" onclick="nextQuestion()">Next</button>
+      </div>
     </div>
   </section>
 
@@ -921,5 +1126,251 @@
     </div>
   </footer>
 
+<script>
+var products = {
+  serum: {
+    name: 'Fortress+ Barrier Serum',
+    price: 'RM 129',
+    desc: 'Triple-ceramide + niacinamide',
+    img: 'https://skinpiens.com/cdn/shop/files/3_731d4ac3-b6e5-4843-980f-a617e60ac2bb.png?v=1775035127&width=200',
+    badge: 'Bestseller'
+  },
+  cream: {
+    name: 'Epsilon Relief Cream',
+    price: 'RM 98',
+    desc: 'Allergist-developed calming care',
+    img: 'https://skinpiens.com/cdn/shop/files/epsilon_2.png?v=1775610977&width=200',
+    badge: 'Eczema Range'
+  },
+  cleanser: {
+    name: 'Epsilon Barrier Cleanser',
+    price: 'RM 50',
+    desc: 'Ceramide-rich gentle cleansing',
+    img: 'https://skinpiens.com/cdn/shop/files/epsilon.png?v=1775610830&width=200',
+    badge: 'Bestseller'
+  },
+  mist: {
+    name: 'Epsilon Soothing Mist',
+    price: 'RM 60',
+    desc: 'Instant relief for reactive skin',
+    img: 'https://skinpiens.com/cdn/shop/files/epsilon_1.png?v=1775610926&width=200',
+    badge: 'New'
+  }
+};
+
+var questions = [
+  {
+    q: 'What best describes your skin?',
+    options: [
+      { label: 'Oily / Combination', scores: { cleanser: 2, mist: 1 } },
+      { label: 'Dry / Dehydrated', scores: { serum: 2, cream: 1 } },
+      { label: 'Normal / Balanced', scores: { serum: 1, cleanser: 1 } },
+      { label: 'Sensitive / Reactive', scores: { cream: 2, mist: 2 } }
+    ]
+  },
+  {
+    q: 'What bothers you most about your skin?',
+    options: [
+      { label: 'Redness & irritation', scores: { cream: 3, mist: 2 } },
+      { label: 'Dryness & flaking', scores: { serum: 3, cream: 2 } },
+      { label: 'Breakouts & congestion', scores: { cleanser: 3, mist: 1 } },
+      { label: 'Dullness & uneven tone', scores: { serum: 3, cleanser: 1 } }
+    ]
+  },
+  {
+    q: 'How reactive is your skin?',
+    options: [
+      { label: 'Very \u2014 stings or burns often', scores: { cream: 3, mist: 3 } },
+      { label: 'Sometimes \u2014 triggered by weather or products', scores: { serum: 2, cream: 2 } },
+      { label: 'Rarely \u2014 just a bit sensitive', scores: { serum: 1, cleanser: 1 } },
+      { label: 'Not reactive at all', scores: { serum: 1, cream: 1, cleanser: 1, mist: 1 } }
+    ]
+  },
+  {
+    q: 'What texture do you crave most?',
+    options: [
+      { label: 'Lightweight essence or serum', scores: { serum: 3 } },
+      { label: 'Rich, nourishing cream', scores: { cream: 3 } },
+      { label: 'Gentle foaming wash', scores: { cleanser: 3 } },
+      { label: 'Cool, refreshing mist', scores: { mist: 3 } }
+    ]
+  },
+  {
+    q: 'Your current routine ends with...',
+    options: [
+      { label: 'Nothing \u2014 I need a serum', scores: { serum: 3 } },
+      { label: 'Just a moisturizer', scores: { serum: 2, mist: 1 } },
+      { label: 'Just a cleanser \u2014 need more', scores: { cream: 2, serum: 1 } },
+      { label: 'A full routine (looking for targeted help)', scores: { serum: 1, cream: 1, mist: 1 } }
+    ]
+  },
+  {
+    q: 'When is your skin at its worst?',
+    options: [
+      { label: 'After cleansing', scores: { cream: 2, mist: 2 } },
+      { label: 'In air-conditioned or dry environments', scores: { serum: 2, mist: 2 } },
+      { label: 'During weather or season changes', scores: { cream: 3, serum: 1 } },
+      { label: 'Random flare-ups with no pattern', scores: { cream: 2, mist: 3 } }
+    ]
+  },
+  {
+    q: 'Which ingredient excites you most?',
+    options: [
+      { label: 'Ceramides', scores: { serum: 3, cleanser: 2 } },
+      { label: 'Niacinamide', scores: { serum: 3 } },
+      { label: 'Oatmeal / Colloidal oat', scores: { cream: 3, mist: 2 } },
+      { label: 'Panthenol / Vitamin B5', scores: { cream: 2, mist: 3 } }
+    ]
+  },
+  {
+    q: "What's your budget for a new product?",
+    options: [
+      { label: 'Under RM 55', scores: { cleanser: 3, mist: 2 } },
+      { label: 'RM 55 \u2013 RM 100', scores: { cream: 3, mist: 2 } },
+      { label: 'RM 100 \u2013 RM 130', scores: { serum: 3 } },
+      { label: 'No limit / I want a bundle', scores: { serum: 2, cream: 2, cleanser: 2, mist: 2 } }
+    ]
+  },
+  {
+    q: 'What describes your skincare style?',
+    options: [
+      { label: 'Full multi-step ritual', scores: { serum: 3, cream: 2 } },
+      { label: 'Minimalist \u2014 few but effective steps', scores: { cleanser: 2, cream: 2 } },
+      { label: 'On-the-go \u2014 quick refresh', scores: { mist: 3 } },
+      { label: 'Targeted treatment only', scores: { serum: 2, cream: 2 } }
+    ]
+  },
+  {
+    q: 'One thing you want most from a product:',
+    options: [
+      { label: 'Stronger barrier, less dryness', scores: { serum: 3, cream: 2 } },
+      { label: 'Calm down redness & itch', scores: { cream: 3, mist: 2 } },
+      { label: 'Cleanse without stripping', scores: { cleanser: 3 } },
+      { label: 'Instant relief & hydration', scores: { mist: 3, serum: 1 } }
+    ]
+  }
+];
+
+var current = 0;
+var answers = [];
+var scores = { serum: 0, cream: 0, cleanser: 0, mist: 0 };
+
+var stepEl = document.getElementById('quizStep');
+var barEl = document.getElementById('quizBar');
+var questionEl = document.getElementById('quizQuestion');
+var optionsEl = document.getElementById('quizOptions');
+var backEl = document.getElementById('quizBack');
+var nextEl = document.getElementById('quizNext');
+var cardEl = document.getElementById('quizCard');
+
+function render() {
+  if (current < questions.length) {
+    var q = questions[current];
+    stepEl.textContent = 'Question ' + (current + 1) + ' of ' + questions.length;
+    barEl.style.width = ((current + 1) / questions.length * 100) + '%';
+    questionEl.textContent = q.q;
+    optionsEl.innerHTML = q.options.map(function(opt, i) {
+      return '<button class="quiz-option' + (answers[current] === i ? ' selected' : '') + '" onclick="selectAnswer(' + i + ')">' + opt.label + '</button>';
+    }).join('');
+    backEl.style.visibility = current === 0 ? 'hidden' : 'visible';
+    nextEl.textContent = current === questions.length - 1 ? 'See results' : 'Next';
+    nextEl.disabled = answers[current] === undefined || answers[current] === null;
+  } else {
+    showResults();
+  }
+}
+
+function selectAnswer(i) {
+  answers[current] = i;
+  var btns = document.querySelectorAll('.quiz-option');
+  for (var j = 0; j < btns.length; j++) {
+    btns[j].classList.toggle('selected', j === i);
+  }
+  nextEl.disabled = false;
+}
+
+function nextQuestion() {
+  if (answers[current] === undefined || answers[current] === null) return;
+  if (current < questions.length - 1) {
+    current++;
+    render();
+  } else {
+    scores = { serum: 0, cream: 0, cleanser: 0, mist: 0 };
+    for (var i = 0; i < questions.length; i++) {
+      var chosen = questions[i].options[answers[i]];
+      if (chosen && chosen.scores) {
+        for (var key in chosen.scores) {
+          if (chosen.scores.hasOwnProperty(key)) {
+            scores[key] += chosen.scores[key];
+          }
+        }
+      }
+    }
+    current++;
+    render();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) {
+    current--;
+    render();
+  }
+}
+
+function showResults() {
+  var maxScore = Math.max.apply(null, [scores.serum, scores.cream, scores.cleanser, scores.mist]);
+  var recommended = [];
+  for (var key in scores) {
+    if (scores.hasOwnProperty(key) && scores[key] >= maxScore - 1) {
+      recommended.push(key);
+    }
+  }
+
+  stepEl.textContent = 'Your Results';
+  barEl.style.width = '100%';
+  questionEl.textContent = 'Based on your answers, we recommend:';
+
+  optionsEl.innerHTML = '';
+  var container = document.createElement('div');
+  container.className = 'quiz-result-products';
+
+  for (var r = 0; r < recommended.length; r++) {
+    var p = products[recommended[r]];
+    var div = document.createElement('div');
+    div.className = 'quiz-result-product';
+    div.innerHTML = '<div class="quiz-result-img"><img src="' + p.img + '" alt="' + p.name + '"></div>' +
+      '<div class="quiz-result-info">' +
+        '<div class="badge">' + p.badge + '</div>' +
+        '<h4>' + p.name + '</h4>' +
+        '<div class="desc">' + p.desc + '</div>' +
+        '<div class="price">' + p.price + '</div>' +
+      '</div>' +
+      '<a href="#" class="quiz-result-shop">Shop now</a>';
+    container.appendChild(div);
+  }
+
+  optionsEl.appendChild(container);
+
+  var restart = document.createElement('button');
+  restart.className = 'quiz-restart';
+  restart.textContent = '\u2190 Retake quiz';
+  restart.onclick = restartQuiz;
+  optionsEl.appendChild(restart);
+
+  backEl.style.visibility = 'hidden';
+  nextEl.style.visibility = 'hidden';
+}
+
+function restartQuiz() {
+  current = 0;
+  answers = [];
+  scores = { serum: 0, cream: 0, cleanser: 0, mist: 0 };
+  nextEl.style.visibility = 'visible';
+  render();
+}
+
+render();
+</script>
 </body>
 </html>
