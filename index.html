@@ -1,917 +1,948 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧠 Intermediate Bitcoin – Level Up</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SKINPIENS | Clinical Skincare + Botanical Science</title>
+  <style>
+    @font-face { font-family: 'Satoshi'; font-weight: 400; src: local('Segoe UI'), local(sans-serif); }
+    @font-face { font-family: 'Satoshi'; font-weight: 500; src: local('Segoe UI'), local(sans-serif); }
+    @font-face { font-family: 'Satoshi'; font-weight: 700; src: local('Segoe UI'), local(sans-serif); }
+    @font-face { font-family: 'Satoshi'; font-weight: 900; src: local('Segoe UI'), local(sans-serif); }
+    @font-face { font-family: 'Playfair'; font-weight: 400; src: local('Georgia'), local(serif); }
+    @font-face { font-family: 'Playfair'; font-weight: 600; src: local('Georgia'), local(serif); }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #0a0a1a;
-            color: #e0e0ff;
-            line-height: 1.7;
-        }
+    :root {
+      --cream: #faf7f2;
+      --warm: #f5ede4;
+      --rose: #d4a5a5;
+      --rose-deep: #c48989;
+      --sage: #b5c4b1;
+      --sage-deep: #8fa892;
+      --terracotta: #d4a574;
+      --clay: #c4896a;
+      --charcoal: #2a2a2a;
+      --text: #3a3a3a;
+      --muted: rgba(58,58,58,0.55);
+      --white: #ffffff;
+      --font: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --display: 'Playfair', Georgia, serif;
+    }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a1a; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(#f7931a, #a855f7); border-radius: 4px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 62.5%; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    img { max-width: 100%; display: block; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes pulse { 0%,100%{opacity:.7} 50%{opacity:1} }
-        @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-        @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(247,147,26,.2)} 50%{box-shadow:0 0 40px rgba(247,147,26,.5)} }
-        @keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        .hero {
-            background: linear-gradient(135deg, #1a0533 0%, #f7931a 40%, #a855f7 70%, #0a0a1a 100%);
-            padding: 5rem 2rem 4rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(168,85,247,.3) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(247,147,26,.3) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        .hero-btc {
-            position: absolute;
-            font-size: 22rem;
-            font-weight: 900;
-            opacity: .04;
-            color: #fff;
-            top: -4rem;
-            right: -2rem;
-            animation: float 6s ease-in-out infinite;
-            pointer-events: none;
-        }
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 900;
-            background: linear-gradient(to right, #fff, #fbbf24, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            letter-spacing: -.03em;
-        }
-        .hero .sub {
-            font-size: 1.15rem;
-            max-width: 600px;
-            margin: .7rem auto 0;
-            opacity: .85;
-            position: relative;
-        }
+    /* ── ANNOUNCEMENT ── */
+    .announce {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.75);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 1.15rem;
+      letter-spacing: .04em;
+    }
+    .announce strong { color: var(--white); font-weight: 500; }
+    .announce a { color: var(--rose); text-decoration: underline; text-underline-offset: 3px; }
 
-        .ticker {
-            background: #111128;
-            border-bottom: 1px solid rgba(247,147,26,.15);
-            padding: .8rem 0;
-        }
-        .ticker-inner {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        .ticker-item { text-align: center; }
-        .ticker-item .label { font-size: .7rem; opacity: .4; text-transform: uppercase; letter-spacing: .08em; }
-        .ticker-item .value { font-size: 1.3rem; font-weight: 700; }
-        .ticker-item .value.up { color: #4ade80; }
-        .ticker-item .value.down { color: #f87171; }
-        .ticker .spark { font-size: .8rem; opacity: .5; }
+    /* ── HEADER ── */
+    .header {
+      background: var(--cream);
+      border-bottom: 1px solid rgba(0,0,0,.05);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(250,247,242,.92);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-family: var(--display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      letter-spacing: .02em;
+    }
+    .nav { display: flex; align-items: center; gap: 2px; }
+    .nav-item {
+      position: relative;
+      padding: 8px 14px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background .15s;
+    }
+    .nav-item:hover { background: rgba(0,0,0,.04); }
+    .nav-item:hover .drop {
+      opacity: 1; visibility: visible;
+      transform: translateY(0);
+    }
+    .drop {
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 12px;
+      min-width: 200px;
+      padding: 10px 0;
+      opacity: 0; visibility: hidden;
+      transition: all .2s ease;
+      box-shadow: 0 12px 40px rgba(0,0,0,.08);
+    }
+    .drop a {
+      display: block;
+      padding: 8px 20px;
+      font-size: 1.25rem;
+      color: var(--text);
+      transition: background .1s;
+    }
+    .drop a:hover { background: var(--warm); }
+    .drop .label {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 20px 4px;
+    }
 
-        .container { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+    .actions { display: flex; align-items: center; gap: 8px; }
+    .actions button {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s;
+    }
+    .actions button:hover { background: rgba(0,0,0,.05); }
+    .actions svg { width: 20px; height: 20px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
 
-        section { padding: 3.5rem 0; position: relative; }
-        section:nth-child(even) { background: rgba(255,255,255,.02); }
-        section:nth-child(odd) { background: rgba(0,0,0,.2); }
+    .mobile-menu { display: none; }
 
-        h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: .7rem;
-        }
-        h2 .accent {
-            background: linear-gradient(135deg, #f7931a, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    /* ── HERO ── */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, #f5ede4 0%, #e8ddd0 30%, #dcc9b8 60%, #d4b8a0 100%);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 80%, rgba(212,165,165,.25) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(181,196,177,.3) 0%, transparent 60%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+    }
+    .hero-kicker {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      margin-bottom: 20px;
+      padding: 6px 16px;
+      border: 1px solid rgba(212,165,165,.3);
+      border-radius: 100px;
+    }
+    .hero h1 {
+      font-family: var(--display);
+      font-size: 5.6rem;
+      font-weight: 400;
+      line-height: 1.08;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--rose-deep), var(--terracotta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.6rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      transition: all .25s ease;
+    }
+    .btn-primary {
+      background: var(--charcoal);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1.5px solid rgba(42,42,42,.25);
+    }
+    .btn-secondary:hover {
+      border-color: var(--charcoal);
+      transform: translateY(-2px);
+    }
 
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-        }
-        .card {
-            background: linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-            border: 1px solid rgba(247,147,26,.12);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: all .25s;
-            backdrop-filter: blur(4px);
-        }
-        .card:hover {
-            transform: translateY(-4px) scale(1.01);
-            border-color: rgba(247,147,26,.3);
-            box-shadow: 0 12px 40px rgba(247,147,26,.1);
-        }
-        .card .icon { font-size: 2rem; display: block; margin-bottom: .4rem; }
-        .card h3 { font-size: 1.1rem; margin-bottom: .3rem; color: #fbbf24; }
-        .card p { font-size: .92rem; opacity: .75; }
+    /* ── SECTION ── */
+    .section { padding: 80px 0; }
+    .section-alt { background: var(--white); }
+    .section-label {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      text-align: center;
+      font-family: var(--display);
+      font-size: 3.2rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .section-desc {
+      text-align: center;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 48px;
+      font-size: 1.5rem;
+    }
 
-        .tool-box {
-            background: linear-gradient(135deg, rgba(255,255,255,.04), rgba(168,85,247,.05));
-            border: 1px solid rgba(168,85,247,.15);
-            border-radius: 1.2rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            animation: glow 3s ease-in-out infinite;
-        }
-        .tool-box:last-child { margin-bottom: 0; }
-        .tool-box h3 { font-size: 1.2rem; margin-bottom: .25rem; color: #c084fc; }
-        .tool-box .desc { font-size: .9rem; color: rgba(255,255,255,.5); margin-bottom: 1rem; }
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .product {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all .3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0,.04);
+    }
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.06);
+    }
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--white);
+      text-align: center;
+      padding: 30px;
+      line-height: 1.4;
+      position: relative;
+    }
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--white);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: .03em;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .product-body { padding: 16px 18px 20px; }
+    .product-name {
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .product-desc {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .product-price {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+    .product-price small {
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-left: 6px;
+    }
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 6px;
+      font-size: 1.2rem;
+      color: #d4a574;
+    }
+    .product-rating span { color: var(--muted); margin-left: 4px; font-size: 1.1rem; }
 
-        .input-group {
-            display: flex;
-            gap: .5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .input-group label {
-            font-weight: 600;
-            font-size: .85rem;
-            min-width: 60px;
-            color: rgba(255,255,255,.6);
-        }
-        .input-group input, .input-group select {
-            padding: .55rem .8rem;
-            border: 1px solid rgba(255,255,255,.1);
-            border-radius: .6rem;
-            font-size: .95rem;
-            background: rgba(0,0,0,.4);
-            color: #fff;
-            flex: 1;
-            min-width: 100px;
-        }
-        .input-group input:focus, .input-group select:focus {
-            outline: 2px solid #a855f7;
-            outline-offset: -1px;
-            border-color: transparent;
-        }
-        .input-group select option { background: #1a1a3e; color: #fff; }
+    /* ── CATEGORIES ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .cat-card {
+      aspect-ratio: 1;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      font-size: 2rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .3s ease;
+    }
+    .cat-card:hover { transform: scale(1.03); }
+    .cat-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.3));
+      pointer-events: none;
+    }
+    .cat-card span { position: relative; z-index: 2; }
 
-        .btn {
-            background: linear-gradient(135deg, #f7931a, #a855f7);
-            color: #fff;
-            border: none;
-            padding: .55rem 1.4rem;
-            border-radius: .6rem;
-            font-weight: 700;
-            font-size: .9rem;
-            cursor: pointer;
-            transition: all .2s;
-        }
-        .btn:hover { transform: scale(1.04); filter: brightness(1.15); }
-        .btn:active { transform: scale(.96); }
+    /* ── PHILOSOPHY ── */
+    .philosophy {
+      padding: 100px 24px;
+      background: linear-gradient(160deg, #b5c4b1 0%, #8fa892 40%, #7a9a7e 100%);
+      text-align: center;
+      color: var(--white);
+    }
+    .philosophy h2 {
+      font-family: var(--display);
+      font-size: 3.6rem;
+      font-weight: 400;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .philosophy p {
+      font-size: 1.6rem;
+      max-width: 560px;
+      margin: 0 auto 36px;
+      opacity: .85;
+      line-height: 1.7;
+    }
+    .philosophy .btn {
+      border: 1.5px solid var(--white);
+      color: var(--white);
+    }
+    .philosophy .btn:hover { background: var(--white); color: var(--sage-deep); }
 
-        .result-box {
-            margin-top: 1rem;
-            padding: 1rem 1.2rem;
-            background: rgba(74,222,128,.08);
-            border: 1px solid rgba(74,222,128,.2);
-            border-radius: .8rem;
-            font-size: 1rem;
-            display: none;
-        }
-        .result-box.show { display: block; }
-        .result-box .big { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #4ade80, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .result-box .note { font-size: .82rem; opacity: .5; margin-top: .3rem; }
+    /* ── BLOG ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .blog-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,.04);
+      transition: all .3s ease;
+      cursor: pointer;
+    }
+    .blog-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.06); }
+    .blog-img {
+      width: 100%;
+      aspect-ratio: 16/11;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--white);
+    }
+    .blog-body { padding: 20px 22px 24px; }
+    .blog-tag {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      margin-bottom: 8px;
+    }
+    .blog-card h3 {
+      font-family: var(--display);
+      font-size: 1.7rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      color: var(--charcoal);
+    }
+    .blog-card p {
+      font-size: 1.3rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
 
-        .result-box.info { background: rgba(96,165,250,.08); border-color: rgba(96,165,250,.2); }
-        .result-box.info .big { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    /* ── TESTIMONIALS ── */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .t-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 24px;
+      border: 1px solid rgba(0,0,0,.04);
+      transition: all .3s ease;
+    }
+    .t-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.05); }
+    .t-stars { font-size: 1.6rem; color: var(--terracotta); margin-bottom: 10px; }
+    .t-text {
+      font-size: 1.35rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+    .t-author {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .t-author em { font-style: normal; color: var(--rose-deep); }
 
-        .result-box.warn { background: rgba(251,191,36,.08); border-color: rgba(251,191,36,.2); }
-        .result-box.warn .big { background: linear-gradient(135deg, #fbbf24, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--warm);
+    }
+    .newsletter h2 {
+      font-family: var(--display);
+      font-size: 2.8rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .newsletter p {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 1.45rem;
+    }
+    .newsletter-form {
+      display: flex;
+      max-width: 440px;
+      margin: 0 auto;
+      gap: 8px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 1px solid rgba(0,0,0,.12);
+      border-radius: 100px;
+      font-size: 1.4rem;
+      font-family: var(--font);
+      background: var(--white);
+      outline: none;
+    }
+    .newsletter-form input:focus { border-color: var(--charcoal); }
+    .newsletter-form button {
+      padding: 14px 24px;
+      background: var(--charcoal);
+      color: var(--white);
+      border-radius: 100px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .newsletter-form button:hover { background: #000; }
 
-        .step-list {
-            list-style: none;
-            counter-reset: step;
-        }
-        .step-list li {
-            counter-increment: step;
-            padding: .9rem 1rem .9rem 3.5rem;
-            position: relative;
-            border-left: 3px solid transparent;
-            border-image: linear-gradient(to bottom, #f7931a, #a855f7) 1;
-            margin-bottom: .5rem;
-        }
-        .step-list li::before {
-            content: counter(step);
-            position: absolute;
-            left: -1.1rem;
-            top: .8rem;
-            width: 2.2rem;
-            height: 2.2rem;
-            background: linear-gradient(135deg, #f7931a, #a855f7);
-            color: #fff;
-            font-weight: 700;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .9rem;
-        }
-        .step-list li strong { display: block; font-size: 1rem; color: #fbbf24; }
-        .step-list li p { font-size: .92rem; opacity: .75; }
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.7);
+      padding: 60px 0 0;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 50px;
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+      gap: 40px;
+    }
+    .footer-brand p {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 300px;
+    }
+    .footer h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer ul { list-style: none; }
+    .footer li { margin-bottom: 8px; }
+    .footer a {
+      font-size: 1.25rem;
+      transition: color .2s;
+    }
+    .footer a:hover { color: var(--rose); }
+    .footer select {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.7);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 1.25rem;
+      font-family: var(--font);
+      width: 100%;
+      max-width: 240px;
+    }
+    .footer select option { background: var(--charcoal); color: var(--white); }
+    .footer-social { display: flex; gap: 10px; margin-top: 16px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s;
+    }
+    .footer-social a:hover { border-color: var(--rose); }
+    .footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,.6); }
 
-        .accordion details {
-            background: rgba(255,255,255,.03);
-            border: 1px solid rgba(168,85,247,.12);
-            border-radius: .8rem;
-            margin-bottom: .6rem;
-            padding: .7rem 1.2rem;
-            cursor: pointer;
-            transition: all .2s;
-        }
-        .accordion details:hover { background: rgba(168,85,247,.08); border-color: rgba(168,85,247,.25); }
-        .accordion summary {
-            font-weight: 600;
-            font-size: 1rem;
-            list-style: none;
-            display: flex;
-            align-items: center;
-            gap: .5rem;
-            color: #c084fc;
-        }
-        .accordion summary::-webkit-details-marker { display: none; }
-        .accordion summary::before {
-            content: '▶';
-            font-size: .7rem;
-            transition: transform .2s;
-            color: #a855f7;
-        }
-        .accordion details[open] summary::before { transform: rotate(90deg); }
-        .accordion .answer { margin-top: .6rem; padding-left: 1.3rem; opacity: .8; font-size: .93rem; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .footer-payments {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .footer-payments span {
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.5);
+    }
+    .footer-bottom p { font-size: 1.15rem; color: rgba(255,255,255,.35); }
 
-        .quiz-question {
-            margin-bottom: 1.2rem;
-            padding: 1.2rem 1.4rem;
-            background: rgba(255,255,255,.03);
-            border: 1px solid rgba(168,85,247,.12);
-            border-radius: .9rem;
-        }
-        .quiz-question .q-text { font-weight: 700; margin-bottom: .8rem; font-size: 1.02rem; }
-        .quiz-options label {
-            display: block;
-            padding: .5rem .8rem;
-            margin-bottom: .4rem;
-            background: rgba(0,0,0,.3);
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: .6rem;
-            cursor: pointer;
-            transition: all .15s;
-        }
-        .quiz-options label:hover { background: rgba(168,85,247,.12); border-color: #a855f7; }
-        .quiz-options input { margin-right: .6rem; accent-color: #a855f7; }
-        .quiz-options label.correct { background: rgba(74,222,128,.15); border-color: #4ade80; }
-        .quiz-options label.wrong { background: rgba(248,113,113,.15); border-color: #f87171; }
-        .quiz-feedback { margin-top: .5rem; font-size: .88rem; display: none; }
-        .quiz-feedback.show { display: block; }
-        .quiz-score {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 800;
-            padding: 1rem;
-            background: linear-gradient(135deg, rgba(247,147,26,.1), rgba(168,85,247,.1));
-            border-radius: 1rem;
-            margin-top: 1rem;
-        }
-
-        .neon-text {
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-shadow: 0 0 20px rgba(247,147,26,.3);
-        }
-
-        .halving-tracker {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 1.5rem 0;
-        }
-        .halving-stat {
-            text-align: center;
-            padding: 1rem 1.5rem;
-            background: rgba(255,255,255,.03);
-            border: 1px solid rgba(247,147,26,.12);
-            border-radius: 1rem;
-            flex: 1;
-            min-width: 120px;
-        }
-        .halving-stat .num {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f7931a, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .halving-stat .lbl { font-size: .75rem; opacity: .5; text-transform: uppercase; letter-spacing: .05em; }
-
-        footer {
-            text-align: center;
-            padding: 2.5rem 1.5rem;
-            opacity: .4;
-            font-size: .85rem;
-            border-top: 1px solid rgba(168,85,247,.1);
-        }
-        footer a { color: #a855f7; text-decoration: none; }
-
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 2rem; }
-            .hero .sub { font-size: 1rem; }
-            h2 { font-size: 1.4rem; }
-            .ticker-inner { gap: 1rem; }
-            .ticker-item .value { font-size: 1.1rem; }
-            .input-group { flex-direction: column; align-items: stretch; }
-            .input-group label { min-width: auto; }
-            .halving-stat .num { font-size: 1.3rem; }
-        }
-    </style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .hero h1 { font-size: 4rem; }
+    }
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .mobile-menu {
+        display: block;
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+      }
+      .mobile-menu svg { width: 24px; height: 24px; stroke: var(--charcoal); stroke-width: 1.5; fill: none; }
+      .hero { min-height: 70vh; }
+      .hero h1 { font-size: 3.2rem; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .cat-card { aspect-ratio: 3/4; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2.4rem; }
+      .philosophy h2 { font-size: 2.6rem; }
+      .newsletter-form { flex-direction: column; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .section { padding: 50px 0; }
+    }
+    @media (max-width: 480px) {
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .hero h1 { font-size: 2.6rem; }
+    }
+  </style>
 </head>
 <body>
 
-<header class="hero">
-    <div class="hero-btc">₿</div>
-    <h1>🧠 Bitcoin: Intermediate</h1>
-    <p class="sub">You know the basics. Now let's go deeper — UTXOs, Lightning, mining, privacy & more.</p>
-</header>
+  <!-- ANNOUNCEMENT -->
+  <div class="announce">
+    🎉 Free shipping on orders above <strong>RM150</strong> · <a href="#">Shop now</a>
+  </div>
 
-<div class="ticker">
-    <div class="ticker-inner" id="ticker">
-        <div class="ticker-item"><div class="label">Bitcoin (BTC)</div><div class="value" id="btc-price">—</div></div>
-        <div class="ticker-item"><div class="label">24h Change</div><div class="value" id="btc-change">—</div></div>
-        <div class="ticker-item"><div class="label">Market Cap</div><div class="value" id="btc-mcap">—</div></div>
-        <div class="ticker-item"><div class="label">24h Volume</div><div class="value" id="btc-vol">—</div></div>
-        <div class="ticker-item"><div class="label">Hashrate</div><div class="value" id="btc-hash">—</div></div>
-        <div class="spark">⚡ Live from CoinGecko</div>
-    </div>
-</div>
-
-<!-- ═══════ HALVING COUNTDOWN ═══════ -->
-<section>
-    <div class="container">
-        <h2>⛏️ <span class="accent">Halving</span> Countdown</h2>
-        <p style="margin-bottom:1rem; opacity:.7;">Bitcoin's supply halves every 210,000 blocks (~4 years). The next halving drops block rewards from 3.125 BTC → 1.5625 BTC.</p>
-        <div class="halving-tracker" id="halving-tracker"></div>
-    </div>
-</section>
-
-<!-- ═══════ INTERACTIVE TOOLS ═══════ -->
-<section>
-    <div class="container">
-        <h2>🛠️ <span class="accent">Play</span> & Learn</h2>
-
-        <!-- Tool 1: Block Reward Calculator -->
-        <div class="tool-box">
-            <h3>⛏️ Block Reward Calculator</h3>
-            <p class="desc">See how block rewards change with each halving epoch.</p>
-            <div class="input-group">
-                <label>Halving #</label>
-                <select id="halving-select">
-                    <option value="0">0 (50 BTC — 2009)</option>
-                    <option value="1">1 (25 BTC — 2012)</option>
-                    <option value="2">2 (12.5 BTC — 2016)</option>
-                    <option value="3">3 (6.25 BTC — 2020)</option>
-                    <option value="4" selected>4 (3.125 BTC — 2024)</option>
-                    <option value="5">5 (1.5625 BTC — 2028)</option>
-                    <option value="6">6 (0.78125 BTC — 2032)</option>
-                    <option value="7">7 (0.390625 BTC — 2036)</option>
-                    <option value="8">8 (0.1953125 BTC — 2040)</option>
-                </select>
-                <label>BTC Price</label>
-                <input type="number" id="reward-price" value="65000" step="1000">
-                <button class="btn" onclick="calcReward()">Calculate →</button>
-            </div>
-            <div class="result-box" id="reward-result"></div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <button class="mobile-menu" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <a href="#" class="logo">SKINPIENS</a>
+      <nav class="nav">
+        <div class="nav-item">Shop
+          <div class="drop">
+            <a href="#">Shop All</a>
+            <a href="#">Best Sellers</a>
+            <a href="#">Combo Sets</a>
+            <a href="#">New Arrivals</a>
+          </div>
         </div>
-
-        <!-- Tool 2: Mining Profitability -->
-        <div class="tool-box">
-            <h3>⚡ Mining Profitability Estimator</h3>
-            <p class="desc">How much could a miner earn with a given hashrate?</p>
-            <div class="input-group">
-                <label>Hashrate (TH/s)</label>
-                <input type="number" id="mine-hash" value="100" step="1" style="max-width:120px">
-                <label>Power (W)</label>
-                <input type="number" id="mine-watt" value="3000" step="1" style="max-width:100px">
-                <label>$/kWh</label>
-                <input type="number" id="mine-kwh" value="0.08" step="0.01" style="max-width:80px">
-                <button class="btn" onclick="mineProfit()">Estimate →</button>
-            </div>
-            <div class="result-box" id="mine-result"></div>
+        <div class="nav-item">Skin
+          <div class="drop">
+            <span class="label">Category</span>
+            <a href="#">Cleanser</a>
+            <a href="#">Essence Toner</a>
+            <a href="#">Serum</a>
+            <a href="#">Moisturiser</a>
+            <a href="#">Sunscreen</a>
+            <span class="label">Concern</span>
+            <a href="#">Acne</a>
+            <a href="#">Hyperpigmentation</a>
+            <a href="#">Fine Lines</a>
+            <a href="#">Sensitive</a>
+            <span class="label">Skin Type</span>
+            <a href="#">Oily</a>
+            <a href="#">Dry</a>
+            <a href="#">Combination</a>
+          </div>
         </div>
-
-        <!-- Tool 3: Lightning Payment Simulator -->
-        <div class="tool-box">
-            <h3>⚡ Lightning Payment Simulator</h3>
-            <p class="desc">Send a payment over the Lightning Network and see the route.</p>
-            <div class="input-group">
-                <label>Amount (sats)</label>
-                <input type="number" id="lightning-amount" value="5000" step="1" style="max-width:120px">
-                <button class="btn" onclick="simLightning()">Send ⚡</button>
-            </div>
-            <div class="result-box" id="lightning-result"></div>
+        <div class="nav-item">Hair
+          <div class="drop">
+            <a href="#">Shampoo</a>
+            <a href="#">Conditioner</a>
+            <a href="#">Scalp Serum</a>
+          </div>
         </div>
-
-        <!-- Tool 4: Fee Estimator -->
-        <div class="tool-box">
-            <h3>⏱️ Transaction Fee Estimator</h3>
-            <p class="desc">Estimate fees based on mempool congestion.</p>
-            <div class="input-group">
-                <label>Priority</label>
-                <select id="fee-priority">
-                    <option value="low">🐢 Low (save money)</option>
-                    <option value="med" selected>🚶 Medium</option>
-                    <option value="high">🏃 High (fast)</option>
-                    <option value="urgent">🚀 Urgent</option>
-                </select>
-                <label>TX bytes</label>
-                <input type="number" id="fee-bytes" value="250" step="1" style="max-width:90px">
-                <button class="btn" onclick="estimateFee()">Estimate →</button>
-            </div>
-            <div class="result-box" id="fee-result"></div>
+        <div class="nav-item">Body
+          <div class="drop">
+            <a href="#">Scrub &amp; Mask</a>
+            <a href="#">Moisturiser</a>
+          </div>
         </div>
-
-        <!-- Tool 5: UTXO Visualizer -->
-        <div class="tool-box">
-            <h3>🧩 UTXO Visualizer</h3>
-            <p class="desc">See how your Bitcoin wallet splits into UTXOs (Unspent Transaction Outputs).</p>
-            <div class="input-group">
-                <label>Total BTC</label>
-                <input type="number" id="utxo-total" value="1.5" step="0.01" style="max-width:120px">
-                <label># of UTXOs</label>
-                <input type="number" id="utxo-count" value="5" min="1" max="20" step="1" style="max-width:90px">
-                <button class="btn" onclick="showUTXOs()">Visualize →</button>
-            </div>
-            <div class="result-box" id="utxo-result"></div>
+        <div class="nav-item">Supplement
+          <div class="drop">
+            <a href="#">Collagen</a>
+            <a href="#">NUCA</a>
+          </div>
         </div>
+        <div class="nav-item">Journal</div>
+      </nav>
+      <div class="actions">
+        <button aria-label="Search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button aria-label="Account">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button aria-label="Cart">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </button>
+      </div>
     </div>
-</section>
+  </header>
 
-<!-- ═══════ DEEP DIVE SECTIONS ═══════ -->
-<section>
-    <div class="container">
-        <h2>🧬 <span class="accent">How Bitcoin</span> Works (Deep)</h2>
-        <div class="card-grid">
-            <div class="card"><span class="icon">🔗</span><h3>UTXOs</h3><p>Bitcoin doesn't use "balances." You own UTXOs — like digital coins. A transaction spends old UTXOs and creates new ones.</p></div>
-            <div class="card"><span class="icon">⛓️</span><h3>The Mempool</h3><p>Unconfirmed transactions wait in the mempool. Miners pick the most profitable ones. Higher fee = faster confirmation.</p></div>
-            <div class="card"><span class="icon">⚡</span><h3>Lightning Network</h3><p>A layer-2 that enables instant, near-zero fee payments. Open a channel, pay off-chain, settle on-chain when done.</p></div>
-            <div class="card"><span class="icon">🔑</span><h3>HD Wallets</h3><p>A single seed phrase (12/24 words) derives every address. BIP39 mnemonic + BIP32 derivation path = infinite keys.</p></div>
-            <div class="card"><span class="icon">🔄</span><h3>Difficulty Adjustment</h3><p>Every 2016 blocks (~2 weeks), Bitcoin adjusts mining difficulty to keep block time at ~10 minutes.</p></div>
-            <div class="card"><span class="icon">🕵️</span><h3>Privacy</h3><p>Bitcoin is pseudonymous, not anonymous. Each address is public. Best practices: avoid address reuse, use CoinJoin.</p></div>
-            <div class="card"><span class="icon">📜</span><h3>Script & Smart Contracts</h3><p>Bitcoin has a scripting language (Script). Time-locks, multisig, and Taproot enable advanced spending conditions.</p></div>
-            <div class="card"><span class="icon">🎨</span><h3>Ordinals</h3><p>Ordinals inscribe data onto individual satoshis. Enabled by Taproot — turns every sat into a potential NFT.</p></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-kicker">Clinical + Botanical</span>
+      <h1>Skin that<br><em>feels alive</em></h1>
+      <p>Pharmacist-formulated with high-potency actives and soothing botanicals. No compromise on efficacy, no irritation.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn btn-primary">Shop bestsellers</a>
+        <a href="#" class="btn btn-secondary">Take the skin quiz →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section class="section">
+    <div class="section-label">Most Loved</div>
+    <h2 class="section-title">Best Sellers</h2>
+    <p class="section-desc">Clinically proven, dermatologist tested, and adored by thousands.</p>
+    <div class="product-grid">
+      <div class="product">
+        <div class="product-image" style="background:linear-gradient(135deg,#e8ddd0,#dcc9b8);">
+          <span class="product-badge">⭐ Bestseller</span>
+          Fortress+ Serum
         </div>
-    </div>
-</section>
-
-<!-- ═══════ NODE INFO ═══════ -->
-<section>
-    <div class="container">
-        <h2>🌐 <span class="accent">Running a Node</span> — Be the Network</h2>
-        <p style="margin-bottom:1.5rem; font-size:1.05rem;">Running your own Bitcoin node gives you sovereignty. You verify transactions yourself instead of trusting someone else.</p>
-        <ol class="step-list">
-            <li><strong>Choose your node software</strong><p>Bitcoin Core is the reference implementation. Download from bitcoin.org.</p></li>
-            <li><strong>Hardware matters</strong><p>You need ~600GB+ free disk space (pruning reduces it to ~10GB). 8GB RAM recommended. A Raspberry Pi 4 can run a pruned node.</p></li>
-            <li><strong>Initial Block Download (IBD)</strong><p>Syncing from scratch takes 1-3 days depending on hardware. Be patient — every block is verified from genesis.</p></li>
-            <li><strong>Connect your wallet</strong><p>Use your own node with Electrum, Sparrow, or Specter. No more leaking data to third-party servers.</p></li>
-            <li><strong>Open ports (optional)</strong><p>Port 8333 lets other nodes connect to you. You become part of the network backbone!</p></li>
-        </ol>
-    </div>
-</section>
-
-<!-- ═══════ MYTHS (ADVANCED) ═══════ -->
-<section>
-    <div class="container">
-        <h2>🔬 <span class="accent">Advanced</span> Myths</h2>
-        <div class="accordion">
-            <details><summary>❌ "Bitcoin can be copied / a better coin will replace it"</summary><div class="answer">Bitcoin has the strongest network effect, the most hashrate, the most developers, and the most liquidity. A clone has none of this. Network effects are incredibly hard to replicate.</div></details>
-            <details><summary>❌ "Bitcoin isn't private enough"</summary><div class="answer">True that base-layer Bitcoin is pseudonymous, but tools like CoinJoin, Lightning, and payjoin significantly improve privacy. Bitcoin's transparency is a feature — you can verify the supply.</div></details>
-            <details><summary>❌ "The 21M cap can be changed"</summary><div class="answer">Technically possible, but it would require near-universal consensus. Nodes enforce the supply rule. Any chain changing the 21M cap would be rejected by the community as a different asset.</div></details>
-            <details><summary>❌ "Lightning Network is centralized"</summary><div class="answer">Anyone can run a Lightning node. While routing tends toward larger nodes, new protocols (like trampoline routing) and improved pathfinding are making it more decentralized over time.</div></details>
-            <details><summary>❌ "Quantum computers will break Bitcoin"</summary><div class="answer">Elliptic curve cryptography (ECDSA) is vulnerable to Shor's algorithm. But Bitcoin can upgrade to quantum-resistant signatures (like Lamport or Winternitz) when needed — it's a software upgrade.</div></details>
+        <div class="product-body">
+          <div class="product-name">Fortress+ Ceramide Barrier Serum</div>
+          <div class="product-desc">Triple-ceramide + niacinamide</div>
+          <div class="product-price">RM 129</div>
+          <div class="product-rating">★★★★★ <span>(128)</span></div>
         </div>
-    </div>
-</section>
-
-<!-- ═══════ QUIZ ═══════ -->
-<section>
-    <div class="container">
-        <h2>🧠 <span class="accent">Intermediate</span> Quiz</h2>
-        <p style="margin-bottom:1rem; opacity:.7;">Test your deeper Bitcoin knowledge.</p>
-        <div id="quiz"></div>
-        <div class="quiz-score" id="quiz-score"></div>
-    </div>
-</section>
-
-<!-- ═══════ GLOSSARY ═══════ -->
-<section>
-    <div class="container">
-        <h2>📖 <span class="accent">Glossary</span></h2>
-        <div class="accordion">
-            <details><summary>UTXO</summary><div class="answer">Unspent Transaction Output. Like a coin in your pocket. Your wallet balance is the sum of all UTXOs you can spend.</div></details>
-            <details><summary>Mempool</summary><div class="answer">The waiting room for unconfirmed transactions. Miners select from here. Higher fee = bumped to the front.</div></details>
-            <details><summary>BIP39 / BIP32</summary><div class="answer">BIP39 defines the 12/24-word seed phrase. BIP32 defines hierarchical deterministic (HD) key derivation — one seed → infinite addresses.</div></details>
-            <details><summary>Derivation Path</summary><div class="answer">A path like <code>m/84'/0'/0'/0/0</code> that tells your wallet which key to use. Different paths = different accounts.</div></details>
-            <details><summary>SIGHASH</summary><div class="answer">Signature Hash — defines which parts of a transaction are signed. Enables complex smart contracts like CoinJoin.</div></details>
-            <details><summary>Taproot</summary><div class="answer">A 2021 upgrade (BIP341) that makes complex scripts look like simple payments. Improves privacy and reduces fees for smart contracts.</div></details>
-            <details><summary>CoinJoin</summary><div class="answer">A privacy technique where multiple users combine their transactions. An observer can't tell who paid whom.</div></details>
-            <details><summary>Payjoin (BIP78)</summary><div class="answer">A privacy-improving technique where the recipient adds a payment of their own in the same transaction, breaking common chain-analysis heuristics.</div></details>
+      </div>
+      <div class="product">
+        <div class="product-image" style="background:linear-gradient(135deg,#dcc9b8,#c9a89a);">
+          <span class="product-badge">🌿 Eczema Range</span>
+          Epsilon Cream
         </div>
-    </div>
-</section>
-
-<footer>
-    <div class="container">
-        <p>Made with ⚡ and ₿ for curious minds.</p>
-        <p style="margin-top:.3rem;">Not financial advice. Verify everything yourself.</p>
-        <p style="margin-top:.75rem;">
-            <a href="https://bitcoin.org" target="_blank">bitcoin.org</a> ·
-            <a href="https://bitcoiner.guide" target="_blank">bitcoiner.guide</a> ·
-            <a href="https://github.com/bitcoinbook/bitcoinbook" target="_blank">Mastering Bitcoin</a>
-        </p>
-    </div>
-</footer>
-
-<script>
-// ═══════════════════════════════════════════════════════════════
-// 1. LIVE PRICE TICKET
-// ═══════════════════════════════════════════════════════════════
-let currentPrice = 0;
-
-async function fetchPrice() {
-    try {
-        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true&include_market_cap=true&include_24hr_vol=true');
-        const data = await res.json();
-        const btc = data.bitcoin;
-        currentPrice = btc.usd;
-
-        document.getElementById('btc-price').textContent = '$' + abbr(btc.usd);
-        document.getElementById('btc-price').className = 'value';
-
-        const change = btc.usd_24h_change;
-        const el = document.getElementById('btc-change');
-        el.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
-        el.className = 'value ' + (change >= 0 ? 'up' : 'down');
-
-        document.getElementById('btc-mcap').textContent = '$' + abbr(btc.usd_market_cap);
-        document.getElementById('btc-vol').textContent = '$' + abbr(btc.usd_24h_vol);
-        document.getElementById('btc-hash').textContent = '—';
-    } catch (e) {
-        document.getElementById('btc-price').textContent = '—';
-    }
-}
-function abbr(n) {
-    if (n >= 1e12) return (n / 1e12).toFixed(2) + 'T';
-    if (n >= 1e9)  return (n / 1e9).toFixed(2) + 'B';
-    if (n >= 1e6)  return (n / 1e6).toFixed(2) + 'M';
-    if (n >= 1e3)  return (n / 1e3).toFixed(2) + 'K';
-    return n.toFixed(2);
-}
-fetchPrice();
-setInterval(fetchPrice, 60000);
-
-// ═══════════════════════════════════════════════════════════════
-// 2. HALVING COUNTDOWN
-// ═══════════════════════════════════════════════════════════════
-function updateHalving() {
-    // next halving estimated ~March 2028 (block 1,050,000)
-    const now = new Date();
-    const target = new Date('2028-03-20T00:00:00Z');
-    const diff = target - now;
-
-    if (diff <= 0) {
-        document.getElementById('halving-tracker').innerHTML = '<div class="halving-stat"><div class="num">🎉 Happened!</div><div class="lbl">Next halving</div></div>';
-        return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-    const blocksRemaining = Math.floor(diff / (10 * 60 * 1000)); // ~10 min per block
-
-    document.getElementById('halving-tracker').innerHTML = `
-        <div class="halving-stat"><div class="num">${days}d ${hours}h</div><div class="lbl">Until Halving</div></div>
-        <div class="halving-stat"><div class="num">${blocksRemaining.toLocaleString()}</div><div class="lbl">Blocks Remaining</div></div>
-        <div class="halving-stat"><div class="num">3.125 → 1.5625</div><div class="lbl">Reward Change</div></div>
-        <div class="halving-stat"><div class="num">~${((blocksRemaining * 6.25) / 1e6).toFixed(2)}M</div><div class="lbl">BTC Mined Before</div></div>
-    `;
-}
-updateHalving();
-setInterval(updateHalving, 1000);
-
-// ═══════════════════════════════════════════════════════════════
-// 3. BLOCK REWARD CALCULATOR
-// ═══════════════════════════════════════════════════════════════
-function calcReward() {
-    const epoch = parseInt(document.getElementById('halving-select').value);
-    const price = parseFloat(document.getElementById('reward-price').value);
-    const box = document.getElementById('reward-result');
-
-    if (!price || price <= 0) { box.className = 'result-box'; box.style.display = 'none'; return; }
-
-    const reward = 50 / Math.pow(2, epoch);
-    const dailyReward = reward * 144; // ~144 blocks per day
-    const yearlyReward = reward * 52560; // ~52560 blocks per year
-    const dailyUSD = dailyReward * price;
-    const yearlyUSD = yearlyReward * price;
-    const supplyEpoch = 210000 * epoch;
-
-    box.innerHTML = `
-        <div>Epoch ${epoch} — Block ${supplyEpoch.toLocaleString()} to ${(supplyEpoch + 210000).toLocaleString()}</div>
-        <div class="big">${reward.toFixed(8)} BTC / block</div>
-        <div>Daily: <strong>${dailyReward.toFixed(2)} BTC</strong> ($${fmt(dailyUSD)})</div>
-        <div>Yearly: <strong>${yearlyReward.toFixed(2)} BTC</strong> ($${fmt(yearlyUSD)})</div>
-        <div class="note">Total supply after epoch ${epoch}: ${((210000 * 50 * 2) - (210000 * reward)).toLocaleString()} BTC</div>
-    `;
-    box.className = 'result-box show';
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 4. MINING PROFITABILITY
-// ═══════════════════════════════════════════════════════════════
-async function mineProfit() {
-    const hashTH = parseFloat(document.getElementById('mine-hash').value);
-    const watts = parseFloat(document.getElementById('mine-watt').value);
-    const kwh = parseFloat(document.getElementById('mine-kwh').value);
-    const box = document.getElementById('mine-result');
-
-    if (!hashTH || hashTH <= 0) { box.className = 'result-box'; box.style.display = 'none'; return; }
-
-    // Get current network hashrate and block reward
-    let networkHash = 6e8; // ~600 EH/s default
-    let blockReward = 3.125;
-
-    try {
-        const res = await fetch('https://api.blockchain.info/stats');
-        const data = await res.json();
-        if (data.hash_rate) networkHash = data.hash_rate / 1e12; // convert to TH/s
-    } catch (e) {}
-
-    // Your share of the network
-    const share = hashTH / networkHash;
-    const btcPerDay = share * blockReward * 144;
-    const usdPerDay = btcPerDay * currentPrice;
-
-    // Power costs
-    const kW = watts / 1000;
-    const powerCostDay = kW * 24 * kwh;
-    const profitDay = usdPerDay - powerCostDay;
-
-    box.innerHTML = `
-        <div>Your hashrate: <strong>${hashTH} TH/s</strong> (${(share * 100).toFixed(8)}% of network)</div>
-        <div class="big">~${btcPerDay.toFixed(8)} BTC/day</div>
-        <div>Revenue: <strong>$${fmt(usdPerDay)}/day</strong></div>
-        <div>Power: <strong>$${fmt(powerCostDay)}/day</strong> (${watts}W @ $${kwh}/kWh)</div>
-        <div style="color:${profitDay >= 0 ? '#4ade80' : '#f87171'}"><strong>${profitDay >= 0 ? 'Profit' : 'Loss'}: $${fmt(Math.abs(profitDay))}/day</strong></div>
-        <div class="note">Based on ~${(networkHash / 1e6).toFixed(1)} EH/s network hashrate. Not exact — for illustration.</div>
-    `;
-    box.className = 'result-box show';
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 5. LIGHTNING SIMULATOR
-// ═══════════════════════════════════════════════════════════════
-function simLightning() {
-    const sats = parseFloat(document.getElementById('lightning-amount').value);
-    const box = document.getElementById('lightning-result');
-
-    if (!sats || sats <= 0) { box.className = 'result-box'; box.style.display = 'none'; return; }
-
-    // Simulate a Lightning route
-    const nodes = ['Alice ⚡', 'Bob ⚡', 'Carol ⚡', 'Dave ⚡', 'You ⚡'];
-    const route = [];
-    const numHops = Math.floor(Math.random() * 3) + 2; // 2-4 hops
-    const used = new Set();
-    for (let i = 0; i < numHops; i++) {
-        let idx;
-        do { idx = Math.floor(Math.random() * nodes.length); } while (used.has(idx));
-        used.add(idx);
-        route.push(nodes[idx]);
-    }
-    route.push('Recipient 🎯');
-
-    const fees = (sats * (0.001 + Math.random() * 0.005)).toFixed(0);
-    const time = (Math.random() * 2 + 0.1).toFixed(2);
-
-    box.innerHTML = `
-        <div>⚡ Sending <strong>${sats.toLocaleString()} sats</strong> via Lightning</div>
-        <div style="margin:.5rem 0; font-size:.9rem; opacity:.7;">
-            Route: ${route.join(' → ')}
+        <div class="product-body">
+          <div class="product-name">Epsilon Eczema Relief Cream</div>
+          <div class="product-desc">Allergist-developed calming care</div>
+          <div class="product-price">RM 98</div>
+          <div class="product-rating">★★★★★ <span>(87)</span></div>
         </div>
-        <div class="big">✅ Sent in ${time}s</div>
-        <div>Routing fees: <strong>${fees} sats</strong> (${((fees / sats) * 100).toFixed(2)}%)</div>
-        <div style="margin-top:.3rem;">⚡ On-chain equivalent: ~$${fmt((sats / 1e8) * currentPrice)} + fee</div>
-        <div class="note">Simulated route. Real Lightning routes are found via gossip + pathfinding.</div>
-    `;
-    box.className = 'result-box show';
-}
+      </div>
+      <div class="product">
+        <div class="product-image" style="background:linear-gradient(135deg,#b5c4b1,#8fa892);">
+          <span class="product-badge">⭐ Bestseller</span>
+          Vitamin C Serum
+        </div>
+        <div class="product-body">
+          <div class="product-name">Vitamin C Brightening Essence</div>
+          <div class="product-desc">15% L-AA + ferulic acid</div>
+          <div class="product-price">RM 119</div>
+          <div class="product-rating">★★★★★ <span>(203)</span></div>
+        </div>
+      </div>
+      <div class="product">
+        <div class="product-image" style="background:linear-gradient(135deg,#d4a5a5,#c48989);">
+          <span class="product-badge">🆕 New</span>
+          Retinol Night Serum
+        </div>
+        <div class="product-body">
+          <div class="product-name">Retinol Renewal Night Serum</div>
+          <div class="product-desc">Encapsulated retinol + squalane</div>
+          <div class="product-price">RM 139 <small>RM 159</small></div>
+          <div class="product-rating">★★★★★ <span>(64)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-// ═══════════════════════════════════════════════════════════════
-// 6. FEE ESTIMATOR
-// ═══════════════════════════════════════════════════════════════
-async function estimateFee() {
-    const priority = document.getElementById('fee-priority').value;
-    const bytes = parseFloat(document.getElementById('fee-bytes').value);
-    const box = document.getElementById('fee-result');
+  <!-- CATEGORIES -->
+  <section class="section section-alt">
+    <div class="section-label">Explore</div>
+    <h2 class="section-title">Shop by Category</h2>
+    <p class="section-desc">Everything your skin, hair, and body need — formulated with care.</p>
+    <div class="cat-grid">
+      <a href="#" class="cat-card" style="background:linear-gradient(135deg,#d4a5a5,#c48989);"><span>Skin</span></a>
+      <a href="#" class="cat-card" style="background:linear-gradient(135deg,#b5c4b1,#8fa892);"><span>Hair</span></a>
+      <a href="#" class="cat-card" style="background:linear-gradient(135deg,#d4a574,#c4896a);"><span>Body</span></a>
+      <a href="#" class="cat-card" style="background:linear-gradient(135deg,#e8ddd0,#dcc9b8);"><span>Supplement</span></a>
+    </div>
+  </section>
 
-    if (!bytes || bytes <= 0) { box.className = 'result-box'; box.style.display = 'none'; return; }
+  <!-- PHILOSOPHY -->
+  <section class="philosophy">
+    <h2>Clean science.<br>Conscious beauty.</h2>
+    <p>Every formula is pharmacist-designed, combining high-potency clinical actives with time-tested botanical extracts. Your skin deserves the best of both worlds.</p>
+    <a href="#" class="btn btn-secondary">Our story →</a>
+  </section>
 
-    let feeRates = { low: 5, med: 15, high: 40, urgent: 120 };
+  <!-- BLOG -->
+  <section class="section">
+    <div class="section-label">The Edit</div>
+    <h2 class="section-title">Skinpiens Journal</h2>
+    <p class="section-desc">Expert guides, ingredient deep-dives, and skin science — made simple.</p>
+    <div class="blog-grid">
+      <a href="#" class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#d4a5a5,#c48989);">Skincare Tips</div>
+        <div class="blog-body">
+          <div class="blog-tag">Skin Barrier</div>
+          <h3>Ceramides 101: Repairing Your Skin Barrier</h3>
+          <p>Why ceramides are the unsung heroes of sensitive skin care — and how to layer them correctly.</p>
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#b5c4b1,#8fa892);">Ingredients</div>
+        <div class="blog-body">
+          <div class="blog-tag">Ingredient Spotlight</div>
+          <h3>Niacinamide: The Multi-Tasking B3 Vitamin</h3>
+          <p>From pore-minimizing to brightening, discover why this ingredient works for every skin type.</p>
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#d4a574,#c4896a);">Wellness</div>
+        <div class="blog-body">
+          <div class="blog-tag">Beauty From Within</div>
+          <h3>Collagen Supplements: What Science Says</h3>
+          <p>We break down the clinical evidence behind oral collagen and how it supports skin health.</p>
+        </div>
+      </a>
+    </div>
+  </section>
 
-    try {
-        const res = await fetch('https://mempool.space/api/v1/fees/recommended');
-        const data = await res.json();
-        if (data) {
-            feeRates = {
-                low: data.hourFee || 5,
-                med: data.halfHourFee || 15,
-                high: data.fastestFee || 40,
-                urgent: (data.fastestFee * 2) || 120
-            };
-        }
-    } catch (e) {}
+  <!-- TESTIMONIALS -->
+  <section class="section section-alt">
+    <div class="section-label">Real Reviews</div>
+    <h2 class="section-title">Loved by thousands</h2>
+    <div class="testimonial-grid">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"The Fortress+ Serum literally transformed my barrier in 2 weeks. No more redness, no more stinging."</p>
+        <p class="t-author">— <em>Sarah L.</em> · Verified Buyer</p>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"Finally, a brand that understands sensitive skin. The Epsilon cream is the only thing that helps my eczema."</p>
+        <p class="t-author">— <em>Michelle K.</em> · Verified Buyer</p>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"Tried countless vitamin C serums — this is the only one that doesn't irritate AND actually brightens."</p>
+        <p class="t-author">— <em>Aisha R.</em> · Verified Buyer</p>
+      </div>
+    </div>
+  </section>
 
-    const rate = feeRates[priority];
-    const feeSats = Math.ceil((bytes / 1000) * rate);
-    const feeUSD = (feeSats / 1e8) * currentPrice;
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <h2>Join the glow club</h2>
+    <p>Get 10% off your first order + weekly skin tips, exclusive drops, and community love.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();alert('Welcome to the glow club! ✨');">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
 
-    const labels = { low: '🐢 Low', med: '🚶 Medium', high: '🏃 High', urgent: '🚀 Urgent' };
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="font-family:var(--display);font-size:1.8rem;color:var(--white);">SKINPIENS</div>
+        <p>Pharmacist-formulated skincare that bridges clinical science with botanical wisdom. Made for sensitive skin that deserves the best.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.6" y2="6.5"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98" fill="var(--charcoal)"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">All Products</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Combo Sets</a></li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Location</h4>
+        <select onchange="alert('Updated to: ' + this.options[this.selectedIndex].text)">
+          <option value="MY">Malaysia · MYR RM</option>
+          <option value="SG">Singapore · SGD S$</option>
+          <option value="AU">Australia · AUD A$</option>
+          <option value="US">United States · USD $</option>
+          <option value="GB">United Kingdom · GBP £</option>
+          <option value="JP">Japan · JPY ¥</option>
+          <option value="KR">South Korea · KRW ₩</option>
+        </select>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-payments">
+        <span>Visa</span>
+        <span>Mastercard</span>
+        <span>Amex</span>
+        <span>FPX</span>
+        <span>GrabPay</span>
+        <span>Shop Pay</span>
+        <span>Apple Pay</span>
+      </div>
+      <p>&copy; 2026 Skinpiens Cosmeceutical Sdn Bhd. All rights reserved.</p>
+    </div>
+  </footer>
 
-    box.innerHTML = `
-        <div>Priority: <strong>${labels[priority]}</strong> · ${bytes} vbytes</div>
-        <div class="big">${feeSats} sats ($${feeUSD.toFixed(6)})</div>
-        <div>Fee rate: <strong>${rate} sat/vbyte</strong></div>
-        <div>Estimated confirmation: <strong>${priority === 'urgent' ? '~10 min' : priority === 'high' ? '~30 min' : priority === 'med' ? '~1 hr' : '~2+ hrs'}</strong></div>
-        <div class="note">Live rates from mempool.space. Actual fees vary with mempool congestion.</div>
-    `;
-    box.className = 'result-box show';
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 7. UTXO VISUALIZER
-// ═══════════════════════════════════════════════════════════════
-function showUTXOs() {
-    const total = parseFloat(document.getElementById('utxo-total').value);
-    const count = parseInt(document.getElementById('utxo-count').value);
-    const box = document.getElementById('utxo-result');
-
-    if (!total || total <= 0 || !count || count <= 0) { box.className = 'result-box'; box.style.display = 'none'; return; }
-
-    // Generate random UTXOs
-    let remaining = total;
-    const utxos = [];
-    for (let i = 0; i < count; i++) {
-        const isLast = i === count - 1;
-        const amount = isLast ? remaining : parseFloat((remaining * (0.3 + Math.random() * 0.4)).toFixed(8));
-        remaining -= amount;
-        utxos.push(amount);
-    }
-
-    const colors = ['#f7931a', '#a855f7', '#4ade80', '#60a5fa', '#fbbf24', '#f87171', '#22d3ee', '#c084fc', '#f97316', '#34d399'];
-
-    let bars = utxos.map((amt, i) => {
-        const pct = (amt / total) * 100;
-        return `<div style="display:flex; align-items:center; gap:.5rem; margin-bottom:.3rem;">
-            <div style="width:${pct * 2}px; height:24px; background:${colors[i % colors.length]}; border-radius:6px; min-width:8px; transition:width .5s;"></div>
-            <span style="font-size:.85rem;">${amt.toFixed(8)} BTC</span>
-        </div>`;
-    }).join('');
-
-    box.innerHTML = `
-        <div>Your wallet has <strong>${count} UTXOs</strong> totaling <strong>${total} BTC</strong></div>
-        <div style="margin:.8rem 0;">${bars}</div>
-        <div style="font-size:.9rem; opacity:.7;">🧩 Each UTXO is a separate "coin." Spend 3 UTXOs? The transaction has 3 inputs — larger = higher fee.</div>
-        <div class="note">If you have many small UTXOs, consolidation may be useful when fees are low.</div>
-    `;
-    box.className = 'result-box show';
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 8. QUIZ
-// ═══════════════════════════════════════════════════════════════
-const quizData = [
-    {
-        q: 'What happens to the block reward every 210,000 blocks?',
-        options: ['It doubles', 'It halves', 'It increases by 12.5%', 'It stays the same'],
-        correct: 1,
-        explain: 'The block reward halves every 210,000 blocks (~4 years). Started at 50 BTC, now at 3.125 BTC.'
-    },
-    {
-        q: 'What is a UTXO?',
-        options: ['A type of altcoin', 'An Unspent Transaction Output — a "coin" you own', 'A mining pool', 'A Lightning channel'],
-        correct: 1,
-        explain: 'UTXOs are the building blocks of Bitcoin transactions. Your balance is the sum of all UTXOs you can spend.'
-    },
-    {
-        q: 'What does the mempool hold?',
-        options: ['Mined blocks', 'Private keys', 'Unconfirmed transactions waiting to be mined', 'Mining hardware'],
-        correct: 2,
-        explain: 'The mempool is where unconfirmed transactions wait until a miner includes them in a block.'
-    },
-    {
-        q: 'What is a BIP39 seed phrase?',
-        options: ['A password for your exchange', 'A 12/24-word phrase that generates all your Bitcoin keys', 'A type of transaction', 'A Bitcoin Improvement Proposal number'],
-        correct: 1,
-        explain: 'BIP39 defines the mnemonic seed phrase (12 or 24 words) that derives your HD wallet keys.'
-    },
-    {
-        q: 'What is the Lightning Network?',
-        options: ['A faster Bitcoin clone', 'A layer-2 protocol for instant, cheap payments', 'A mining software', 'A Bitcoin wallet'],
-        correct: 1,
-        explain: 'Lightning enables off-chain payment channels. Open once, pay millions of times with near-zero fees.'
-    },
-    {
-        q: 'What is the purpose of the difficulty adjustment?',
-        options: ['To make mining easier over time', 'To keep block time at ~10 minutes', 'To increase the block reward', 'To prevent new miners'],
-        correct: 1,
-        explain: 'Every 2016 blocks, Bitcoin adjusts difficulty so blocks stay ~10 minutes apart regardless of total hashrate.'
-    },
-    {
-        q: 'What does Taproot enable?',
-        options: ['Smart contracts look like regular payments', 'Faster trading', 'Quantum resistance', 'Lower fees for all transactions'],
-        correct: 0,
-        explain: 'Taproot (BIP341) makes complex scripts indistinguishable from simple payments, improving privacy and reducing fees.'
-    },
-    {
-        q: 'What is the difference between a hot wallet and a cold wallet?',
-        options: ['Hot is for Bitcoin, cold is for altcoins', 'Hot is online (connected), cold is offline (more secure)', 'Hot is free, cold costs money', 'There is no difference'],
-        correct: 1,
-        explain: 'Hot wallets are connected to the internet (convenient, less secure). Cold wallets stay offline (more secure, less convenient).'
-    },
-];
-
-function renderQuiz() {
-    const container = document.getElementById('quiz');
-    let html = '';
-    quizData.forEach((item, i) => {
-        html += `<div class="quiz-question" id="q${i}"><div class="q-text">${i + 1}. ${item.q}</div><div class="quiz-options">`;
-        item.options.forEach((opt, j) => {
-            html += `<label id="q${i}o${j}"><input type="radio" name="q${i}" value="${j}" onchange="checkQuiz()"> ${opt}</label>`;
-        });
-        html += `</div><div class="quiz-feedback" id="q${i}fb"></div></div>`;
-    });
-    container.innerHTML = html + `<button class="btn" onclick="submitQuiz()">Submit Answers</button>`;
-}
-
-function submitQuiz() {
-    let score = 0;
-    quizData.forEach((item, i) => {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        const fb = document.getElementById(`q${i}fb`);
-        if (!selected) { fb.textContent = '❌ No answer selected. ' + item.explain; fb.className = 'quiz-feedback show'; return; }
-        const val = parseInt(selected.value);
-        const isCorrect = val === item.correct;
-        if (isCorrect) score++;
-        item.options.forEach((_, j) => {
-            const label = document.getElementById(`q${i}o${j}`);
-            label.className = '';
-            if (j === item.correct) label.className = 'correct';
-            else if (j === val && !isCorrect) label.className = 'wrong';
-        });
-        fb.innerHTML = (isCorrect ? '✅ Correct! ' : '❌ Nope. ') + item.explain;
-        fb.className = 'quiz-feedback show';
-    });
-    document.getElementById('quiz-score').textContent = `You got ${score}/${quizData.length} correct! ${score === quizData.length ? '🎉 Perfect!' : score >= 5 ? '👏 Great!' : 'Keep studying!'}`;
-}
-
-function fmt(n) {
-    if (Math.abs(n) >= 1) return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    return n.toFixed(2);
-}
-
-renderQuiz();
-</script>
 </body>
 </html>
