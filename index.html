@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Skinpiens — Clinical Skincare</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 62.5%; scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      font-size: 1.5rem;
+      line-height: 1.5;
+      color: #1d1d1f;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 4px 30px rgba(0,0,0,.06); }
+      50% { box-shadow: 0 8px 40px rgba(0,0,0,.1); }
+    }
+    @keyframes shine {
+      0% { opacity: 0; transform: translateX(-100%) rotate(25deg); }
+      30% { opacity: .4; }
+      60% { opacity: .4; }
+      100% { opacity: 0; transform: translateX(200%) rotate(25deg); }
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -.02em;
+      color: #1d1d1f;
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #1d1d1f;
+      opacity: .75;
+      transition: opacity .15s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-icons { display: flex; align-items: center; gap: 16px; }
+    .nav-icons svg { width: 18px; height: 18px; stroke: #1d1d1f; fill: none; stroke-width: 1.5; transition: stroke .2s; }
+    .nav-icons svg:hover { stroke: #000; }
+    .nav-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-mobile { display: flex; align-items: center; gap: 16px; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: #f5f5f7;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-kicker {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #86868b;
+      letter-spacing: .04em;
+      margin-bottom: 12px;
+      animation: fadeUp .6s ease-out;
+    }
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      color: #1d1d1f;
+      margin-bottom: 16px;
+      animation: fadeUp .6s ease-out .1s both;
+    }
+    .hero p {
+      font-size: 1.7rem;
+      color: #86868b;
+      max-width: 580px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+      animation: fadeUp .6s ease-out .2s both;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: fadeUp .6s ease-out .3s both;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 1.35rem;
+      font-weight: 500;
+      transition: all .3s cubic-bezier(.25,.46,.45,.94);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50px;
+      opacity: 0;
+      transition: opacity .4s;
+    }
+    .btn-fill {
+      background: #1d1d1f;
+      color: #fff;
+    }
+    .btn-fill:hover {
+      background: #000;
+      transform: scale(1.04);
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    }
+    .btn-fill:active { transform: scale(.97); }
+    .btn-outline {
+      border: 1px solid rgba(0,0,0,.15);
+      color: #1d1d1f;
+    }
+    .btn-outline:hover {
+      border-color: #1d1d1f;
+      transform: scale(1.04);
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+
+    .hero-img {
+      margin: 50px auto 0;
+      max-width: 900px;
+      border-radius: 24px;
+      overflow: hidden;
+      animation: float 6s ease-in-out infinite, breathe 4s ease-in-out infinite;
+      animation-delay: .5s;
+      position: relative;
+    }
+    .hero-img img { width: 100%; height: auto; display: block; transition: transform 1s cubic-bezier(.25,.46,.45,.94); }
+    .hero-img:hover img { transform: scale(1.03); }
+
+    /* ─── SECTION ─── */
+    .section { padding: 100px 0; }
+    .section-dark {
+      background: #1d1d1f;
+      color: #fff;
+    }
+    .section-gray { background: #f5f5f7; }
+
+    .section-label {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #86868b;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .section-dark .section-title { color: #fff; }
+    .section-desc {
+      text-align: center;
+      font-size: 1.6rem;
+      color: #86868b;
+      max-width: 560px;
+      margin: 0 auto 60px;
+      line-height: 1.6;
+    }
+    .section-dark .section-desc { color: rgba(255,255,255,.6); }
+
+    /* ─── PRODUCT GRID ─── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .product {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      cursor: pointer;
+      perspective: 800px;
+      transition: transform .4s cubic-bezier(.25,.46,.45,.94), box-shadow .4s ease;
+    }
+    .product:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(0,0,0,.1);
+    }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #f5f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,.25) 50%, transparent 60%);
+      background-size: 200% 200%;
+      opacity: 0;
+      transition: opacity .6s;
+      pointer-events: none;
+    }
+    .product:hover .product-img::after {
+      opacity: 1;
+      animation: shimmer .8s ease-in-out forwards;
+    }
+    .product-img img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .product:hover .product-img img {
+      transform: scale(1.12) rotate(-2deg);
+    }
+
+    .product-body { padding: 18px 20px 22px; transition: transform .3s ease; }
+    .product:hover .product-body { transform: translateY(-2px); }
+    .product-badge {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #86868b;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      transition: color .3s;
+    }
+    .product:hover .product-badge { color: #1d1d1f; }
+    .product-name {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+    .product-desc {
+      font-size: 1.25rem;
+      color: #86868b;
+      margin-bottom: 6px;
+    }
+    .product-price {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #1d1d1f;
+      transition: transform .3s;
+    }
+    .product:hover .product-price { transform: translateX(4px); }
+    .product-price s {
+      color: #86868b;
+      font-weight: 400;
+      margin-left: 6px;
+    }
+    .product-rating {
+      font-size: 1.2rem;
+      color: #e6a817;
+      margin-top: 4px;
+      transition: transform .3s;
+    }
+    .product:hover .product-rating { transform: translateX(4px); }
+    .product-rating span { color: #86868b; margin-left: 4px; }
+
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: 1fr; max-width: 400px; }
+    }
+
+    /* ─── CATEGORIES ─── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .cat-card {
+      border-radius: 16px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      transition: transform .4s cubic-bezier(.25,.46,.45,.94), box-shadow .4s;
+    }
+    .cat-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 16px 48px rgba(0,0,0,.15);
+    }
+    .cat-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.4));
+      pointer-events: none;
+      transition: opacity .4s;
+    }
+    .cat-card:hover::after { opacity: .7; }
+    .cat-card span {
+      position: relative;
+      z-index: 2;
+      transition: transform .3s ease;
+    }
+    .cat-card:hover span { transform: translateY(-4px); }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      background-size: cover;
+      background-position: center;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+      z-index: 0;
+    }
+    .cat-card:hover::before { transform: scale(1.1); }
+
+    @media (max-width: 768px) {
+      .cat-grid { grid-template-columns: 1fr; max-width: 400px; }
+    }
+
+    /* ─── SPLIT ─── */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .split-img {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0,0,0,.06);
+      transition: box-shadow .5s, transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .split-img:hover {
+      transform: scale(1.01);
+      box-shadow: 0 16px 60px rgba(0,0,0,.1);
+    }
+    .split-img img {
+      width: 100%; display: block;
+      transition: transform .8s cubic-bezier(.25,.46,.45,.94);
+    }
+    .split-img:hover img { transform: scale(1.05); }
+    .split-text h2 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .split-text p {
+      font-size: 1.6rem;
+      color: #86868b;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .split { grid-template-columns: 1fr; gap: 40px; }
+      .section-title { font-size: 2.8rem; }
+      .hero h1 { font-size: 3.2rem; }
+    }
+
+    /* ─── DAILY EDIT ─── */
+    .daily-article {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 36px;
+      border: 1px solid rgba(0,0,0,.06);
+      animation: fadeUp .5s ease-out;
+      line-height: 1.8;
+    }
+    .daily-article h3 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+      color: #1d1d1f;
+    }
+    .daily-article p { font-size: 1.45rem; color: #444; margin-bottom: 10px; }
+    .daily-article .emoji-line { font-size: 1.5rem; margin-bottom: 8px; }
+    .daily-article .highlight-box {
+      background: #f5f5f7;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .daily-article .highlight-box p { margin-bottom: 4px; font-size: 1.4rem; }
+    .daily-article .tag {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #86868b;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+    .daily-article .daily-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,.06);
+      font-size: 1.2rem;
+      color: #86868b;
+    }
+    .daily-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .daily-nav button {
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: all .3s;
+    }
+    .daily-nav button:hover {
+      border-color: #1d1d1f;
+      background: #1d1d1f;
+      color: #fff;
+    }
+
+    /* ─── BLOG ─── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .blog-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.06);
+      cursor: pointer;
+      transition: transform .4s cubic-bezier(.25,.46,.45,.94), box-shadow .4s;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.08);
+    }
+    .blog-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #f5f5f7;
+    }
+    .blog-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .blog-card:hover .blog-img img { transform: scale(1.08); }
+    .blog-body { padding: 20px 22px 24px; transition: transform .3s; }
+    .blog-card:hover .blog-body { transform: translateY(-2px); }
+    .blog-tag {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #86868b;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+    }
+    .blog-card h3 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      transition: color .3s;
+    }
+    .blog-card:hover h3 { color: #000; }
+    .blog-card p {
+      font-size: 1.3rem;
+      color: #86868b;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .blog-grid { grid-template-columns: 1fr; max-width: 400px; }
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .t-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      padding: 28px 24px;
+      transition: all .4s cubic-bezier(.25,.46,.45,.94);
+    }
+    .t-card:hover {
+      background: rgba(255,255,255,.1);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    }
+    .t-stars { font-size: 1.5rem; color: #e6a817; margin-bottom: 10px; transition: transform .3s; }
+    .t-card:hover .t-stars { transform: scale(1.1); }
+    .t-text {
+      font-size: 1.35rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,.85);
+      margin-bottom: 12px;
+      font-style: italic;
+      transition: color .3s;
+    }
+    .t-card:hover .t-text { color: #fff; }
+    .t-author {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,.5);
+    }
+
+    @media (max-width: 768px) {
+      .test-grid { grid-template-columns: 1fr; max-width: 400px; }
+    }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter {
+      text-align: center;
+      padding: 100px 24px;
+    }
+    .newsletter h2 {
+      font-size: 3.6rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 10px;
+    }
+    .newsletter p {
+      font-size: 1.6rem;
+      color: #86868b;
+      margin-bottom: 28px;
+    }
+    .newsletter form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 8px;
+      transition: transform .3s;
+    }
+    .newsletter form:hover { transform: scale(1.01); }
+    .newsletter input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid rgba(0,0,0,.12);
+      border-radius: 50px;
+      font-size: 1.4rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .newsletter input:focus {
+      border-color: #1d1d1f;
+      box-shadow: 0 0 0 3px rgba(0,0,0,.05);
+    }
+    .newsletter button {
+      padding: 14px 24px;
+      background: #1d1d1f;
+      color: #fff;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all .3s cubic-bezier(.25,.46,.45,.94);
+    }
+    .newsletter button:hover {
+      background: #000;
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+
+    @media (max-width: 768px) {
+      .newsletter form { flex-direction: column; }
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: #f5f5f7;
+      padding: 50px 0 0;
+      font-size: 1.2rem;
+      color: #86868b;
+    }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-brand p { max-width: 260px; margin-top: 8px; line-height: 1.6; }
+    .footer h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 12px;
+    }
+    .footer ul { list-style: none; }
+    .footer li { margin-bottom: 6px; }
+    .footer a { transition: color .2s, transform .2s; display: inline-block; }
+    .footer a:hover { color: #1d1d1f; transform: translateX(3px); }
+    .footer select {
+      background: transparent;
+      border: 1px solid rgba(0,0,0,.12);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-family: inherit;
+      color: #1d1d1f;
+      width: 100%;
+      cursor: pointer;
+      transition: border-color .3s;
+    }
+    .footer select:hover { border-color: #1d1d1f; }
+    .footer-social { display: flex; gap: 12px; margin-top: 12px; }
+    .footer-social a {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .3s;
+    }
+    .footer-social a:hover {
+      background: #1d1d1f;
+      transform: translateY(-3px) scale(1.1);
+    }
+    .footer-social a:hover svg { fill: #fff; }
+    .footer-social svg { width: 14px; height: 14px; fill: #86868b; transition: fill .3s; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(0,0,0,.06);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    .footer-payments {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .footer-payments span {
+      padding: 4px 10px;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 6px;
+      font-size: .95rem;
+      font-weight: 500;
+      color: #86868b;
+      transition: all .3s;
+      cursor: default;
+    }
+    .footer-payments span:hover {
+      border-color: #1d1d1f;
+      color: #1d1d1f;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ─── QUIZ ─── */
+    .quiz-section { padding: 80px 24px; background: #fff; }
+    .quiz-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #f5f5f7;
+      border-radius: 24px;
+      padding: 48px 40px;
+      transition: opacity .3s;
+    }
+    .quiz-step {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #86868b;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+    .quiz-progress {
+      height: 4px;
+      background: rgba(0,0,0,.08);
+      border-radius: 2px;
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .quiz-progress-bar {
+      height: 100%;
+      background: #1d1d1f;
+      border-radius: 2px;
+      transition: width .4s cubic-bezier(.25,.46,.45,.94);
+    }
+    .quiz-question {
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 24px;
+      color: #1d1d1f;
+      min-height: 3.6rem;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 16px 20px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(0,0,0,.08);
+      background: #fff;
+      font-size: 1.5rem;
+      font-family: inherit;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: all .25s cubic-bezier(.25,.46,.45,.94);
+    }
+    .quiz-option:hover {
+      border-color: #1d1d1f;
+      transform: translateX(4px);
+    }
+    .quiz-option.selected {
+      border-color: #1d1d1f;
+      background: #1d1d1f;
+      color: #fff;
+      transform: translateX(4px);
+    }
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quiz-nav-back {
+      font-size: 1.3rem;
+      color: #86868b;
+      padding: 8px 0;
+      transition: color .2s, transform .2s;
+    }
+    .quiz-nav-back:hover { color: #1d1d1f; transform: translateX(-3px); }
+    .quiz-nav-next {
+      padding: 12px 32px;
+      background: #1d1d1f;
+      color: #fff;
+      border-radius: 50px;
+      font-size: 1.35rem;
+      font-weight: 500;
+      transition: all .3s cubic-bezier(.25,.46,.45,.94);
+    }
+    .quiz-nav-next:hover:not(:disabled) {
+      background: #000;
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+    .quiz-nav-next:disabled {
+      opacity: .35;
+      cursor: default;
+    }
+    .quiz-result-products {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .quiz-result-product {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(0,0,0,.06);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .quiz-result-product:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+    .quiz-result-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      background: #f5f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .quiz-result-img img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+    .quiz-result-info { flex: 1; min-width: 0; }
+    .quiz-result-info .badge {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #86868b;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .quiz-result-info h4 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin: 2px 0 1px;
+    }
+    .quiz-result-info .desc {
+      font-size: 1.2rem;
+      color: #86868b;
+    }
+    .quiz-result-info .price {
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: #1d1d1f;
+      margin-top: 2px;
+    }
+    .quiz-result-shop {
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: #1d1d1f;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all .3s;
+      flex-shrink: 0;
+    }
+    .quiz-result-shop:hover {
+      background: #000;
+      transform: scale(1.04);
+    }
+    .quiz-restart {
+      margin-top: 24px;
+      font-size: 1.2rem;
+      color: #86868b;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color .2s;
+    }
+    .quiz-restart:hover { color: #1d1d1f; }
+
+    @media (max-width: 640px) {
+      .quiz-card { padding: 32px 24px; }
+      .quiz-question { font-size: 1.7rem; }
+      .quiz-result-product { flex-wrap: wrap; }
+      .quiz-result-shop { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Skinpiens</a>
+      <div class="nav-links">
+        <a href="#">Products</a>
+        <a href="#">Skin</a>
+        <a href="#">Hair</a>
+        <a href="#">Body</a>
+        <a href="#">Journal</a>
+      </div>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <div class="nav-mobile">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-kicker">Clinical Skincare</div>
+    <h1>Science meets<br>sensitive skin.</h1>
+    <p>Pharmacist-formulated with high-potency actives and soothing botanicals. No compromise.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-fill">Shop bestsellers</a>
+      <a href="#quiz" class="btn btn-outline">Take the quiz →</a>
+    </div>
+    <div class="hero-img">
+      <img src="https://skinpiens.com/cdn/shop/files/PC_BANNER_fortress.svg?v=1775731597&width=900" alt="Skinpiens Fortress+">
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="quiz-section" id="quiz">
+    <div class="section-label" style="margin-bottom:8px;">Find Your Match</div>
+    <h2 class="section-title">Skin Quiz</h2>
+    <p class="section-desc">Answer 10 quick questions and we'll recommend the perfect products for your skin.</p>
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-step" id="quizStep">Question 1 of 10</div>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="quizBar" style="width:10%"></div></div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-nav">
+        <button class="quiz-nav-back" id="quizBack" onclick="prevQuestion()">&#8592; Back</button>
+        <button class="quiz-nav-next" id="quizNext" onclick="nextQuestion()">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section class="section">
+    <div class="section-label">Most Loved</div>
+    <h2 class="section-title">Best Sellers</h2>
+    <p class="section-desc">Clinically proven, dermatologist tested, and adored by thousands.</p>
+    <div class="product-grid">
+      <div class="product">
+        <div class="product-img">
+          <img src="https://skinpiens.com/cdn/shop/files/3_731d4ac3-b6e5-4843-980f-a617e60ac2bb.png?v=1775035127&width=400" alt="Fortress+ Serum">
+        </div>
+        <div class="product-body">
+          <div class="product-badge">Bestseller</div>
+          <div class="product-name">Fortress+ Barrier Serum</div>
+          <div class="product-desc">Triple-ceramide + niacinamide</div>
+          <div class="product-price">RM 129</div>
+          <div class="product-rating">★★★★★ <span>(128)</span></div>
+        </div>
+      </div>
+      <div class="product">
+        <div class="product-img">
+          <img src="https://skinpiens.com/cdn/shop/files/epsilon_2.png?v=1775610977&width=400" alt="Epsilon Cream">
+        </div>
+        <div class="product-body">
+          <div class="product-badge">Eczema Range</div>
+          <div class="product-name">Epsilon Relief Cream</div>
+          <div class="product-desc">Allergist-developed calming care</div>
+          <div class="product-price">RM 98</div>
+          <div class="product-rating">★★★★★ <span>(87)</span></div>
+        </div>
+      </div>
+      <div class="product">
+        <div class="product-img">
+          <img src="https://skinpiens.com/cdn/shop/files/epsilon.png?v=1775610830&width=400" alt="Epsilon Cleanser">
+        </div>
+        <div class="product-body">
+          <div class="product-badge">Bestseller</div>
+          <div class="product-name">Epsilon Barrier Cleanser</div>
+          <div class="product-desc">Ceramide-rich gentle cleansing</div>
+          <div class="product-price">RM 50</div>
+          <div class="product-rating">★★★★★ <span>(203)</span></div>
+        </div>
+      </div>
+      <div class="product">
+        <div class="product-img">
+          <img src="https://skinpiens.com/cdn/shop/files/epsilon_1.png?v=1775610926&width=400" alt="Epsilon Mist">
+        </div>
+        <div class="product-body">
+          <div class="product-badge">New</div>
+          <div class="product-name">Epsilon Soothing Mist</div>
+          <div class="product-desc">Instant relief for reactive skin</div>
+          <div class="product-price">RM 60 <s>RM 75</s></div>
+          <div class="product-rating">★★★★★ <span>(64)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section section-gray">
+    <div class="section-label">Shop by</div>
+    <h2 class="section-title">Categories</h2>
+    <p class="section-desc">Everything your skin, hair, and body need — formulated with care.</p>
+    <div class="cat-grid">
+      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/1.png?v=1770194921&width=400') center/cover no-repeat;"><span>Skin</span></a>
+      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/hair.png?v=1770195484&width=400') center/cover no-repeat;"><span>Hair</span></a>
+      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/body.png?v=1770195784&width=400') center/cover no-repeat;"><span>Body</span></a>
+    </div>
+  </section>
+
+  <!-- SPLIT: PHILOSOPHY -->
+  <section class="section">
+    <div class="split">
+      <div class="split-img">
+        <img src="https://skinpiens.com/cdn/shop/files/WhatsApp_Image_2026-04-08_at_4.55.20_PM.jpg?v=1775638572&width=600" alt="Skinpiens lab">
+      </div>
+      <div class="split-text">
+        <div class="section-label" style="text-align:left;">Our Philosophy</div>
+        <h2>Clinical science.<br>Botanical wisdom.</h2>
+        <p>Every formula is pharmacist-designed, combining high-potency clinical actives with time-tested botanical extracts. Your skin deserves the best of both worlds — no compromises, no irritation.</p>
+        <a href="#" class="btn btn-outline">Read our story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY EDIT -->
+  <section class="section" id="daily">
+    <div class="section-label">Daily Edit</div>
+    <h2 class="section-title">Today's Skin Science</h2>
+    <p class="section-desc" id="dailyDate"></p>
+    <div class="daily-article" id="dailyArticle"></div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="section section-gray">
+    <div class="section-label">The Journal</div>
+    <h2 class="section-title">Skinpiens Edit</h2>
+    <p class="section-desc">Expert guides, ingredient deep-dives, and skin science — made simple.</p>
+    <div class="blog-grid">
+      <a href="#" class="blog-card">
+        <div class="blog-img">
+          <img src="https://skinpiens.com/cdn/shop/articles/banner_7.png?v=1775707960&width=300" alt="Ceramides guide">
+        </div>
+        <div class="blog-body">
+          <div class="blog-tag">Skin Barrier</div>
+          <h3>Ceramides 101: Repairing Your Skin Barrier</h3>
+          <p>Why ceramides are the unsung heroes of sensitive skin care — and how to layer them correctly.</p>
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <div class="blog-img">
+          <img src="https://skinpiens.com/cdn/shop/articles/WhatsApp_Image_2026-04-08_at_21.56.57_1ba57e4b-b247-4bd2-9a04-3f7abadc759f.jpg?v=1775708135&width=300" alt="Niacinamide guide">
+        </div>
+        <div class="blog-body">
+          <div class="blog-tag">Ingredients</div>
+          <h3>Niacinamide: The Multi-Tasking B3</h3>
+          <p>From pore-minimizing to brightening, why this ingredient works for every skin type.</p>
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <div class="blog-img">
+          <img src="https://skinpiens.com/cdn/shop/articles/banner_7.png?v=1775707960&width=300" alt="Collagen guide">
+        </div>
+        <div class="blog-body">
+          <div class="blog-tag">Wellness</div>
+          <h3>Collagen: What Science Actually Says</h3>
+          <p>We break down the clinical evidence behind oral collagen and how it supports skin health.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (dark) -->
+  <section class="section section-dark">
+    <div class="section-label" style="color:rgba(255,255,255,.5);">Real Reviews</div>
+    <h2 class="section-title">Loved by thousands</h2>
+    <p class="section-desc">Hear from our community of sensitive skin warriors.</p>
+    <div class="test-grid">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"The Fortress+ Serum literally transformed my barrier in 2 weeks. No more redness, no more stinging."</p>
+        <p class="t-author">— Sarah L. · Verified Buyer</p>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"Finally, a brand that understands sensitive skin. The Epsilon cream is the only thing that helps my eczema."</p>
+        <p class="t-author">— Michelle K. · Verified Buyer</p>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"Tried countless vitamin C serums — this is the only one that doesn't irritate AND actually brightens."</p>
+        <p class="t-author">— Aisha R. · Verified Buyer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <h2>Join the glow club.</h2>
+    <p>10% off your first order + weekly skin tips and exclusive drops.</p>
+    <form onsubmit="event.preventDefault();alert('Welcome to the glow club ✨');">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="font-size:1.4rem;font-weight:600;color:#1d1d1f;">Skinpiens</div>
+        <p>Pharmacist-formulated skincare that bridges clinical science with botanical wisdom. Made for sensitive skin.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.6" y2="6.5"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">All Products</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Combo Sets</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Location</h4>
+        <select onchange="alert('Updated to: ' + this.options[this.selectedIndex].text)">
+          <option value="MY">Malaysia — MYR</option>
+          <option value="SG">Singapore — SGD</option>
+          <option value="AU">Australia — AUD</option>
+          <option value="US">United States — USD</option>
+        </select>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-payments">
+        <span>Visa</span>
+        <span>Mastercard</span>
+        <span>Amex</span>
+        <span>FPX</span>
+        <span>GrabPay</span>
+        <span>Shop Pay</span>
+      </div>
+      <p>&copy; 2026 Skinpiens. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+// ── Daily Edit: 7 rotating posts in Clinical Science Educator style ──
+var dailyPosts = [
+  {
+    tag: 'Skin Barrier',
+    title: '【🧴 皮肤屏障受损，不是只有干的问题】',
+    html: '<p>很多人以为，皮肤屏障受损就是「皮肤干」。</p><p>但你知道吗？<br>屏障受损真正的核心问题，其实是 <strong>脂质结构失衡</strong>。</p><p>健康的皮肤屏障，像一道砖墙：<br>🧱 砖块 = 角质细胞<br>🧴 水泥 = 细胞间脂质（Ceramides + 胆固醇 + 脂肪酸）</p><p>当「水泥」不足时，砖块之间就会出现缝隙：<br>💧 水分不断流失（TEWL↑）<br>🦠 刺激物、过敏原更容易渗透<br>🔥 微发炎 → 敏感 → 泛红</p><div class="highlight-box"><p>📈 研究发现，湿疹患者的角质层中，<strong>Ceramide 含量比健康皮肤低 30–50%</strong>。</p></div><p>所以，修复屏障不是「补水」就行。<br>真正要补的，是 <strong>和皮肤自身结构相似的脂质</strong>——这就是 Epsilon Relief Cream 的核心设计逻辑。</p>',
+    footer: '❤️ 屏障修复，不是把水倒进去，而是把墙修好。'
+  },
+  {
+    tag: 'Microbiome',
+    title: '【🦠 皮肤上的菌，好菌比你想的更重要】',
+    html: '<p>很多人听到「细菌」就觉得要杀光。<br>但你知道吗？<br>你的皮肤上住着 <strong>超过 1000 种微生物</strong>，总数量比银河系的星星还多。</p><p>健康的皮肤微生态（Microbiome）就像一座花园：<br>🌻 好菌 = 园丁，维持酸性环境，抑制坏菌<br>☠️ 坏菌 = 杂草，太多就会破坏平衡</p><p>湿疹、痘痘、敏感肌，其实都有一个共同点：<br><strong>菌相失衡（Dysbiosis）</strong>。</p><div class="highlight-box"><p>🦠 研究发现：<br>✔ 湿疹皮肤的金黄色葡萄球菌增加 <strong>3–10 倍</strong><br>✔ 好菌（表皮葡萄球菌）减少 <strong>50% 以上</strong></p></div><p>这也是为什么 Epsilon 系列加入了 <strong>益生菌专利成分</strong>——不是杀菌，而是帮助好菌重新占回地盘。皮肤健康，从来不靠「无菌」，而是靠「平衡」。</p>',
+    footer: '❤️ 养肤如养花园——不是把杂草拔光，而是让好花长回来。'
+  },
+  {
+    tag: 'Ingredients',
+    title: '【🍃 燕麦不只可以吃，还可以止痒？】',
+    html: '<p>你可能吃过燕麦早餐。<br>但你知道吗？<br>燕麦（Colloidal Oatmeal）在皮肤科已经用了 <strong>超过 2000 年</strong>。</p><p>从古罗马时代开始，人们就发现燕麦泡澡可以舒缓皮肤。到了 2003 年，美国 FDA 正式认可：<strong>胶体燕麦为皮肤保护剂</strong>。</p><p>它的秘密在于：<br>🌾 燕麦生物碱（Avenanthramides）——天然抗发炎、止痒<br>🧴 燕麦脂质——帮助修复皮肤屏障<br>💧 β-葡聚糖——保湿、促进胶原蛋白合成</p><div class="highlight-box"><p>📈 临床研究显示：<br>✔ 使用含燕麦萃取的保湿产品 <strong>30 分钟内</strong> 明显改善搔痒<br>✔ 持续使用可减少类固醇依赖</p></div><p>所以 Epsilon Soothing Mist 特别添加了燕麦萃取，搭配缓释薄荷醇，让你在搔痒发作时能快速舒缓——不靠类固醇，也能止痒。</p>',
+    footer: '❤️ 有时候，最有效的成分，早在几千年前就存在了。'
+  },
+  {
+    tag: 'Eczema',
+    title: '【🔥 湿疹发作时，为什么越抓越痒？】',
+    html: '<p>湿疹发作时最痛苦的，不是疹子本身，而是 <strong>痒</strong>。<br>但你知道吗？<br>抓痒，其实是让湿疹越来越严重的元凶之一。</p><p>这叫「痒—抓循环」（Itch-Scratch Cycle）：<br>😣 皮肤发炎 → 释放组胺 → 产生痒感<br>🤏 忍不住抓 → 皮肤屏障受损<br>🔥 发炎更严重 → 释放更多发炎因子 → 更痒</p><p>重点是：<br><strong>抓，不会解决问题，只会让问题变大。</strong></p><div class="highlight-box"><p>📈 皮肤科研究：<br>✔ 搔抓 30 秒，就足以破坏角质层结构<br>✔ 搔抓后，TEWL（水分流失）可增加 <strong>4 倍</strong></p></div><p>所以止痒，不只是为了舒服，更是为了 <strong>打断恶性循环</strong>。Epsilon Soothing Mist 的缓释薄荷醇 + 燕麦组合，就是给你一个不用抓的选择。</p>',
+    footer: '❤️ 止痒的目的，不是为了舒服，而是为了停止伤害。'
+  },
+  {
+    tag: 'Wellness',
+    title: '【😴 睡不好，皮肤真的会变差吗？】',
+    html: '<p>很多人熬夜后，隔天照镜子觉得皮肤暗沉、浮肿。<br>但你知道吗？<br>这不是错觉——<strong>睡眠和皮肤健康，有直接的生理关联</strong>。</p><p>当我们睡觉时，身体在做一件很重要的事：<br>🌙 皮质醇下降 → 发炎反应减少<br>🛠️ 生长激素分泌 → 皮肤细胞修复 & 胶原蛋白合成<br>💧 TEWL 降低 → 皮肤屏障恢复</p><p>换句话说：<br>睡觉，就是皮肤每天最重要的 <strong>维修时段</strong>。</p><div class="highlight-box"><p>📈 研究数据：<br>✔ 睡眠不足（< 5 小时/晚）持续 1 周，皮肤屏障恢复速度降低 <strong>30%</strong><br>✔ 睡眠品质好的人，皮肤老化迹象明显更少</p></div><p>所以，当你发现皮肤状态突然变差：<br>先别急着换产品——<br>先问自己，最近睡好了吗？</p>',
+    footer: '❤️ 最好的护肤品，不是擦上去的，而是睡出来的。'
+  },
+  {
+    tag: 'Myth-Buster',
+    title: '【💧 敏感肌到底能不能洗脸？】',
+    html: '<p>很多敏感肌的人会问：「我是不是不要洗脸比较好？」<br>但你知道吗？<br><strong>不洗脸，反而可能让敏感更严重。</strong></p><p>皮肤每天都会接触：<br>🌫️ 空气中的污染物<br>🧴 前一晚残留的护肤品<br>💦 汗水、皮脂氧化产物</p><p>这些物质如果不及时清掉，会：<br>❌ 堆积在皮肤表面<br>❌ 刺激发炎反应<br>❌ 堵塞毛孔，诱发痘痘</p><p>所以，问题不是「要不要洗」，而是 <strong>怎么洗</strong>。</p><div class="highlight-box"><p>🔬 敏感肌清洁原则：<br>✔ 选择无泡或低泡洁面——减少表面活性剂刺激<br>✔ pH 5.5 左右——不破坏酸性保护膜<br>✔ 加入保湿成分——洗后不紧绷<br>✔ 添加益生菌成分——维持微生态平衡</p></div><p>这就是 Epsilon Barrier Cleanser 的设计逻辑：<br>温和带走脏污，同时保护屏障，不让清洁变成另一种伤害。</p>',
+    footer: '❤️ 清洁的意义，不是把皮肤洗干净，是把脏东西带走而不带走健康。'
+  },
+  {
+    tag: 'Routine',
+    title: '【🧪 护肤品擦越多越好？3 步就够了】',
+    html: '<p>很多人觉得，护肤步骤越多 = 越有效。<br>但你知道吗？<br>对于敏感肌来说，<strong>多一步，就多一个刺激源</strong>。</p><p>皮肤科医生常说的「少即是多」（Less is More），其实有科学依据：<br>🧬 每多擦一层产品，就可能多接触 10–30 种化学成分<br>🛡️ 敏感肌的屏障本来就薄弱，经不起反复「堆叠」<br>🔥 成分叠加后可能产生刺激性交互作用</p><p>真正有效的敏感肌护肤，只需要 3 步：</p><div class="highlight-box"><p><strong>1️⃣ 温和清洁</strong> ── Epsilon Barrier Cleanser<br><strong>2️⃣ 即时舒缓</strong> ── Epsilon Soothing Mist（痒就喷）<br><strong>3️⃣ 修复保湿</strong> ── Epsilon Relief Cream（修屏障 + 抑坏菌）</p></div><p>这就是 Epsilon 3-Step System 的理念：<br>不是让你买更多，而是让你每一步都做到对的事。</p>',
+    footer: '❤️ 好的护肤，不是加法，是减法。做对 3 件事，比做错 10 件事有用得多。'
+  }
+];
+
+function renderDailyPost(index) {
+  var post = dailyPosts[index % dailyPosts.length];
+  var el = document.getElementById('dailyArticle');
+  el.innerHTML = '<div class=\"tag\">' + post.tag + '</div>' +
+    '<h3>' + post.title + '</h3>' +
+    post.html +
+    '<div class=\"daily-footer\">' + post.footer + '</div>';
+  document.getElementById('dailyDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// Use today's date to pick the post (rotates daily)
+var today = new Date();
+var dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+var todayIndex = dayOfYear % dailyPosts.length;
+renderDailyPost(todayIndex);
+
+// Thursday is 4 (0=Sun), use 0-6
+var dayOfWeek = today.getDay();
+
+</script>
+var products = {
+  serum: {
+    name: 'Fortress+ Barrier Serum',
+    price: 'RM 129',
+    desc: 'Triple-ceramide + niacinamide',
+    img: 'https://skinpiens.com/cdn/shop/files/3_731d4ac3-b6e5-4843-980f-a617e60ac2bb.png?v=1775035127&width=200',
+    badge: 'Bestseller'
+  },
+  cream: {
+    name: 'Epsilon Relief Cream',
+    price: 'RM 98',
+    desc: 'Allergist-developed calming care',
+    img: 'https://skinpiens.com/cdn/shop/files/epsilon_2.png?v=1775610977&width=200',
+    badge: 'Eczema Range'
+  },
+  cleanser: {
+    name: 'Epsilon Barrier Cleanser',
+    price: 'RM 50',
+    desc: 'Ceramide-rich gentle cleansing',
+    img: 'https://skinpiens.com/cdn/shop/files/epsilon.png?v=1775610830&width=200',
+    badge: 'Bestseller'
+  },
+  mist: {
+    name: 'Epsilon Soothing Mist',
+    price: 'RM 60',
+    desc: 'Instant relief for reactive skin',
+    img: 'https://skinpiens.com/cdn/shop/files/epsilon_1.png?v=1775610926&width=200',
+    badge: 'New'
+  }
+};
+
+var questions = [
+  {
+    q: 'What best describes your skin?',
+    options: [
+      { label: 'Oily / Combination', scores: { cleanser: 2, mist: 1 } },
+      { label: 'Dry / Dehydrated', scores: { serum: 2, cream: 1 } },
+      { label: 'Normal / Balanced', scores: { serum: 1, cleanser: 1 } },
+      { label: 'Sensitive / Reactive', scores: { cream: 2, mist: 2 } }
+    ]
+  },
+  {
+    q: 'What bothers you most about your skin?',
+    options: [
+      { label: 'Redness & irritation', scores: { cream: 3, mist: 2 } },
+      { label: 'Dryness & flaking', scores: { serum: 3, cream: 2 } },
+      { label: 'Breakouts & congestion', scores: { cleanser: 3, mist: 1 } },
+      { label: 'Dullness & uneven tone', scores: { serum: 3, cleanser: 1 } }
+    ]
+  },
+  {
+    q: 'How reactive is your skin?',
+    options: [
+      { label: 'Very \u2014 stings or burns often', scores: { cream: 3, mist: 3 } },
+      { label: 'Sometimes \u2014 triggered by weather or products', scores: { serum: 2, cream: 2 } },
+      { label: 'Rarely \u2014 just a bit sensitive', scores: { serum: 1, cleanser: 1 } },
+      { label: 'Not reactive at all', scores: { serum: 1, cream: 1, cleanser: 1, mist: 1 } }
+    ]
+  },
+  {
+    q: 'What texture do you crave most?',
+    options: [
+      { label: 'Lightweight essence or serum', scores: { serum: 3 } },
+      { label: 'Rich, nourishing cream', scores: { cream: 3 } },
+      { label: 'Gentle foaming wash', scores: { cleanser: 3 } },
+      { label: 'Cool, refreshing mist', scores: { mist: 3 } }
+    ]
+  },
+  {
+    q: 'Your current routine ends with...',
+    options: [
+      { label: 'Nothing \u2014 I need a serum', scores: { serum: 3 } },
+      { label: 'Just a moisturizer', scores: { serum: 2, mist: 1 } },
+      { label: 'Just a cleanser \u2014 need more', scores: { cream: 2, serum: 1 } },
+      { label: 'A full routine (looking for targeted help)', scores: { serum: 1, cream: 1, mist: 1 } }
+    ]
+  },
+  {
+    q: 'When is your skin at its worst?',
+    options: [
+      { label: 'After cleansing', scores: { cream: 2, mist: 2 } },
+      { label: 'In air-conditioned or dry environments', scores: { serum: 2, mist: 2 } },
+      { label: 'During weather or season changes', scores: { cream: 3, serum: 1 } },
+      { label: 'Random flare-ups with no pattern', scores: { cream: 2, mist: 3 } }
+    ]
+  },
+  {
+    q: 'Which ingredient excites you most?',
+    options: [
+      { label: 'Ceramides', scores: { serum: 3, cleanser: 2 } },
+      { label: 'Niacinamide', scores: { serum: 3 } },
+      { label: 'Oatmeal / Colloidal oat', scores: { cream: 3, mist: 2 } },
+      { label: 'Panthenol / Vitamin B5', scores: { cream: 2, mist: 3 } }
+    ]
+  },
+  {
+    q: "What's your budget for a new product?",
+    options: [
+      { label: 'Under RM 55', scores: { cleanser: 3, mist: 2 } },
+      { label: 'RM 55 \u2013 RM 100', scores: { cream: 3, mist: 2 } },
+      { label: 'RM 100 \u2013 RM 130', scores: { serum: 3 } },
+      { label: 'No limit / I want a bundle', scores: { serum: 2, cream: 2, cleanser: 2, mist: 2 } }
+    ]
+  },
+  {
+    q: 'What describes your skincare style?',
+    options: [
+      { label: 'Full multi-step ritual', scores: { serum: 3, cream: 2 } },
+      { label: 'Minimalist \u2014 few but effective steps', scores: { cleanser: 2, cream: 2 } },
+      { label: 'On-the-go \u2014 quick refresh', scores: { mist: 3 } },
+      { label: 'Targeted treatment only', scores: { serum: 2, cream: 2 } }
+    ]
+  },
+  {
+    q: 'One thing you want most from a product:',
+    options: [
+      { label: 'Stronger barrier, less dryness', scores: { serum: 3, cream: 2 } },
+      { label: 'Calm down redness & itch', scores: { cream: 3, mist: 2 } },
+      { label: 'Cleanse without stripping', scores: { cleanser: 3 } },
+      { label: 'Instant relief & hydration', scores: { mist: 3, serum: 1 } }
+    ]
+  }
+];
+
+var current = 0;
+var answers = [];
+var scores = { serum: 0, cream: 0, cleanser: 0, mist: 0 };
+
+var stepEl = document.getElementById('quizStep');
+var barEl = document.getElementById('quizBar');
+var questionEl = document.getElementById('quizQuestion');
+var optionsEl = document.getElementById('quizOptions');
+var backEl = document.getElementById('quizBack');
+var nextEl = document.getElementById('quizNext');
+var cardEl = document.getElementById('quizCard');
+
+function render() {
+  if (current < questions.length) {
+    var q = questions[current];
+    stepEl.textContent = 'Question ' + (current + 1) + ' of ' + questions.length;
+    barEl.style.width = ((current + 1) / questions.length * 100) + '%';
+    questionEl.textContent = q.q;
+    optionsEl.innerHTML = q.options.map(function(opt, i) {
+      return '<button class="quiz-option' + (answers[current] === i ? ' selected' : '') + '" onclick="selectAnswer(' + i + ')">' + opt.label + '</button>';
+    }).join('');
+    backEl.style.visibility = current === 0 ? 'hidden' : 'visible';
+    nextEl.textContent = current === questions.length - 1 ? 'See results' : 'Next';
+    nextEl.disabled = answers[current] === undefined || answers[current] === null;
+  } else {
+    showResults();
+  }
+}
+
+function selectAnswer(i) {
+  answers[current] = i;
+  var btns = document.querySelectorAll('.quiz-option');
+  for (var j = 0; j < btns.length; j++) {
+    btns[j].classList.toggle('selected', j === i);
+  }
+  nextEl.disabled = false;
+}
+
+function nextQuestion() {
+  if (answers[current] === undefined || answers[current] === null) return;
+  if (current < questions.length - 1) {
+    current++;
+    render();
+  } else {
+    scores = { serum: 0, cream: 0, cleanser: 0, mist: 0 };
+    for (var i = 0; i < questions.length; i++) {
+      var chosen = questions[i].options[answers[i]];
+      if (chosen && chosen.scores) {
+        for (var key in chosen.scores) {
+          if (chosen.scores.hasOwnProperty(key)) {
+            scores[key] += chosen.scores[key];
+          }
+        }
+      }
+    }
+    current++;
+    render();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) {
+    current--;
+    render();
+  }
+}
+
+function showResults() {
+  var maxScore = Math.max.apply(null, [scores.serum, scores.cream, scores.cleanser, scores.mist]);
+  var recommended = [];
+  for (var key in scores) {
+    if (scores.hasOwnProperty(key) && scores[key] >= maxScore - 1) {
+      recommended.push(key);
+    }
+  }
+
+  stepEl.textContent = 'Your Results';
+  barEl.style.width = '100%';
+  questionEl.textContent = 'Based on your answers, we recommend:';
+
+  optionsEl.innerHTML = '';
+  var container = document.createElement('div');
+  container.className = 'quiz-result-products';
+
+  for (var r = 0; r < recommended.length; r++) {
+    var p = products[recommended[r]];
+    var div = document.createElement('div');
+    div.className = 'quiz-result-product';
+    div.innerHTML = '<div class="quiz-result-img"><img src="' + p.img + '" alt="' + p.name + '"></div>' +
+      '<div class="quiz-result-info">' +
+        '<div class="badge">' + p.badge + '</div>' +
+        '<h4>' + p.name + '</h4>' +
+        '<div class="desc">' + p.desc + '</div>' +
+        '<div class="price">' + p.price + '</div>' +
+      '</div>' +
+      '<a href="#" class="quiz-result-shop">Shop now</a>';
+    container.appendChild(div);
+  }
+
+  optionsEl.appendChild(container);
+
+  var restart = document.createElement('button');
+  restart.className = 'quiz-restart';
+  restart.textContent = '\u2190 Retake quiz';
+  restart.onclick = restartQuiz;
+  optionsEl.appendChild(restart);
+
+  backEl.style.visibility = 'hidden';
+  nextEl.style.visibility = 'hidden';
+}
+
+function restartQuiz() {
+  current = 0;
+  answers = [];
+  scores = { serum: 0, cream: 0, cleanser: 0, mist: 0 };
+  nextEl.style.visibility = 'visible';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
