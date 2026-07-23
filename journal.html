@@ -323,9 +323,30 @@ function hideArticle() {
 function generateArticle() {
   if (POSTS.length === 0) return;
   const idx = Math.floor(Math.random() * POSTS.length);
-  applyFilters();
-  showArticle(idx);
-  setTimeout(() => document.getElementById('articleView').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  const p = POSTS[idx];
+  
+  // Show the article right below the filters, above the grid
+  const existing = document.getElementById('generatedArticle');
+  if (existing) existing.remove();
+  
+  const div = document.createElement('div');
+  div.id = 'generatedArticle';
+  div.style.cssText = 'background:#fff;border:1px solid #eee;border-radius:18px;padding:28px;margin:12px 0 20px;';
+  div.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
+    + '<span class="blog-tag">✨ 随机推荐</span>'
+    + '<button onclick="this.parentElement.parentElement.remove()" style="background:none;border:1px solid #e0e0e0;border-radius:50px;padding:4px 12px;font-size:1.1rem;color:#86868b;cursor:pointer">✕ 关闭</button>'
+    + '</div>'
+    + '<span class="blog-tag">' + (TAG_EMOJI[p.tag] || '📌') + ' ' + p.tag + '</span>'
+    + '<h2 style="font-size:1.6rem;font-weight:600;margin:10px 0 12px;">' + p.emoji + ' ' + p.title + '</h2>'
+    + '<div class="post-body">' + p.content + '</div>';
+  
+  const grid = document.getElementById('blogGrid');
+  grid.parentElement.insertBefore(div, grid);
+  
+  div.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
+  // Update stats
+  document.getElementById('stats').textContent = POSTS.length + ' 篇文章';
 }
 
 renderGrid(POSTS);
