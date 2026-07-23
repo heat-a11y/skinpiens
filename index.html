@@ -422,6 +422,72 @@
       .hero h1 { font-size: 3.2rem; }
     }
 
+    /* ─── DAILY EDIT ─── */
+    .daily-article {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 36px;
+      border: 1px solid rgba(0,0,0,.06);
+      animation: fadeUp .5s ease-out;
+      line-height: 1.8;
+    }
+    .daily-article h3 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+      color: #1d1d1f;
+    }
+    .daily-article p { font-size: 1.45rem; color: #444; margin-bottom: 10px; }
+    .daily-article .emoji-line { font-size: 1.5rem; margin-bottom: 8px; }
+    .daily-article .highlight-box {
+      background: #f5f5f7;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .daily-article .highlight-box p { margin-bottom: 4px; font-size: 1.4rem; }
+    .daily-article .tag {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #86868b;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+    .daily-article .daily-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,.06);
+      font-size: 1.2rem;
+      color: #86868b;
+    }
+    .daily-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .daily-nav button {
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: all .3s;
+    }
+    .daily-nav button:hover {
+      border-color: #1d1d1f;
+      background: #1d1d1f;
+      color: #fff;
+    }
+
     /* ─── BLOG ─── */
     .blog-grid {
       display: grid;
@@ -1000,6 +1066,14 @@
     </div>
   </section>
 
+  <!-- DAILY EDIT -->
+  <section class="section" id="daily">
+    <div class="section-label">Daily Edit</div>
+    <h2 class="section-title">Today's Skin Science</h2>
+    <p class="section-desc" id="dailyDate"></p>
+    <div class="daily-article" id="dailyArticle"></div>
+  </section>
+
   <!-- BLOG -->
   <section class="section section-gray">
     <div class="section-label">The Journal</div>
@@ -1127,6 +1201,72 @@
   </footer>
 
 <script>
+// ── Daily Edit: 7 rotating posts in Clinical Science Educator style ──
+var dailyPosts = [
+  {
+    tag: 'Skin Barrier',
+    title: '【🧴 皮肤屏障受损，不是只有干的问题】',
+    html: '<p>很多人以为，皮肤屏障受损就是「皮肤干」。</p><p>但你知道吗？<br>屏障受损真正的核心问题，其实是 <strong>脂质结构失衡</strong>。</p><p>健康的皮肤屏障，像一道砖墙：<br>🧱 砖块 = 角质细胞<br>🧴 水泥 = 细胞间脂质（Ceramides + 胆固醇 + 脂肪酸）</p><p>当「水泥」不足时，砖块之间就会出现缝隙：<br>💧 水分不断流失（TEWL↑）<br>🦠 刺激物、过敏原更容易渗透<br>🔥 微发炎 → 敏感 → 泛红</p><div class="highlight-box"><p>📈 研究发现，湿疹患者的角质层中，<strong>Ceramide 含量比健康皮肤低 30–50%</strong>。</p></div><p>所以，修复屏障不是「补水」就行。<br>真正要补的，是 <strong>和皮肤自身结构相似的脂质</strong>——这就是 Epsilon Relief Cream 的核心设计逻辑。</p>',
+    footer: '❤️ 屏障修复，不是把水倒进去，而是把墙修好。'
+  },
+  {
+    tag: 'Microbiome',
+    title: '【🦠 皮肤上的菌，好菌比你想的更重要】',
+    html: '<p>很多人听到「细菌」就觉得要杀光。<br>但你知道吗？<br>你的皮肤上住着 <strong>超过 1000 种微生物</strong>，总数量比银河系的星星还多。</p><p>健康的皮肤微生态（Microbiome）就像一座花园：<br>🌻 好菌 = 园丁，维持酸性环境，抑制坏菌<br>☠️ 坏菌 = 杂草，太多就会破坏平衡</p><p>湿疹、痘痘、敏感肌，其实都有一个共同点：<br><strong>菌相失衡（Dysbiosis）</strong>。</p><div class="highlight-box"><p>🦠 研究发现：<br>✔ 湿疹皮肤的金黄色葡萄球菌增加 <strong>3–10 倍</strong><br>✔ 好菌（表皮葡萄球菌）减少 <strong>50% 以上</strong></p></div><p>这也是为什么 Epsilon 系列加入了 <strong>益生菌专利成分</strong>——不是杀菌，而是帮助好菌重新占回地盘。皮肤健康，从来不靠「无菌」，而是靠「平衡」。</p>',
+    footer: '❤️ 养肤如养花园——不是把杂草拔光，而是让好花长回来。'
+  },
+  {
+    tag: 'Ingredients',
+    title: '【🍃 燕麦不只可以吃，还可以止痒？】',
+    html: '<p>你可能吃过燕麦早餐。<br>但你知道吗？<br>燕麦（Colloidal Oatmeal）在皮肤科已经用了 <strong>超过 2000 年</strong>。</p><p>从古罗马时代开始，人们就发现燕麦泡澡可以舒缓皮肤。到了 2003 年，美国 FDA 正式认可：<strong>胶体燕麦为皮肤保护剂</strong>。</p><p>它的秘密在于：<br>🌾 燕麦生物碱（Avenanthramides）——天然抗发炎、止痒<br>🧴 燕麦脂质——帮助修复皮肤屏障<br>💧 β-葡聚糖——保湿、促进胶原蛋白合成</p><div class="highlight-box"><p>📈 临床研究显示：<br>✔ 使用含燕麦萃取的保湿产品 <strong>30 分钟内</strong> 明显改善搔痒<br>✔ 持续使用可减少类固醇依赖</p></div><p>所以 Epsilon Soothing Mist 特别添加了燕麦萃取，搭配缓释薄荷醇，让你在搔痒发作时能快速舒缓——不靠类固醇，也能止痒。</p>',
+    footer: '❤️ 有时候，最有效的成分，早在几千年前就存在了。'
+  },
+  {
+    tag: 'Eczema',
+    title: '【🔥 湿疹发作时，为什么越抓越痒？】',
+    html: '<p>湿疹发作时最痛苦的，不是疹子本身，而是 <strong>痒</strong>。<br>但你知道吗？<br>抓痒，其实是让湿疹越来越严重的元凶之一。</p><p>这叫「痒—抓循环」（Itch-Scratch Cycle）：<br>😣 皮肤发炎 → 释放组胺 → 产生痒感<br>🤏 忍不住抓 → 皮肤屏障受损<br>🔥 发炎更严重 → 释放更多发炎因子 → 更痒</p><p>重点是：<br><strong>抓，不会解决问题，只会让问题变大。</strong></p><div class="highlight-box"><p>📈 皮肤科研究：<br>✔ 搔抓 30 秒，就足以破坏角质层结构<br>✔ 搔抓后，TEWL（水分流失）可增加 <strong>4 倍</strong></p></div><p>所以止痒，不只是为了舒服，更是为了 <strong>打断恶性循环</strong>。Epsilon Soothing Mist 的缓释薄荷醇 + 燕麦组合，就是给你一个不用抓的选择。</p>',
+    footer: '❤️ 止痒的目的，不是为了舒服，而是为了停止伤害。'
+  },
+  {
+    tag: 'Wellness',
+    title: '【😴 睡不好，皮肤真的会变差吗？】',
+    html: '<p>很多人熬夜后，隔天照镜子觉得皮肤暗沉、浮肿。<br>但你知道吗？<br>这不是错觉——<strong>睡眠和皮肤健康，有直接的生理关联</strong>。</p><p>当我们睡觉时，身体在做一件很重要的事：<br>🌙 皮质醇下降 → 发炎反应减少<br>🛠️ 生长激素分泌 → 皮肤细胞修复 & 胶原蛋白合成<br>💧 TEWL 降低 → 皮肤屏障恢复</p><p>换句话说：<br>睡觉，就是皮肤每天最重要的 <strong>维修时段</strong>。</p><div class="highlight-box"><p>📈 研究数据：<br>✔ 睡眠不足（< 5 小时/晚）持续 1 周，皮肤屏障恢复速度降低 <strong>30%</strong><br>✔ 睡眠品质好的人，皮肤老化迹象明显更少</p></div><p>所以，当你发现皮肤状态突然变差：<br>先别急着换产品——<br>先问自己，最近睡好了吗？</p>',
+    footer: '❤️ 最好的护肤品，不是擦上去的，而是睡出来的。'
+  },
+  {
+    tag: 'Myth-Buster',
+    title: '【💧 敏感肌到底能不能洗脸？】',
+    html: '<p>很多敏感肌的人会问：「我是不是不要洗脸比较好？」<br>但你知道吗？<br><strong>不洗脸，反而可能让敏感更严重。</strong></p><p>皮肤每天都会接触：<br>🌫️ 空气中的污染物<br>🧴 前一晚残留的护肤品<br>💦 汗水、皮脂氧化产物</p><p>这些物质如果不及时清掉，会：<br>❌ 堆积在皮肤表面<br>❌ 刺激发炎反应<br>❌ 堵塞毛孔，诱发痘痘</p><p>所以，问题不是「要不要洗」，而是 <strong>怎么洗</strong>。</p><div class="highlight-box"><p>🔬 敏感肌清洁原则：<br>✔ 选择无泡或低泡洁面——减少表面活性剂刺激<br>✔ pH 5.5 左右——不破坏酸性保护膜<br>✔ 加入保湿成分——洗后不紧绷<br>✔ 添加益生菌成分——维持微生态平衡</p></div><p>这就是 Epsilon Barrier Cleanser 的设计逻辑：<br>温和带走脏污，同时保护屏障，不让清洁变成另一种伤害。</p>',
+    footer: '❤️ 清洁的意义，不是把皮肤洗干净，是把脏东西带走而不带走健康。'
+  },
+  {
+    tag: 'Routine',
+    title: '【🧪 护肤品擦越多越好？3 步就够了】',
+    html: '<p>很多人觉得，护肤步骤越多 = 越有效。<br>但你知道吗？<br>对于敏感肌来说，<strong>多一步，就多一个刺激源</strong>。</p><p>皮肤科医生常说的「少即是多」（Less is More），其实有科学依据：<br>🧬 每多擦一层产品，就可能多接触 10–30 种化学成分<br>🛡️ 敏感肌的屏障本来就薄弱，经不起反复「堆叠」<br>🔥 成分叠加后可能产生刺激性交互作用</p><p>真正有效的敏感肌护肤，只需要 3 步：</p><div class="highlight-box"><p><strong>1️⃣ 温和清洁</strong> ── Epsilon Barrier Cleanser<br><strong>2️⃣ 即时舒缓</strong> ── Epsilon Soothing Mist（痒就喷）<br><strong>3️⃣ 修复保湿</strong> ── Epsilon Relief Cream（修屏障 + 抑坏菌）</p></div><p>这就是 Epsilon 3-Step System 的理念：<br>不是让你买更多，而是让你每一步都做到对的事。</p>',
+    footer: '❤️ 好的护肤，不是加法，是减法。做对 3 件事，比做错 10 件事有用得多。'
+  }
+];
+
+function renderDailyPost(index) {
+  var post = dailyPosts[index % dailyPosts.length];
+  var el = document.getElementById('dailyArticle');
+  el.innerHTML = '<div class=\"tag\">' + post.tag + '</div>' +
+    '<h3>' + post.title + '</h3>' +
+    post.html +
+    '<div class=\"daily-footer\">' + post.footer + '</div>';
+  document.getElementById('dailyDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// Use today's date to pick the post (rotates daily)
+var today = new Date();
+var dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+var todayIndex = dayOfYear % dailyPosts.length;
+renderDailyPost(todayIndex);
+
+// Thursday is 4 (0=Sun), use 0-6
+var dayOfWeek = today.getDay();
+
+</script>
 var products = {
   serum: {
     name: 'Fortress+ Barrier Serum',
