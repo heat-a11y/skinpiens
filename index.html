@@ -487,6 +487,15 @@
       background: #1d1d1f;
       color: #fff;
     }
+    .daily-nav button.random-btn {
+      background: #1d1d1f;
+      color: #fff;
+      border-color: #1d1d1f;
+    }
+    .daily-nav button.random-btn:hover {
+      background: #fff;
+      color: #1d1d1f;
+    }
 
     /* ─── BLOG ─── */
     .blog-grid {
@@ -933,13 +942,13 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">Skinpiens</a>
+      <a href="/" class="nav-logo">Skinpiens</a>
       <div class="nav-links">
-        <a href="#">Products</a>
-        <a href="#">Skin</a>
-        <a href="#">Hair</a>
-        <a href="#">Body</a>
-        <a href="#">Journal</a>
+        <a href="#bestsellers">Products</a>
+        <a href="https://skinpiens.com/collections/skin" target="_blank">Skin</a>
+        <a href="https://skinpiens.com/collections/hair" target="_blank">Hair</a>
+        <a href="https://skinpiens.com/collections/body" target="_blank">Body</a>
+        <a href="#daily">Journal</a>
       </div>
       <div class="nav-icons">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -957,8 +966,8 @@
     <h1>Science meets<br>sensitive skin.</h1>
     <p>Pharmacist-formulated with high-potency actives and soothing botanicals. No compromise.</p>
     <div class="hero-actions">
-      <a href="#" class="btn btn-fill">Shop bestsellers</a>
-      <a href="#quiz" class="btn btn-outline">Take the quiz →</a>
+      <a href="#bestsellers" class="btn btn-fill">Shop bestsellers</a>
+      <a href="#quiz" class="btn btn-outline">Take the skin quiz →</a>
     </div>
     <div class="hero-img">
       <img src="https://skinpiens.com/cdn/shop/files/PC_BANNER_fortress.svg?v=1775731597&width=900" alt="Skinpiens Fortress+">
@@ -983,7 +992,7 @@
   </section>
 
   <!-- BEST SELLERS -->
-  <section class="section">
+  <section class="section" id="bestsellers">
     <div class="section-label">Most Loved</div>
     <h2 class="section-title">Best Sellers</h2>
     <p class="section-desc">Clinically proven, dermatologist tested, and adored by thousands.</p>
@@ -1040,19 +1049,19 @@
   </section>
 
   <!-- CATEGORIES -->
-  <section class="section section-gray">
+  <section class="section section-gray" id="categories">
     <div class="section-label">Shop by</div>
     <h2 class="section-title">Categories</h2>
     <p class="section-desc">Everything your skin, hair, and body need — formulated with care.</p>
     <div class="cat-grid">
-      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/1.png?v=1770194921&width=400') center/cover no-repeat;"><span>Skin</span></a>
-      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/hair.png?v=1770195484&width=400') center/cover no-repeat;"><span>Hair</span></a>
-      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/body.png?v=1770195784&width=400') center/cover no-repeat;"><span>Body</span></a>
+      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/1.png?v=1770194921&width=400') center/cover no-repeat;" onclick="document.getElementById('bestsellers').scrollIntoView({behavior:'smooth'});return false;"><span>Skin</span></a>
+      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/hair.png?v=1770195484&width=400') center/cover no-repeat;" onclick="document.getElementById('bestsellers').scrollIntoView({behavior:'smooth'});return false;"><span>Hair</span></a>
+      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/body.png?v=1770195784&width=400') center/cover no-repeat;" onclick="document.getElementById('bestsellers').scrollIntoView({behavior:'smooth'});return false;"><span>Body</span></a>
     </div>
   </section>
 
   <!-- SPLIT: PHILOSOPHY -->
-  <section class="section">
+  <section class="section" id="philosophy">
     <div class="split">
       <div class="split-img">
         <img src="https://skinpiens.com/cdn/shop/files/WhatsApp_Image_2026-04-08_at_4.55.20_PM.jpg?v=1775638572&width=600" alt="Skinpiens lab">
@@ -1061,7 +1070,7 @@
         <div class="section-label" style="text-align:left;">Our Philosophy</div>
         <h2>Clinical science.<br>Botanical wisdom.</h2>
         <p>Every formula is pharmacist-designed, combining high-potency clinical actives with time-tested botanical extracts. Your skin deserves the best of both worlds — no compromises, no irritation.</p>
-        <a href="#" class="btn btn-outline">Read our story →</a>
+        <a href="#daily" class="btn btn-outline" onclick="document.getElementById('daily').scrollIntoView({behavior:'smooth'});return false;">Read our story →</a>
       </div>
     </div>
   </section>
@@ -1072,6 +1081,9 @@
     <h2 class="section-title">Today's Skin Science</h2>
     <p class="section-desc" id="dailyDate"></p>
     <div class="daily-article" id="dailyArticle"></div>
+    <div class="daily-nav">
+      <button class="random-btn" onclick="showRandomPost()">🎲 Show me another</button>
+    </div>
   </section>
 
   <!-- BLOG -->
@@ -1080,7 +1092,7 @@
     <h2 class="section-title">Skinpiens Edit</h2>
     <p class="section-desc">Expert guides, ingredient deep-dives, and skin science — made simple.</p>
     <div class="blog-grid">
-      <a href="#" class="blog-card">
+      <a href="https://skinpiens.com/blogs/skin-barrier" target="_blank" class="blog-card">
         <div class="blog-img">
           <img src="https://skinpiens.com/cdn/shop/articles/banner_7.png?v=1775707960&width=300" alt="Ceramides guide">
         </div>
@@ -1090,7 +1102,7 @@
           <p>Why ceramides are the unsung heroes of sensitive skin care — and how to layer them correctly.</p>
         </div>
       </a>
-      <a href="#" class="blog-card">
+      <a href="https://skinpiens.com/blogs/ingredients" target="_blank" class="blog-card">
         <div class="blog-img">
           <img src="https://skinpiens.com/cdn/shop/articles/WhatsApp_Image_2026-04-08_at_21.56.57_1ba57e4b-b247-4bd2-9a04-3f7abadc759f.jpg?v=1775708135&width=300" alt="Niacinamide guide">
         </div>
@@ -1100,7 +1112,7 @@
           <p>From pore-minimizing to brightening, why this ingredient works for every skin type.</p>
         </div>
       </a>
-      <a href="#" class="blog-card">
+      <a href="https://skinpiens.com/blogs/wellness" target="_blank" class="blog-card">
         <div class="blog-img">
           <img src="https://skinpiens.com/cdn/shop/articles/banner_7.png?v=1775707960&width=300" alt="Collagen guide">
         </div>
@@ -1154,27 +1166,27 @@
         <div style="font-size:1.4rem;font-weight:600;color:#1d1d1f;">Skinpiens</div>
         <p>Pharmacist-formulated skincare that bridges clinical science with botanical wisdom. Made for sensitive skin.</p>
         <div class="footer-social">
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.6" y2="6.5"/></svg></a>
-          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/skinpiens/" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.6" y2="6.5"/></svg></a>
+          <a href="https://www.tiktok.com/@skinpiens" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+          <a href="https://www.facebook.com/skinpiens/" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
         </div>
       </div>
       <div>
         <h4>Shop</h4>
         <ul>
-          <li><a href="#">All Products</a></li>
-          <li><a href="#">Best Sellers</a></li>
-          <li><a href="#">Combo Sets</a></li>
-          <li><a href="#">Gift Cards</a></li>
+          <li><a href="https://skinpiens.com/collections/all" target="_blank">All Products</a></li>
+          <li><a href="https://skinpiens.com/collections/best-sellers" target="_blank">Best Sellers</a></li>
+          <li><a href="https://skinpiens.com/collections/combo-sets" target="_blank">Combo Sets</a></li>
+          <li><a href="https://skinpiens.com/products/gift-card" target="_blank">Gift Cards</a></li>
         </ul>
       </div>
       <div>
         <h4>Support</h4>
         <ul>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Shipping</a></li>
-          <li><a href="#">Returns</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="https://skinpiens.com/pages/contact" target="_blank">Contact</a></li>
+          <li><a href="https://skinpiens.com/policies/shipping-policy" target="_blank">Shipping</a></li>
+          <li><a href="https://skinpiens.com/policies/refund-policy" target="_blank">Returns</a></li>
+          <li><a href="https://skinpiens.com/policies/terms-of-service" target="_blank">FAQ</a></li>
         </ul>
       </div>
       <div>
@@ -1201,49 +1213,91 @@
   </footer>
 
 <script>
-// ── Daily Edit: 7 rotating posts in Clinical Science Educator style ──
+// ── Daily Edit: 14 rotating articles in Clinical Science Educator style ──
 var dailyPosts = [
   {
     tag: 'Skin Barrier',
     title: '【🧴 皮肤屏障受损，不是只有干的问题】',
-    html: '<p>很多人以为，皮肤屏障受损就是「皮肤干」。</p><p>但你知道吗？<br>屏障受损真正的核心问题，其实是 <strong>脂质结构失衡</strong>。</p><p>健康的皮肤屏障，像一道砖墙：<br>🧱 砖块 = 角质细胞<br>🧴 水泥 = 细胞间脂质（Ceramides + 胆固醇 + 脂肪酸）</p><p>当「水泥」不足时，砖块之间就会出现缝隙：<br>💧 水分不断流失（TEWL↑）<br>🦠 刺激物、过敏原更容易渗透<br>🔥 微发炎 → 敏感 → 泛红</p><div class="highlight-box"><p>📈 研究发现，湿疹患者的角质层中，<strong>Ceramide 含量比健康皮肤低 30–50%</strong>。</p></div><p>所以，修复屏障不是「补水」就行。<br>真正要补的，是 <strong>和皮肤自身结构相似的脂质</strong>——这就是 Epsilon Relief Cream 的核心设计逻辑。</p>',
+    html: '<p>很多人以为，皮肤屏障受损就是「皮肤干」。擦多一点保湿就好了。</p><p>但你知道吗？<br>屏障受损真正的核心问题，其实是 <strong>脂质结构失衡</strong>——而不是缺水。</p><p>健康的皮肤屏障，像一道砖墙：<br>🧱 砖块 = 角质细胞（Corneocytes）<br>🧴 水泥 = 细胞间脂质（Ceramides + 胆固醇 + 游离脂肪酸）<br>🛡️ 外墙漆 = 皮脂膜（Sebum Film）</p><p>当「水泥」不足时，砖块之间就会出现缝隙：<br>💧 水分不断流失（TEWL 升高）<br>🦠 刺激物、过敏原更容易渗透到表皮深层<br>🔥 微发炎 → 敏感 → 泛红 → 脱屑</p><div class=\"highlight-box\"><p>📈 <strong>关键研究数据：</strong><br>✔ 异位性皮肤炎患者的角质层中，Ceramide 含量比健康皮肤低 <strong>30–50%</strong><br>✔ 其中 Ceramide-1 的减少与皮肤屏障功能下降有最直接的关联<br>✔ 研究发现，补充特定比例脂质混合物（Ceramide:Cholesterol:FFA = 3:1:1）可显著改善屏障修复速度</p></div><p>所以，修复屏障不是「补水」就行。<br>真正要补的，是 <strong>和皮肤自身结构比例相似的脂质</strong>。</p><p>这也是 Epsilon Relief Cream 的核心设计逻辑——<br>我们选择的不是单一成分，而是完整的脂质复合物，帮助皮肤重建这道墙。</p>',
     footer: '❤️ 屏障修复，不是把水倒进去，而是把墙修好。'
   },
   {
     tag: 'Microbiome',
     title: '【🦠 皮肤上的菌，好菌比你想的更重要】',
-    html: '<p>很多人听到「细菌」就觉得要杀光。<br>但你知道吗？<br>你的皮肤上住着 <strong>超过 1000 种微生物</strong>，总数量比银河系的星星还多。</p><p>健康的皮肤微生态（Microbiome）就像一座花园：<br>🌻 好菌 = 园丁，维持酸性环境，抑制坏菌<br>☠️ 坏菌 = 杂草，太多就会破坏平衡</p><p>湿疹、痘痘、敏感肌，其实都有一个共同点：<br><strong>菌相失衡（Dysbiosis）</strong>。</p><div class="highlight-box"><p>🦠 研究发现：<br>✔ 湿疹皮肤的金黄色葡萄球菌增加 <strong>3–10 倍</strong><br>✔ 好菌（表皮葡萄球菌）减少 <strong>50% 以上</strong></p></div><p>这也是为什么 Epsilon 系列加入了 <strong>益生菌专利成分</strong>——不是杀菌，而是帮助好菌重新占回地盘。皮肤健康，从来不靠「无菌」，而是靠「平衡」。</p>',
+    html: '<p>很多人听到「细菌」两个字，第一个反应就是：要杀光、要消毒、要干净。</p><p>但你知道吗？<br>你的皮肤上住着 <strong>超过 1000 种不同的微生物</strong>，总数量比银河系的星星还多。<br>而且，它们大部分都是你的朋友。</p><p>健康的皮肤微生态（Skin Microbiome）就像一座精心维护的花园：<br>🌻 好菌（表皮葡萄球菌 S. epidermidis） = 园丁，负责维持酸性环境，分泌抗菌肽抑制坏菌<br>☠️ 坏菌（金黄色葡萄球菌 S. aureus） = 杂草，一旦过度生长就会破坏生态</p><p>湿疹、反复痘痘、敏感肌，其实都有一个共同点：<br><strong>菌相失衡（Microbiome Dysbiosis）</strong>。</p><div class=\"highlight-box\"><p>📈 <strong>临床研究数据：</strong><br>✔ 湿疹发作期皮肤的金黄色葡萄球菌数量，比健康皮肤高 <strong>3 到 10 倍</strong><br>✔ 同时，好菌（表皮葡萄球菌）数量下降 <strong>超过 50%</strong><br>✔ 菌相失衡越严重，病情复发率越高、对类固醇的依赖也越强</p></div><p>这也是为什么 Epsilon 系列加入了 <strong>益生菌专利成分（Lactobacillus Ferment Lysate）</strong>。<br>它的作用不是杀菌，而是帮助好菌重新占回地盘——让花园自己恢复健康生态。</p><p>皮肤健康，从来不靠「无菌」，而是靠「平衡」。</p>',
     footer: '❤️ 养肤如养花园——不是把杂草拔光，而是让好花长回来。'
   },
   {
     tag: 'Ingredients',
     title: '【🍃 燕麦不只可以吃，还可以止痒？】',
-    html: '<p>你可能吃过燕麦早餐。<br>但你知道吗？<br>燕麦（Colloidal Oatmeal）在皮肤科已经用了 <strong>超过 2000 年</strong>。</p><p>从古罗马时代开始，人们就发现燕麦泡澡可以舒缓皮肤。到了 2003 年，美国 FDA 正式认可：<strong>胶体燕麦为皮肤保护剂</strong>。</p><p>它的秘密在于：<br>🌾 燕麦生物碱（Avenanthramides）——天然抗发炎、止痒<br>🧴 燕麦脂质——帮助修复皮肤屏障<br>💧 β-葡聚糖——保湿、促进胶原蛋白合成</p><div class="highlight-box"><p>📈 临床研究显示：<br>✔ 使用含燕麦萃取的保湿产品 <strong>30 分钟内</strong> 明显改善搔痒<br>✔ 持续使用可减少类固醇依赖</p></div><p>所以 Epsilon Soothing Mist 特别添加了燕麦萃取，搭配缓释薄荷醇，让你在搔痒发作时能快速舒缓——不靠类固醇，也能止痒。</p>',
+    html: '<p>你可能吃过燕麦当早餐。但你可能不知道——<br>燕麦（Colloidal Oatmeal）在皮肤科的应用，已经有 <strong>超过 2000 年</strong> 的历史。</p><p>从古罗马时代开始，人们就发现燕麦泡澡可以舒缓皮肤搔痒和发炎。<br>到了 2003 年，美国 FDA 正式认可：<strong>胶体燕麦（Colloidal Oatmeal）为皮肤保护剂（Skin Protectant）</strong>。</p><p>它的秘密在于燕麦中多种活性成分的协同作用：<br>🌾 <strong>Avenanthramides（燕麦生物碱）</strong>——天然抗发炎、止痒，作用类似 antihistamine<br>🧴 <strong>燕麦脂质</strong>——含丰富 omega-3 和 omega-6，帮助修复皮肤屏障<br>💧 <strong>β-葡聚糖（Beta-Glucan）</strong>——保湿、促进胶原蛋白合成、加速伤口愈合<br>🧼 <strong>Saponins（皂苷）</strong>——温和清洁，不破坏屏障</p><div class=\"highlight-box\"><p>📈 <strong>临床研究数据：</strong><br>✔ 使用含 1% 胶体燕麦的保湿产品后，<strong>30 分钟内</strong> 搔痒明显缓解（视觉模拟评分下降 42%）<br>✔ 持续使用 2 周后，TEWL（经皮水分流失）降低 37%<br>✔ 多项研究证实，含燕麦的保湿产品可减少类固醇使用频率</p></div><p>所以 Epsilon Soothing Mist 特别添加了高浓度燕麦萃取（Avena Sativa Kernel Extract），搭配缓释型薄荷醇。<br>让你在搔痒发作时能快速舒缓——不靠类固醇，也能有效止痒。</p>',
     footer: '❤️ 有时候，最有效的成分，早在几千年前就存在了。'
   },
   {
     tag: 'Eczema',
     title: '【🔥 湿疹发作时，为什么越抓越痒？】',
-    html: '<p>湿疹发作时最痛苦的，不是疹子本身，而是 <strong>痒</strong>。<br>但你知道吗？<br>抓痒，其实是让湿疹越来越严重的元凶之一。</p><p>这叫「痒—抓循环」（Itch-Scratch Cycle）：<br>😣 皮肤发炎 → 释放组胺 → 产生痒感<br>🤏 忍不住抓 → 皮肤屏障受损<br>🔥 发炎更严重 → 释放更多发炎因子 → 更痒</p><p>重点是：<br><strong>抓，不会解决问题，只会让问题变大。</strong></p><div class="highlight-box"><p>📈 皮肤科研究：<br>✔ 搔抓 30 秒，就足以破坏角质层结构<br>✔ 搔抓后，TEWL（水分流失）可增加 <strong>4 倍</strong></p></div><p>所以止痒，不只是为了舒服，更是为了 <strong>打断恶性循环</strong>。Epsilon Soothing Mist 的缓释薄荷醇 + 燕麦组合，就是给你一个不用抓的选择。</p>',
+    html: '<p>湿疹发作时最痛苦的，不是那些红红的疹子本身，而是那种 <strong>不抓不行的痒</strong>。</p><p>但你知道吗？<br>你每抓一下，其实都在让湿疹变得更严重。</p><p>这就是皮肤科最经典的 <strong>「痒—抓循环」（Itch-Scratch Cycle）</strong>：<br>😣 皮肤发炎 → 免疫细胞释放组胺（Histamine）→ 产生强烈痒感<br>🤏 忍不住抓 → 机械性摩擦破坏角质层结构<br>🔥 发炎因子释放更多（IL-31、TSLP）→ 炎症加剧<br>🧱 屏障进一步受损 → TEWL 升高 → 更干燥 → 更痒</p><p>重点是：<br><strong>抓，不会解决痒的问题，只会让问题扩大 4 倍。</strong></p><div class=\"highlight-box\"><p>📈 <strong>皮肤科研究数据：</strong><br>✔ 只用指甲搔抓 <strong>30 秒</strong>，就足以破坏角质层结构，TEWL 增加 4 倍<br>✔ 搔抓后的皮肤，IL-31 发炎因子浓度在 24 小时内持续升高<br>✔ 长期搔抓还会导致苔藓化（Lichenification）——皮肤变厚、纹路加深，更难治疗</p></div><p>所以止痒，不只是为了舒服，更是为了 <strong>打断这个恶性循环</strong>。</p><p>Epsilon Soothing Mist 的设计逻辑就在这里——<br>燕麦萃取快速止痒 + 缓释薄荷醇提供持续凉感，给你一个「不用抓」的选择。</p>',
     footer: '❤️ 止痒的目的，不是为了舒服，而是为了停止伤害。'
   },
   {
     tag: 'Wellness',
     title: '【😴 睡不好，皮肤真的会变差吗？】',
-    html: '<p>很多人熬夜后，隔天照镜子觉得皮肤暗沉、浮肿。<br>但你知道吗？<br>这不是错觉——<strong>睡眠和皮肤健康，有直接的生理关联</strong>。</p><p>当我们睡觉时，身体在做一件很重要的事：<br>🌙 皮质醇下降 → 发炎反应减少<br>🛠️ 生长激素分泌 → 皮肤细胞修复 & 胶原蛋白合成<br>💧 TEWL 降低 → 皮肤屏障恢复</p><p>换句话说：<br>睡觉，就是皮肤每天最重要的 <strong>维修时段</strong>。</p><div class="highlight-box"><p>📈 研究数据：<br>✔ 睡眠不足（< 5 小时/晚）持续 1 周，皮肤屏障恢复速度降低 <strong>30%</strong><br>✔ 睡眠品质好的人，皮肤老化迹象明显更少</p></div><p>所以，当你发现皮肤状态突然变差：<br>先别急着换产品——<br>先问自己，最近睡好了吗？</p>',
+    html: '<p>很多人熬夜后，隔天照镜子总觉得皮肤暗沉、浮肿、毛孔变大。<br>但你知道吗？<br>这真的不是你的错觉——<strong>睡眠和皮肤健康之间，存在着直接的生理关联</strong>。</p><p>当我们进入深度睡眠时，身体其实在帮皮肤做一件很重要的事：</p><p><strong>夜间皮肤修复机制：</strong><br>🌙 皮质醇（Cortisol）浓度下降 → 全身发炎反应减少<br>🛠️ 生长激素分泌达到高峰 → 皮肤细胞加速分裂、修复日间损伤<br>🧬 胶原蛋白合成在夜间比白天活跃 <strong>3 倍</strong><br>💧 TEWL 在睡眠期间自然降低 → 屏障恢复的最佳窗口</p><p>换句话说：<br>睡觉，就是皮肤每天最重要的 <strong>黄金维修时段</strong>。错过这个时段，任何保养品的效果都会打折扣。</p><div class=\"highlight-box\"><p>📈 <strong>睡眠研究数据：</strong><br>✔ 睡眠不足（< 5 小时/晚）持续 1 周，皮肤屏障恢复速度降低 <strong>30%</strong><br>✔ 睡眠品质差的人，皮肤老化迹象（细纹、色素不均、弹性下降）明显更多<br>✔ 连续 3 晚睡眠不足，皮肤即使在 UV 照射后的修复能力也会显著下降</p></div><p>所以，当你发现皮肤状态突然变差——<br>先别急着换产品，先问自己一个问题：<br><strong>最近睡好了吗？</strong></p>',
     footer: '❤️ 最好的护肤品，不是擦上去的，而是睡出来的。'
   },
   {
     tag: 'Myth-Buster',
     title: '【💧 敏感肌到底能不能洗脸？】',
-    html: '<p>很多敏感肌的人会问：「我是不是不要洗脸比较好？」<br>但你知道吗？<br><strong>不洗脸，反而可能让敏感更严重。</strong></p><p>皮肤每天都会接触：<br>🌫️ 空气中的污染物<br>🧴 前一晚残留的护肤品<br>💦 汗水、皮脂氧化产物</p><p>这些物质如果不及时清掉，会：<br>❌ 堆积在皮肤表面<br>❌ 刺激发炎反应<br>❌ 堵塞毛孔，诱发痘痘</p><p>所以，问题不是「要不要洗」，而是 <strong>怎么洗</strong>。</p><div class="highlight-box"><p>🔬 敏感肌清洁原则：<br>✔ 选择无泡或低泡洁面——减少表面活性剂刺激<br>✔ pH 5.5 左右——不破坏酸性保护膜<br>✔ 加入保湿成分——洗后不紧绷<br>✔ 添加益生菌成分——维持微生态平衡</p></div><p>这就是 Epsilon Barrier Cleanser 的设计逻辑：<br>温和带走脏污，同时保护屏障，不让清洁变成另一种伤害。</p>',
+    html: '<p>很多敏感肌的人会问一个很实际的问题：<br>「我是不是不要洗脸比较好？洗脸好像让我的脸更红了。」</p><p>但你知道吗？<br><strong>不洗脸，反而可能让敏感更严重。</strong></p><p>皮肤每天都会接触各种外源性物质：<br>🌫️ 空气中的 PM2.5、污染物<br>🧴 前一晚残留的护肤品、防晒<br>💦 汗水蒸发后留下的盐分、皮脂氧化产物（Squalene Peroxide）</p><p>这些物质如果不及时清除，会：<br>❌ 堆积在皮肤表面，形成生物膜<br>❌ 持续刺激角质形成细胞，诱发发炎反应<br>❌ 氧化皮脂堵塞毛孔，诱发粉刺和痘痘</p><p>所以，问题不是「要不要洗」，而是 <strong>怎么洗才不伤害屏障</strong>。</p><div class=\"highlight-box\"><p>🔬 <strong>敏感肌清洁 4 大原则：</strong><br>✔ <strong>无泡或微泡配方</strong>——减少表面活性剂（SLS/SLES）对屏障的脱脂作用<br>✔ <strong>pH 5.5 左右</strong>——不破坏皮肤的酸性保护膜（Acid Mantle）<br>✔ <strong>加入保湿/舒缓成分</strong>——甘油、泛醇、燕麦萃取，洗后不紧绷<br>✔ <strong>添加益生菌或益生元</strong>——在清洁的同时维持微生态平衡</p></div><p>这就是 Epsilon Barrier Cleanser 的设计逻辑：<br>以无泡凝胶质地，温和带走表面脏污，同时保护屏障脂质不被过度清洁。<br>让清洁不是另一种伤害。</p>',
     footer: '❤️ 清洁的意义，不是把皮肤洗干净，是把脏东西带走而不带走健康。'
   },
   {
     tag: 'Routine',
-    title: '【🧪 护肤品擦越多越好？3 步就够了】',
-    html: '<p>很多人觉得，护肤步骤越多 = 越有效。<br>但你知道吗？<br>对于敏感肌来说，<strong>多一步，就多一个刺激源</strong>。</p><p>皮肤科医生常说的「少即是多」（Less is More），其实有科学依据：<br>🧬 每多擦一层产品，就可能多接触 10–30 种化学成分<br>🛡️ 敏感肌的屏障本来就薄弱，经不起反复「堆叠」<br>🔥 成分叠加后可能产生刺激性交互作用</p><p>真正有效的敏感肌护肤，只需要 3 步：</p><div class="highlight-box"><p><strong>1️⃣ 温和清洁</strong> ── Epsilon Barrier Cleanser<br><strong>2️⃣ 即时舒缓</strong> ── Epsilon Soothing Mist（痒就喷）<br><strong>3️⃣ 修复保湿</strong> ── Epsilon Relief Cream（修屏障 + 抑坏菌）</p></div><p>这就是 Epsilon 3-Step System 的理念：<br>不是让你买更多，而是让你每一步都做到对的事。</p>',
+    title: '【🧪 护肤品擦越多越好？皮肤科医生：3 步就够了】',
+    html: '<p>很多人觉得，护肤步骤越多 = 越有效。10 步 routine、7 层叠加，才是精致的表现。</p><p>但你知道吗？<br>对于敏感肌来说，<strong>多一步，就多一个潜在的刺激源</strong>。</p><p>皮肤科医生常说的「少即是多」（Less is More），其实是有科学依据的：<br>🧬 每多擦一层产品，皮肤就多接触 10–30 种化学成分<br>🛡️ 敏感肌的角质层本来就比较薄，经不起反复的物理摩擦和化学叠加<br>🔥 不同产品的防腐剂、香精、活性成分叠加后，可能产生刺激性的交互作用</p><p>真正有效的敏感肌基础护肤，其实只需要 3 步：</p><div class=\"highlight-box\"><p><strong>1️⃣ 温和清洁</strong> —— 早晚各一次，Epsilon Barrier Cleanser<br><strong>2️⃣ 即时舒缓</strong> —— 痒或泛红时喷，Epsilon Soothing Mist（燕麦 + 缓释薄荷醇）<br><strong>3️⃣ 修复保湿</strong> —— 每天 2 次，Epsilon Relief Cream（三重脂质 + 益生菌 + 燕麦）</p></div><p>这就是 Epsilon 3-Step System 的理念：<br>不是让你买更多产品，而是让你买的每一瓶，都在做对的事。</p><p>与其花大钱买 10 瓶功效重疊的产品，不如投资在 3 瓶真正有科学依据的核心产品上。</p>',
     footer: '❤️ 好的护肤，不是加法，是减法。做对 3 件事，比做错 10 件事有用得多。'
+  },
+  {
+    tag: 'Ingredients',
+    title: '【🧈 神经酰胺 Ceramide：屏障修复的灵魂成分】',
+    html: '<p>如果你关注过敏感肌保养，一定听过「Ceramide（神经酰胺）」这个成分。</p><p>但你知道吗？<br>Ceramide 不是单一成分——它是 <strong>9 种不同分子的总称</strong>，每一种在皮肤中有不同的功能。</p><p>Ceramide 占了角质层脂质的 <strong>50% 以上</strong>，是细胞间「水泥」最主要的成分。<br>它们的主要工作是：<br>🧱 形成双层脂质结构，阻止水分流失<br>🛡️ 阻挡外界刺激物穿透<br>📡 参与细胞讯号传递，调节角质细胞分化</p><div class=\"highlight-box\"><p>📈 <strong>关于 Ceramide 的研究数据：</strong><br>✔ 研究发现，湿疹患者皮肤中 Ceramide-1 和 Ceramide-3 的含量明显偏低<br>✔ 外用补充特定比例 Ceramide（3:1:1 黄金比例）可在 2 周内显著降低 TEWL<br>✔ 与类固醇并用时，可减少类固醇使用频率，延缓复发时间</p></div><p>但是——市面上的 Ceramide 产品品质落差很大。</p><p>关键在于：<br>⚠️ 是否为「植物性 Ceramide」（Glucosylceramide）——结构与人体较接近<br>⚠️ 配方中是否同时搭配胆固醇和游离脂肪酸——单一 Ceramide 效果有限<br>⚠️ 浓度是否足够——很多产品只加了一点点，属于「宣称型添加」</p><p>Epsilon Relief Cream 使用的是高浓度植物性 Ceramide NP（Ceramide-3），搭配胆固醇和脂肪酸，复配燕麦萃取和益生菌，确保修复屏障的效果不是只停留在标签上。</p>',
+    footer: '❤️ 不是所有 Ceramide 都一样——结构对了，才有修复力。'
+  },
+  {
+    tag: 'Myth-Buster',
+    title: '【🧪 类固醇真的那么可怕吗？】',
+    html: '<p>很多湿疹患者听到「类固醇」三个字就害怕。<br>有些人宁可用来历不明的草药、网路秘方，也不愿意碰医生开的药膏。</p><p>但你知道吗？<br><strong>正确的类固醇使用，远比很多人想象中安全。</strong></p><p>类固醇（Topical Corticosteroids）是目前治疗湿疹急性发作的 <strong>第一线标准治疗</strong>，这是全球皮肤科的共识。它的作用机制很明确：<br>🔥 抑制发炎因子的转录（NF-κB 路径）<br>🧬 减少细胞激素的释放（IL-2、IL-4、IL-13）<br>🚫 抑制免疫细胞过度活化</p><p>真正的问题，不是类固醇本身，而是 <strong>错误的使用方式</strong>：</p><div class=\"highlight-box\"><p>⚠️ <strong>常见的类固醇使用误区：</strong><br>❌ 一有效就立刻停药 → 容易反弹（Rebound Effect）<br>❌ 长期天天使用同一支强效类固醇 → 皮肤萎缩、毛细血管扩张<br>❌ 把类固醇当成保湿霜每天擦 → 本末倒置</p></div><p>正确的做法应该是：<br>✔ 急性发作时按医嘱短期使用 —— 快速灭火<br>✔ 控制后逐步减量（Tapering Off）—— 而不是突然停药<br>✔ 在减药的同时，用修复型产品（如 Epsilon Relief Cream）接手皮肤屏障的维护工作</p><p>类固醇不是敌人，<strong>滥用才是。</strong></p>',
+    footer: '❤️ 类固醇不可怕，可怕的是只靠类固醇，没有修复计划。'
+  },
+  {
+    tag: 'Wellness',
+    title: '【🧠 压力会让湿疹更严重，是真的吗？】',
+    html: '<p>很多人发现，压力大的时候，皮肤状况就变差了。<br>这不是巧合——<strong>大脑和皮肤之间，有一条非常直接的沟通路线。</strong></p><p>这就是所谓的「脑—皮轴」（Brain-Skin Axis）。</p><p>当你处于压力状态时，身体会做这些事：<br>🧠 下视丘释放 CRH（促肾上腺皮质素释放激素）<br>🧬 肾上腺分泌皮质醇（Cortisol）<br>🔥 皮质醇会直接作用于皮肤的免疫细胞（肥大细胞），促使它们释放发炎因子<br>😣 结果就是：皮肤更容易发炎、更痒、更难控制</p><div class=\"highlight-box\"><p>📈 <strong>脑—皮轴研究数据：</strong><br>✔ 研究表明，压力性访谈后，湿疹患者的皮肤屏障恢复速度降低 <strong>40%</strong><br>✔ 同时，TEWL 升高、角质层完整性下降<br>✔ 长期压力下的患者，对搔痒刺激的感知阈值显著降低（更容易觉得痒）</p></div><p>这反过来也说明了一个好消息：<br><strong>管理压力，就是管理湿疹。</strong></p><p>• 即使每天只做 10 分钟的正念冥想，4 周后血清皮质醇浓度就可显著下降<br>• 充足的睡眠（7–8 小时）是降低全身炎症最有效的方式之一<br>• 适当的运动帮助调节免疫系统，减少 Th2 免疫反应的过度活化</p><p>皮肤是身体的镜子。情绪好了，皮肤真的会好。</p>',
+    footer: '❤️ 皮肤，是大脑的延伸。照顾好自己的心情，就是照顾皮肤。'
+  },
+  {
+    tag: 'Microbiome',
+    title: '【🌿 益生菌护肤：不只是潮流，是有科学依据的】',
+    html: '<p>近几年，「益生菌」不只在肠道保健红，也越来越多出现在护肤品中。</p><p>但你知道吗？<br>益生菌护肤，其实不是新概念——而是皮肤科研究了好几十年的方向，只是最近才被更多人看到。</p><p>我们的皮肤表面住着数百种细菌、真菌和病毒，它们共同构成了皮肤的微生态系统。健康的皮肤菌相，有几个重要的功能：<br>🛡️ 形成物理屏障——好菌占位，让坏菌没办法附着<br>🧪 分泌抗菌肽（AMPs）——抑制金黄色葡萄球菌等致病菌的生长<br>⚖️ 调节局部免疫——帮助免疫细胞区分「朋友」和「敌人」</p><div class=\"highlight-box\"><p>📈 <strong>益生菌护肤研究数据：</strong><br>✔ 研究发现，外用含有 Lactobacillus 发酵产物的产品，4 周后可减少金黄色葡萄球菌数量达 <strong>99%</strong><br>✔ 同时提升皮肤屏障功能，TEWL 平均下降 26%<br>✔ 对于湿疹患者，使用含益生菌的保湿产品可显著延长复发间隔</p></div><p>但是，益生菌护肤品的品质差异非常大。</p><p>关键在于：<br>✔ 使用 <strong>经临床验证的菌株</strong>，而不是随便添加<br>✔ 发酵产物（Lysate）比活菌更适合外用——稳定性更高，致敏风险更低<br>✔ 浓度必须足够——微量添加只是宣传噱头</p><p>Epsilon 全系列使用的是高浓度 Lactobacillus Ferment Lysate，经过稳定性测试，确保每一批产品都能真正帮助恢复皮肤的微生态平衡。</p>',
+    footer: '❤️ 你的皮肤不需要被「无菌化」，它需要的是一个平衡的生态系统。'
+  },
+  {
+    tag: 'Routine',
+    title: '【💦 保湿不是补水面膜，是锁水】',
+    html: '<p>很多人觉得，皮肤干就要「补水」。所以拼命敷面膜、喷喷雾。<br>但你知道吗？<br>喷完喷雾不锁水，皮肤反而会 <strong>更干</strong>。</p><p>这是因为皮肤保湿的机制，不是「把水加进去」，而是「让水不要跑掉」。<br>保湿产品的作用可以分成三大类：</p><p><strong>1. 湿润剂（Humectants）</strong> —— 抓水<br>甘油、玻尿酸、泛醇 —— 从环境和真皮层抓住水分<br>🔻 缺点是：如果环境湿度 < 70%，抓来的水反而会从皮肤蒸发掉</p><p><strong>2. 封闭剂（Occlusives）</strong> —— 锁水<br>凡士林、角鲨烷、植物油 —— 在皮肤表面形成防水膜<br>🔺 是所有保湿步骤中最关键的一环</p><p><strong>3. 脂质补充剂（Emollients）</strong> —— 修墙<br>Ceramide、胆固醇、脂肪酸 —— 填补角质细胞之间的空隙<br>🧱 直接修复屏障结构</p><div class=\"highlight-box\"><p>🔬 <strong>正确的保湿 3 层概念：</strong><br>✔ 第一步：湿润剂抓水（Epsilon Soothing Mist 中的燕麦 + 甘油）<br>✔ 第二步：脂质修墙（Epsilon Relief Cream 中的 Ceramide + 胆固醇）<br>✔ 第三步：封闭锁水（Epsilon Relief Cream 中的乳油木果脂 + 角鲨烷）</p></div><p>所以，别再只靠一片面膜解决所有问题。<br>面膜只是暂时把角质层泡软，真正能让皮肤长时间保持水润的，是完整的保湿结构。</p>',
+    footer: '❤️ 保湿不是加水，是修墙。墙修好了，水自己会留下来。'
+  },
+  {
+    tag: 'Ingredients',
+    title: '【🌱 泛醇（Panthenol）：敏感肌的万用成分】',
+    html: '<p>如果你看敏感肌产品的成分表，有一个成分几乎都会出现——<br>它叫 <strong>Panthenol（泛醇），也就是 Vitamin B5 的前驱物</strong>。</p><p>但你知道吗？<br>这个看似普通的成分，其实是被严重低估的敏感肌万用成分。</p><p>泛醇进入皮肤后，会快速转化为 <strong>泛酸（Pantothenic Acid）</strong>，也就是辅酶 A（CoA）的关键组成成分。辅酶 A 参与皮肤中超过 70 种的代谢反应，包括：<br>🧬 促进角质细胞分化与迁移——加速微小伤口的愈合<br>💧 提升天然保湿因子（NMF）的合成——增加角质层含水量<br>🛡️ 调节发炎因子——降低 IL-6 和 TNF-α 的释放<br>🧴 促进脂质合成——帮助屏障修复</p><div class=\"highlight-box\"><p>📈 <strong>泛醇临床研究数据：</strong><br>✔ 使用 2% 泛醇的保湿产品，4 周后 TEWL 降低 <strong>28%</strong>，皮肤含水量提升 35%<br>✔ 在雷射术后使用含泛醇的产品，红斑消退速度加快 40%<br>✔ FDA 认可泛醇为皮肤保护剂（Skin Protectant），安全性极高</p></div><p>重点是：<br>泛醇的分子量较小，能渗透到角质层深层，真正进入细胞间发挥作用。<br>而且它非常温和——几乎不会引起刺激或过敏，适合所有肤质，包括婴幼儿。</p><p>Epsilon Relief Cream 和 Epsilon Soothing Mist 都添加了足量泛醇，不只是作为保湿剂，更是为了帮助皮肤加速自我修复。</p>',
+    footer: '❤️ 不是越稀有的成分越好——真正好的成分，是做了很多事却不张扬。'
+  },
+  {
+    tag: 'Eczema',
+    title: '【🧊 凉感可以止痒吗？薄荷醇的科学】',
+    html: '<p>很多湿疹止痒产品会添加薄荷醇（Menthol），让你擦上去凉凉的。</p><p>但你知道吗？<br>薄荷醇不是真正在「降温」——它是在 <strong>骗你的大脑</strong>。</p><p>薄荷醇的作用机制，其实非常巧妙：<br>🧊 它会结合皮肤冷觉感受器 <strong>TRPM8</strong>（一种离子通道蛋白）<br>🧠 TRPM8 受到刺激后，会向大脑发送「冷」的讯号<br>😌 大脑接收到冷的讯号后，会暂时忽略痒的讯号——这就是所谓的「门控理论」（Gate Control Theory）</p><p>换句话说，薄荷醇不是消除痒的根源（组胺或发炎），而是让大脑「转台」，去注意凉感而非痒感。</p><div class=\"highlight-box\"><p>🔬 <strong>关于薄荷醇的关键细节：</strong><br>✔ 低浓度（0.5–2%）的薄荷醇能有效止痒，且不会引起灼热感<br>❌ 高浓度（> 5%）反而可能刺激皮肤，引起灼热或刺痛<br>⚠️ 一般的薄荷醇效果大约持续 15–30 分钟，然后就会消退<br>🧪 <strong>缓释型薄荷醇</strong>通过特殊的包覆技术，可以让凉感持续 2–3 小时，大幅延长止痒效果</p></div><p>但每个人的耐受度不同。</p><p>有些敏感肌的人即使低浓度薄荷醇也会感到刺痛。这也是为什么 Epsilon 把薄荷醇设计在 <strong>喷雾剂型</strong>，而不是留在皮肤上的乳霜中：<br>✔ 喷雾接触时间短，刺激风险低<br>✔ 搭配缓释技术，凉感持久但不刺<br>✔ 不适合凉感的人，也可以单独使用 Relief Cream（不含薄荷醇）</p><p>止痒，不是只有一种方法。关键是找到适合你皮肤的方式。</p>',
+    footer: '❤️ 凉感不是降温，而是帮大脑转台——从痒转到凉。'
   }
 ];
 
@@ -1257,15 +1311,33 @@ function renderDailyPost(index) {
   document.getElementById('dailyDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-// Use today's date to pick the post (rotates daily)
+// Use day-of-year for daily rotation
 var today = new Date();
-var dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+var startOfYear = new Date(today.getFullYear(), 0, 0);
+var diff = today - startOfYear;
+var dayOfYear = Math.floor(diff / 86400000);
 var todayIndex = dayOfYear % dailyPosts.length;
 renderDailyPost(todayIndex);
 
-// Thursday is 4 (0=Sun), use 0-6
-var dayOfWeek = today.getDay();
-
+// Random button: pick a different post
+function showRandomPost() {
+  var current = document.getElementById('dailyArticle').getAttribute('data-index');
+  var randomIndex;
+  do {
+    randomIndex = Math.floor(Math.random() * dailyPosts.length);
+  } while (randomIndex == current && dailyPosts.length > 1);
+  renderDailyPost(randomIndex);
+  document.getElementById('dailyArticle').setAttribute('data-index', randomIndex);
+  // Save to session so user gets this one for the visit
+  try { sessionStorage.setItem('dailyPostIndex', randomIndex); } catch(e) {}
+}
+// Restore from session if available
+try {
+  var saved = sessionStorage.getItem('dailyPostIndex');
+  if (saved !== null) {
+    renderDailyPost(parseInt(saved));
+  }
+} catch(e) {}
 </script>
 var products = {
   serum: {
@@ -1486,7 +1558,7 @@ function showResults() {
         '<div class="desc">' + p.desc + '</div>' +
         '<div class="price">' + p.price + '</div>' +
       '</div>' +
-      '<a href="#" class="quiz-result-shop">Shop now</a>';
+      '<a href="https://skinpiens.com/collections/all" target="_blank" class="quiz-result-shop">Shop now</a>';
     container.appendChild(div);
   }
 
