@@ -80,12 +80,16 @@
     }
     .nav-links a:hover { opacity: 1; }
     .nav-icons { display: flex; align-items: center; gap: 16px; }
+    .nav-icons a { display: flex; align-items: center; }
     .nav-icons svg { width: 18px; height: 18px; stroke: #1d1d1f; fill: none; stroke-width: 1.5; transition: stroke .2s; }
-    .nav-icons svg:hover { stroke: #000; }
+    .nav-icons a:hover svg { stroke: #000; }
     .nav-mobile { display: none; }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 52px; left: 0; right: 0; background: rgba(255,255,255,.98); border-bottom: 1px solid #eee; padding: 12px 24px; }
+      .nav-links.open a { padding: 10px 0; font-size: 1.3rem; border-bottom: 1px solid #f0f0f0; }
+      .nav-links.open a:last-child { border-bottom: none; }
       .nav-mobile { display: flex; align-items: center; gap: 16px; }
     }
 
@@ -952,9 +956,9 @@
         <a href="journal.html">Journal</a>
       </div>
       <div class="nav-icons">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <div class="nav-mobile">
+        <a href="https://skinpiens.com/search" target="_blank" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+        <a href="https://skinpiens.com/cart" target="_blank" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+        <div class="nav-mobile" onclick="document.querySelector('.nav-links').classList.toggle('open')" style="cursor:pointer">
           <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </div>
       </div>
@@ -998,7 +1002,7 @@
     <h2 class="section-title">Best Sellers</h2>
     <p class="section-desc">Clinically proven, dermatologist tested, and adored by thousands.</p>
     <div class="product-grid">
-      <div class="product">
+      <a href="https://skinpiens.com/products/fortress-barrier-serum" target="_blank" class="product">
         <div class="product-img">
           <img src="https://skinpiens.com/cdn/shop/files/3_731d4ac3-b6e5-4843-980f-a617e60ac2bb.png?v=1775035127&width=400" alt="Fortress+ Serum">
         </div>
@@ -1009,8 +1013,8 @@
           <div class="product-price">RM 129</div>
           <div class="product-rating">★★★★★ <span>(128)</span></div>
         </div>
-      </div>
-      <div class="product">
+      </a>
+      <a href="https://skinpiens.com/products/epsilon-relief-cream" target="_blank" class="product">
         <div class="product-img">
           <img src="https://skinpiens.com/cdn/shop/files/epsilon_2.png?v=1775610977&width=400" alt="Epsilon Cream">
         </div>
@@ -1021,8 +1025,8 @@
           <div class="product-price">RM 98</div>
           <div class="product-rating">★★★★★ <span>(87)</span></div>
         </div>
-      </div>
-      <div class="product">
+      </a>
+      <a href="https://skinpiens.com/products/epsilon-barrier-cleanser" target="_blank" class="product">
         <div class="product-img">
           <img src="https://skinpiens.com/cdn/shop/files/epsilon.png?v=1775610830&width=400" alt="Epsilon Cleanser">
         </div>
@@ -1033,8 +1037,8 @@
           <div class="product-price">RM 50</div>
           <div class="product-rating">★★★★★ <span>(203)</span></div>
         </div>
-      </div>
-      <div class="product">
+      </a>
+      <a href="https://skinpiens.com/products/epsilon-soothing-mist" target="_blank" class="product">
         <div class="product-img">
           <img src="https://skinpiens.com/cdn/shop/files/epsilon_1.png?v=1775610926&width=400" alt="Epsilon Mist">
         </div>
@@ -1045,7 +1049,7 @@
           <div class="product-price">RM 60 <s>RM 75</s></div>
           <div class="product-rating">★★★★★ <span>(64)</span></div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -1055,9 +1059,9 @@
     <h2 class="section-title">Categories</h2>
     <p class="section-desc">Everything your skin, hair, and body need — formulated with care.</p>
     <div class="cat-grid">
-      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/1.png?v=1770194921&width=400') center/cover no-repeat;" onclick="document.getElementById('bestsellers').scrollIntoView({behavior:'smooth'});return false;"><span>Skin</span></a>
-      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/hair.png?v=1770195484&width=400') center/cover no-repeat;" onclick="document.getElementById('bestsellers').scrollIntoView({behavior:'smooth'});return false;"><span>Hair</span></a>
-      <a href="#" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/body.png?v=1770195784&width=400') center/cover no-repeat;" onclick="document.getElementById('bestsellers').scrollIntoView({behavior:'smooth'});return false;"><span>Body</span></a>
+      <a href="https://skinpiens.com/collections/skin" target="_blank" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/1.png?v=1770194921&width=400') center/cover no-repeat;"><span>Skin</span></a>
+      <a href="https://skinpiens.com/collections/hair" target="_blank" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/hair.png?v=1770195484&width=400') center/cover no-repeat;"><span>Hair</span></a>
+      <a href="https://skinpiens.com/collections/body" target="_blank" class="cat-card" style="background:url('https://skinpiens.com/cdn/shop/collections/body.png?v=1770195784&width=400') center/cover no-repeat;"><span>Body</span></a>
     </div>
   </section>
 
@@ -1071,7 +1075,7 @@
         <div class="section-label" style="text-align:left;">Our Philosophy</div>
         <h2>Clinical science.<br>Botanical wisdom.</h2>
         <p>Every formula is pharmacist-designed, combining high-potency clinical actives with time-tested botanical extracts. Your skin deserves the best of both worlds — no compromises, no irritation.</p>
-        <a href="#daily" class="btn btn-outline" onclick="document.getElementById('daily').scrollIntoView({behavior:'smooth'});return false;">Read our story →</a>
+        <a href="journal.html" class="btn btn-outline">Read our story →</a>
       </div>
     </div>
   </section>
@@ -1154,8 +1158,8 @@
   <section class="newsletter">
     <h2>Join the glow club.</h2>
     <p>10% off your first order + weekly skin tips and exclusive drops.</p>
-    <form onsubmit="event.preventDefault();alert('Welcome to the glow club ✨');">
-      <input type="email" placeholder="Enter your email" required>
+    <form action="https://skinpiens.com/contact#contact_form" method="GET" target="_blank">
+      <input type="email" name="contact[email]" placeholder="Enter your email" required>
       <button type="submit">Subscribe</button>
     </form>
   </section>
