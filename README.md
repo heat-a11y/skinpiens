@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SKINPIENS — Clinical Skincare · Botanical Science
+
+A modern e-commerce skincare showcase built with **Next.js 16 (App Router)**, TypeScript, Tailwind CSS v4, Framer Motion, and shadcn/Base UI.
+
+The storefront features a **10-in-1 Design Overhaul Switcher** — a floating toolbar that restyles the entire site under 10 distinct aesthetic architectures inspired by global skincare leaders, with zero page reloads.
+
+## 10-in-1 Theme Switcher
+
+Click the floating palette button (bottom-right) to preview Skinpiens under:
+
+| Theme | Architecture |
+| --- | --- |
+| **Aesop** | The Apothecary Archival — earthy beige, editorial serif, pharmacist narrative |
+| **The Ordinary** | Clinical Formulation Lab — monochrome, active-ingredient callouts |
+| **La Roche-Posay** | Dermatological Barrier — medical white/cyan, eczema indicators |
+| **Rhode / Glossier** | Clean Dewy Glow — soft blushes, glassmorphism, quick adds |
+| **Le Labo** | Botanical Heritage — dark slate, vintage batch-stamp accents |
+| **SK-II** | J-Beauty Minimalist — fluid water ripples, ritual-based horizontal flows |
+| **Augustinus Bader** | Hyper-Science Luxury — deep sapphire, brushed gold, trial data |
+| **Beauty of Joseon** | K-Beauty Glass Skin — frosted glass, routine carousels |
+| **Youth To The People** | Modern Botanical — eco-luxury sage, clean formula index |
+| **Curology** | Interactive Virtual Clinic — skin-quiz hero, tailored routines |
+
+Each theme is a self-contained CSS system (`data-theme` attribute on `<html>`) swapping palettes, typography (6 Google fonts), radii, and surfaces. Selections persist to `localStorage`.
+
+## Product Data
+
+- **Fortress+ Brightening Serum with Illumys®** — RM 128.00 (hero brightening active)
+- **Epsilon Ultra Soothing Cream** — RM 90.00 (eczema-grade ceramide barrier repair)
+- **Epsilon Ultra Soothing Mist** — RM 60.00 (instant redness relief)
+- **Epsilon Barrier Restoring Ceramide Cleanser** — RM 50.00 (sulfate-free, pH 5.5)
+- **Veragen POOG Collagen / NUCA Supplements** — ingestible inner-barrier support
+
+## Features
+
+- **Mega-menu header** (Skin · Eczema Range · Hair · Body · Supplement · Consult) with hover panel + mobile drawer
+- **Product grid** with active-ingredient tags, concern badges, ratings, quick-add, and **Quick View** dialog
+- **Cart sheet** with free-shipping progress bar (target RM 150), qty steppers, persisted cart
+- **3-step Skin Consultation** diagnostic that builds a tailored regimen and adds it to the bag
+- **Editorial & Clinical stories** — "Why Brightening Shouldn't Hurt" & "Epsilon Eczema Science"
+- **Clean Formula Index** — actives with doses, clinical data table, and an interactive barrier-hydration meter
+- Fully responsive: desktop, tablet, mobile
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Static export (GitHub Pages)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+EXPORT=true NEXT_PUBLIC_BASE_PATH=/skinpiens npm run build
+npx serve out
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/                  # routes (page, layout)
+components/
+  layout/             # header (mega-menu), footer
+  themes/             # ThemeSwitcher toolbar
+  providers/          # theme + cart state
+  sections/           # hero, product grid, stories, ingredients, quiz, newsletter
+  ui/                 # shadcn/Base UI + product card, quick view, cart, quiz
+lib/                  # product data, theme definitions, types
+```
