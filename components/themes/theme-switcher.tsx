@@ -18,10 +18,10 @@ export function ThemeSwitcher() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[45] flex justify-center px-3 pb-3">
-      <div className="pointer-events-auto glass w-full max-w-4xl rounded-2xl shadow-2xl shadow-primary/15">
+      <div className="pointer-events-auto glass min-w-0 w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl shadow-primary/15">
         {/* Header row */}
-        <div className="flex items-center gap-2 border-b border-border px-3 py-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-theme-accent">
+        <div className="flex min-w-0 items-center gap-2 border-b border-border px-3 py-2">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-theme-accent">
             <Palette className="h-3.5 w-3.5" />
           </span>
           <div className="min-w-0">
@@ -38,7 +38,7 @@ export function ThemeSwitcher() {
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
             aria-label={open ? "Hide theme list" : "Show theme list"}
-            className="ml-auto flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <ChevronDown
               className={cn("h-4 w-4 transition-transform", !open && "rotate-180")}
@@ -56,7 +56,7 @@ export function ThemeSwitcher() {
               className="overflow-hidden"
             >
               {/* Theme chips */}
-              <div className="no-scrollbar flex gap-1.5 overflow-x-auto px-3 py-2.5">
+              <div className="no-scrollbar flex min-w-0 gap-1.5 overflow-x-auto px-3 py-2.5">
                 {THEMES.map((t) => {
                   const active = t.id === theme;
                   return (

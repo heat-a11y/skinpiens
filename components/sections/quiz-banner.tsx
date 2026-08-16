@@ -13,7 +13,7 @@ const STEPS = [
 
 export function QuizBanner({ onConsult }: { onConsult: () => void }) {
   const { themeDef } = useTheme();
-  const clinic = themeDef.layout === "clinic";
+  const clinic = themeDef.hero === "clinic";
 
   return (
     <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:pb-24">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Droplets, FlaskConical } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import { useTheme } from "@/components/providers/theme-provider";
 
 const ACTIVES = [
   { name: "Illumys®", dose: "0.3%", claim: "Non-irritating luminosity", color: "#a65a2f" },
@@ -23,20 +24,49 @@ const TRIALS = [
 
 export function IngredientsSection() {
   const [barrierValue, setBarrierValue] = useState(68);
+  const { themeDef } = useTheme();
+
+  const copy =
+    themeDef.tone === "technical"
+      ? {
+          kicker: "Active Ingredient Specifications",
+          title: "The spec sheet",
+          sub: "Every Skinpiens formula declares its key actives, doses and the clinical claims they back.",
+        }
+      : themeDef.tone === "luxury"
+        ? {
+            kicker: "Clinical Trial Data",
+            title: "Proof, not promises",
+            sub: "IRB-approved studies behind every claim — luminosity, tolerance and barrier metrics.",
+          }
+        : themeDef.tone === "frosted"
+          ? {
+              kicker: "Hydration Statistics",
+              title: "Measured glass-skin gains",
+              sub: "Clinical metrics on hydration, glow and barrier integrity — straight from the lab.",
+            }
+          : themeDef.tone === "scandinavian"
+            ? {
+                kicker: "Clean Formula Index",
+                title: "What’s inside, honestly",
+                sub: "Our actives, doses and the botanical science behind each one. No greenwashing.",
+              }
+            : {
+                kicker: "The Formulary Notes",
+                title: "Actives with receipts, not rhetoric",
+                sub: "Every Skinpiens formula declares its key actives, doses and the clinical claims they back.",
+              };
 
   return (
     <section id="ingredients" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-24">
       <div className="mb-10 max-w-2xl">
-        <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-theme-accent">
-          Clean Formula Index
+        <p className="heading-case font-sans text-xs font-semibold uppercase tracking-[0.2em] text-theme-accent">
+          {copy.kicker}
         </p>
-        <h2 className="mt-3 font-heading text-3xl font-bold sm:text-4xl">
-          Actives with receipts, not rhetoric
+        <h2 className="heading-case mt-3 font-heading text-3xl font-bold sm:text-4xl">
+          {copy.title}
         </h2>
-        <p className="mt-4 text-muted-foreground text-pretty">
-          Every Skinpiens formula declares its key actives, doses and the clinical
-          claims they back.
-        </p>
+        <p className="mt-4 text-muted-foreground text-pretty">{copy.sub}</p>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

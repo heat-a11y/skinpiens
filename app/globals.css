@@ -91,6 +91,8 @@
   --theme-accent-foreground: #fff8ee;
   --font-body: var(--font-inter);
   --font-heading: var(--font-playfair);
+  --heading-transform: none;
+  --heading-tracking: 0.01em;
   --sidebar: var(--background);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
@@ -137,6 +139,8 @@
   --theme-accent-foreground: #0a0a0a;
   --font-body: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
+  --heading-transform: uppercase;
+  --heading-tracking: 0.03em;
 }
 
 [data-theme="la-roche-posay"] {
@@ -251,6 +255,8 @@
   --theme-accent-foreground: #1e2622;
   --font-body: var(--font-inter);
   --font-heading: var(--font-cormorant);
+  --heading-transform: uppercase;
+  --heading-tracking: 0.05em;
 }
 
 [data-theme="sk-ii-zen"] {
@@ -289,6 +295,8 @@
   --theme-accent-foreground: #0f2b3a;
   --font-body: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
+  --heading-transform: none;
+  --heading-tracking: 0.02em;
 }
 
 [data-theme="augustinus-bader"] {
@@ -327,6 +335,8 @@
   --theme-accent-foreground: #0a1628;
   --font-body: var(--font-inter);
   --font-heading: var(--font-cormorant);
+  --heading-transform: uppercase;
+  --heading-tracking: 0.04em;
 }
 
 [data-theme="beauty-of-joseon"] {
@@ -453,6 +463,7 @@
   html {
     @apply font-sans;
     font-family: var(--font-body);
+    overflow-x: clip;
   }
 }
 
@@ -497,6 +508,33 @@ html.theme-anim *::after {
   letter-spacing: var(--heading-tracking, 0em);
 }
 
+/* Vertical CJK-style accent text (SK-II / J-beauty) */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Aged batch-stamp style (Le Labo / apothecary) */
+.stamp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 60%, transparent);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--theme-accent);
+  transform: rotate(-3deg);
+}
+.stamp::after {
+  content: "·";
+  margin-left: 0.35rem;
+}
+
 .text-balance {
   text-wrap: balance;
 }
@@ -523,4 +561,14 @@ html.theme-anim *::after {
 }
 .animate-marquee {
   animation: marquee 28s linear infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
