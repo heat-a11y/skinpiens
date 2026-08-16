@@ -19,6 +19,8 @@ const STORIES = [
     excerpt:
       "For decades, brightening meant acids, stinging and downtime. We rebuilt the pathway from the skin barrier up — luminosity without a single day of regret.",
     art: { from: "#f7e8d8", to: "#d9b98f", accent: "#a65a2f", label: "Illumys®" },
+    image:
+      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1200&q=80&auto=format&fit=crop",
     chapters: [
       {
         q: "The old-school brightening toll",
@@ -41,6 +43,8 @@ const STORIES = [
     excerpt:
       "Eczema is a barrier disease, not a surface one. Our Epsilon range rebuilds the missing lipid matrix — ceramide by ceramide.",
     art: { from: "#dbeaf0", to: "#a8c9d6", accent: "#2f6a7d", label: "ε" },
+    image:
+      "https://images.unsplash.com/photo-1580870069867-74c57ee1bb07?w=1200&q=80&auto=format&fit=crop",
     chapters: [
       {
         q: "Why eczema-prone skin fails at the barrier",
@@ -88,25 +92,39 @@ export function StoriesSection() {
             >
               {/* Art header */}
               <div
-                className="relative flex h-44 items-center justify-center overflow-hidden"
+                className="relative flex h-52 items-center justify-center overflow-hidden"
                 style={{
                   background: `radial-gradient(120% 100% at 50% 0%, ${story.art.from}, ${story.art.to})`,
                 }}
               >
-                <div className="flex flex-col items-center gap-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={story.image}
+                  alt={story.title}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(0,0,0,0.05), color-mix(in srgb, var(--card) 85%, transparent))",
+                  }}
+                />
+                <div className="relative flex flex-col items-center gap-2">
                   <span
-                    className="font-heading text-4xl font-semibold"
+                    className="rounded-full bg-background/85 px-4 py-1 font-heading text-xl font-semibold backdrop-blur-sm"
                     style={{ color: story.art.accent }}
                   >
                     {story.art.label}
                   </span>
-                  <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.24em] text-foreground/60">
+                  <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.24em] text-foreground/80">
                     Skinpiens Research · MMXXVI
                   </span>
                 </div>
                 <Quote
                   className="absolute right-4 top-4 h-10 w-10"
-                  style={{ color: story.art.accent, opacity: 0.35 }}
+                  style={{ color: story.art.accent, opacity: 0.4 }}
                 />
               </div>
 

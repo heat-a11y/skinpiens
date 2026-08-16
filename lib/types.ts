@@ -32,6 +32,7 @@ export interface Product {
   skinTypes: string[];
   description: string;
   hero: boolean;
+  image?: string;
   art: {
     from: string;
     to: string;

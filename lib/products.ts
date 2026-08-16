@@ -22,6 +22,7 @@ export const PRODUCTS: Product[] = [
       "Our hero brightening active for sensitive skin. Illumys® delivers visible luminosity through a non-irritating pathway — no harsh acids, no stinging, no downtime. Backed by a 12-week dermatological study on Malaysian skin.",
     hero: true,
     art: { from: "#f7e8d8", to: "#e2b98f", accent: "#a65a2f", label: "I" },
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=900&q=80&auto=format&fit=crop",
   },
   {
     id: "epsilon-cream",
@@ -42,6 +43,7 @@ export const PRODUCTS: Product[] = [
       "A medical-grade barrier repair cream for eczema-prone and reactive skin. Restores the lipid matrix with triple ceramides while clinically calming visible flare-ups in as little as 3 days.",
     hero: true,
     art: { from: "#dbeaf0", to: "#a8c9d6", accent: "#2f6a7d", label: "ε" },
+    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=900&q=80&auto=format&fit=crop",
   },
   {
     id: "epsilon-mist",
@@ -62,6 +64,7 @@ export const PRODUCTS: Product[] = [
       "A fine calming mist that floods stressed skin with ceramides and beta-glucan. Spritz over irritation, post-peel sensitivity, or under makeup for an immediate barrier cushion.",
     hero: false,
     art: { from: "#e3f1f5", to: "#b7d9e4", accent: "#3c7c94", label: "ε" },
+    image: "https://images.unsplash.com/photo-1601049676869-702ea24cfd58?w=900&q=80&auto=format&fit=crop",
   },
   {
     id: "epsilon-cleanser",
@@ -82,6 +85,7 @@ export const PRODUCTS: Product[] = [
       "A creamy, low-foam cleanser that removes the day without stripping the skin barrier. Formulated to the physiological pH of compromised skin — your AM/PM reset.",
     hero: false,
     art: { from: "#eef5f4", to: "#c9ddd8", accent: "#3f7a6d", label: "ε" },
+    image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=900&q=80&auto=format&fit=crop",
   },
   {
     id: "veragen-poog",
@@ -103,6 +107,7 @@ export const PRODUCTS: Product[] = [
       "Ingestible inner-barrier support. Pept-Oligo Glucan primes the gut-skin axis while marine collagen peptides and skin-identical ceramides reinforce the barrier from within.",
     hero: false,
     art: { from: "#f3e8d8", to: "#d9bfa0", accent: "#8a6a4a", label: "V" },
+    image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=900&q=80&auto=format&fit=crop",
   },
   {
     id: "veragen-nuca",
@@ -123,6 +128,7 @@ export const PRODUCTS: Product[] = [
       "A nocturnal nutraceutical blend that supports cellular turnover and circadian repair. Wake to brighter, more rested-looking skin.",
     hero: false,
     art: { from: "#ece6ef", to: "#c7bcd6", accent: "#6a5a8a", label: "N" },
+    image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=900&q=80&auto=format&fit=crop",
   },
 ];
 
