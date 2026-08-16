@@ -136,6 +136,22 @@ export function Header({ onConsult }: { onConsult: () => void }) {
                   </button>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/journal"
+                  className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                >
+                  Journal
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/routine"
+                  className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                >
+                  Routine
+                </a>
+              </li>
             </ul>
           </nav>
 
@@ -293,6 +309,20 @@ export function Header({ onConsult }: { onConsult: () => void }) {
                 </AnimatePresence>
               </div>
             ))}
+            <a
+              href="/journal"
+              onClick={() => setMobileOpen(false)}
+              className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-muted"
+            >
+              Journal
+            </a>
+            <a
+              href="/routine"
+              onClick={() => setMobileOpen(false)}
+              className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-muted"
+            >
+              Routine Builder
+            </a>
           </nav>
           <div className="border-t border-border p-4">
             <Badge variant="secondary" className="w-full justify-center py-2">

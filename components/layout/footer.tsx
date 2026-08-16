@@ -3,15 +3,30 @@ import { AtSign, Mail, MapPin, MessageCircle, Play } from "lucide-react";
 const COLUMNS = [
   {
     title: "Shop",
-    links: ["Skin", "Eczema Range", "Hair", "Body", "Supplement", "Consult"],
+    links: [
+      { label: "Skin", href: "/#products" },
+      { label: "Eczema Range", href: "/#products" },
+      { label: "Supplement", href: "/#products" },
+      { label: "Build a Routine", href: "/routine" },
+    ],
   },
   {
     title: "Skinpiens",
-    links: ["Our Science", "Clinical Stories", "Ingredients Glossary", "Sustainability", "Careers"],
+    links: [
+      { label: "Journal", href: "/journal" },
+      { label: "Our Science", href: "/#science" },
+      { label: "Clinical Stories", href: "/journal" },
+      { label: "Ingredients", href: "/#ingredients" },
+    ],
   },
   {
     title: "Support",
-    links: ["Shipping & Delivery", "Returns", "FAQ", "Track Order", "Contact Us"],
+    links: [
+      { label: "Shipping & Delivery", href: "#" },
+      { label: "Returns", href: "#" },
+      { label: "FAQ", href: "#" },
+      { label: "Contact Us", href: "mailto:hello@skinpiens.com" },
+    ],
   },
 ];
 
@@ -52,12 +67,12 @@ export function Footer() {
             </p>
             <ul className="mt-4 space-y-2.5">
               {col.links.map((link) => (
-                <li key={link}>
+                <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}

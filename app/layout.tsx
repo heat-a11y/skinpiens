@@ -48,6 +48,18 @@ export const metadata: Metadata = {
     "Skinpiens is a clinical skincare and botanical science house. Brightening that never hurts, eczema-grade barrier repair, and ingestible inner-barrier support.",
 };
 
+/**
+ * Applies the saved (or ?theme= requested) design before first paint so the
+ * page never flashes the wrong theme, even on a fully static export.
+ */
+const THEME_BOOT_SCRIPT = `(function(){try{
+var valid=["aesop","the-ordinary","la-roche-posay","rhode-glossier","le-labo-apothecary","sk-ii-zen","augustinus-bader","beauty-of-joseon","youth-to-the-people","curology-direct"];
+var m=location.search.match(/[?&]theme=([a-z0-9-]+)/);
+var t=m?m[1]:localStorage.getItem("skinpiens-theme")||"aesop";
+if(valid.indexOf(t)===-1)t="aesop";
+document.documentElement.setAttribute("data-theme",t);
+}catch(e){}})();`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -55,6 +67,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme="aesop"
       className={`${inter.variable} ${spaceGrotesk.variable} ${playfair.variable} ${cormorant.variable} ${manrope.variable} ${dmSans.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
           <CartProvider>{children}</CartProvider>

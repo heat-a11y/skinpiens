@@ -33,6 +33,7 @@ export interface Product {
   description: string;
   hero: boolean;
   image?: string;
+  gallery?: string[];
   art: {
     from: string;
     to: string;

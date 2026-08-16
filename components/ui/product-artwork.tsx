@@ -1,20 +1,22 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/types";
 
 /**
- * Product artwork — renders the product photograph with a themed
- * gradient backdrop, ambient glow and subtle vignette. Falls back to a
- * CSS-rendered bottle when no photograph is available.
+ * Product artwork — renders the product photograph on a themed gradient
+ * with ambient glow and a soft vignette. Falls back to a CSS bottle when
+ * no photograph is available.
  */
 export function ProductArtwork({
   product,
   className,
   showBrand = true,
+  priority = false,
 }: {
   product: Product;
   className?: string;
   showBrand?: boolean;
+  priority?: boolean;
 }) {
   const { art, image, name } = product;
 
@@ -35,11 +37,13 @@ export function ProductArtwork({
       />
 
       {image ? (
-        <img
+        <Image
           src={image}
           alt={name}
-          loading="lazy"
-          className="absolute inset-0 z-10 h-full w-full object-cover"
+          fill
+          priority={priority}
+          sizes="(max-width: 640px) 100vw, 50vw"
+          className="object-cover"
         />
       ) : (
         <div className="absolute inset-0 z-10 flex items-end justify-center">

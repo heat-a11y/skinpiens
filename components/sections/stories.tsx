@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Beaker, Clock, FileText, Quote } from "lucide-react";
 import {
@@ -19,8 +20,7 @@ const STORIES = [
     excerpt:
       "For decades, brightening meant acids, stinging and downtime. We rebuilt the pathway from the skin barrier up — luminosity without a single day of regret.",
     art: { from: "#f7e8d8", to: "#d9b98f", accent: "#a65a2f", label: "Illumys®" },
-    image:
-      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1200&q=80&auto=format&fit=crop",
+    image: "/editorial/story-brightening.png",
     chapters: [
       {
         q: "The old-school brightening toll",
@@ -43,8 +43,7 @@ const STORIES = [
     excerpt:
       "Eczema is a barrier disease, not a surface one. Our Epsilon range rebuilds the missing lipid matrix — ceramide by ceramide.",
     art: { from: "#dbeaf0", to: "#a8c9d6", accent: "#2f6a7d", label: "ε" },
-    image:
-      "https://images.unsplash.com/photo-1580870069867-74c57ee1bb07?w=1200&q=80&auto=format&fit=crop",
+    image: "/editorial/story-epsilon.jpg",
     chapters: [
       {
         q: "Why eczema-prone skin fails at the barrier",
@@ -97,12 +96,12 @@ export function StoriesSection() {
                   background: `radial-gradient(120% 100% at 50% 0%, ${story.art.from}, ${story.art.to})`,
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={story.image}
                   alt={story.title}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
                 <div
                   className="absolute inset-0"

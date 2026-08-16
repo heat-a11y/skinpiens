@@ -63,6 +63,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(t);
   }, [theme]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("theme");
+    if (requested && THEMES.some((t) => t.id === requested)) {
+      writeTheme(requested);
+    }
+  }, []);
+
   return (
     <ThemeContext.Provider
       value={{ theme, themeDef: getTheme(theme), setTheme }}

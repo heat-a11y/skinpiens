@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Eye, Plus, ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -47,7 +48,8 @@ export function ProductCard({
         variant === "compact" && "rounded-none",
       )}
     >
-      <div
+      <Link
+        href={`/products/${product.slug}`}
         className={cn(
           "relative aspect-square overflow-hidden",
           variant === "carousel" ? "rounded-t-3xl" : "rounded-t-lg",
@@ -71,31 +73,31 @@ export function ProductCard({
             ))}
           </div>
         )}
+      </Link>
 
-        <div
-          className={cn(
-            "absolute right-3 top-3 z-30 flex flex-col gap-1.5 opacity-0 transition-all duration-300 group-hover:opacity-100",
-            variant === "numbered" && "right-auto left-3 top-12",
-          )}
+      <div
+        className={cn(
+          "absolute right-3 top-3 z-30 flex flex-col gap-1.5 opacity-0 transition-all duration-300 group-hover:opacity-100",
+          variant === "numbered" && "right-auto left-3 top-12",
+        )}
+      >
+        <Button
+          size="icon"
+          variant="secondary"
+          aria-label={`Quick view ${product.name}`}
+          onClick={() => onQuickView(product)}
+          className="glass h-9 w-9 rounded-full backdrop-blur-md"
         >
-          <Button
-            size="icon"
-            variant="secondary"
-            aria-label={`Quick view ${product.name}`}
-            onClick={() => onQuickView(product)}
-            className="glass h-9 w-9 rounded-full backdrop-blur-md"
-          >
-            <Eye className="h-4 w-4" />
-          </Button>
-          <Button
-            size="icon"
-            aria-label={`Add ${product.name} to bag`}
-            onClick={handleAdd}
-            className="h-9 w-9 rounded-full"
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
-        </div>
+          <Eye className="h-4 w-4" />
+        </Button>
+        <Button
+          size="icon"
+          aria-label={`Add ${product.name} to bag`}
+          onClick={handleAdd}
+          className="h-9 w-9 rounded-full"
+        >
+          <Plus className="h-4 w-4" />
+        </Button>
       </div>
 
       <div
@@ -113,14 +115,15 @@ export function ProductCard({
           {product.line}
         </p>
         <div className="flex items-start justify-between gap-2">
-          <h3
+          <Link
+            href={`/products/${product.slug}`}
             className={cn(
               "font-heading leading-tight font-semibold",
               variant === "compact" ? "text-sm" : "text-lg",
             )}
           >
             {product.name}
-          </h3>
+          </Link>
           <span
             className={cn(
               "shrink-0 text-muted-foreground",
