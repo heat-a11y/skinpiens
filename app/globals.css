@@ -1,0 +1,526 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-star: var(--star);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-hero-glow: var(--hero-glow);
+  --color-chip: var(--chip-bg);
+  --color-chip-foreground: var(--chip-fg);
+  --color-theme-accent: var(--theme-accent);
+  --color-theme-accent-foreground: var(--theme-accent-foreground);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-geist-mono);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ---------------------------------------------------------------------------
+   SKINPIENS — 10-in-1 Theme Architecture
+   Each block is a complete, self-contained visual system driven by
+   data-theme on <html>. Switching is instant + animated, no reload.
+--------------------------------------------------------------------------- */
+
+:root,
+[data-theme="aesop"] {
+  --background: #f3eee3;
+  --foreground: #232019;
+  --card: #faf6ec;
+  --card-foreground: #232019;
+  --popover: #faf6ec;
+  --popover-foreground: #232019;
+  --primary: #3e3a2e;
+  --primary-foreground: #f3eee3;
+  --secondary: #e7dfcf;
+  --secondary-foreground: #3e3a2e;
+  --muted: #eae2d2;
+  --muted-foreground: #6e6759;
+  --accent: #a65a2f;
+  --accent-foreground: #fff8ee;
+  --destructive: #b3412f;
+  --border: #d8cdb8;
+  --input: #d8cdb8;
+  --ring: #a65a2f;
+  --chart-1: #a65a2f;
+  --chart-2: #6e6759;
+  --chart-3: #c9b78c;
+  --chart-4: #8a7a5c;
+  --chart-5: #3e3a2e;
+  --radius: 0.25rem;
+  --star: #a65a2f;
+  --glass: rgba(243, 238, 227, 0.62);
+  --glass-border: rgba(216, 205, 184, 0.55);
+  --nav-bg: rgba(243, 238, 227, 0.85);
+  --hero-glow: #a65a2f;
+  --chip-bg: #e7dfcf;
+  --chip-fg: #3e3a2e;
+  --theme-accent: #a65a2f;
+  --theme-accent-foreground: #fff8ee;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-playfair);
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--muted-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+[data-theme="the-ordinary"] {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f4;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f2f2f2;
+  --muted-foreground: #6e6e6e;
+  --accent: #d8e33e;
+  --accent-foreground: #0a0a0a;
+  --destructive: #c8232c;
+  --border: #e2e2e2;
+  --input: #e2e2e2;
+  --ring: #0a0a0a;
+  --chart-1: #0a0a0a;
+  --chart-2: #6e6e6e;
+  --chart-3: #d8e33e;
+  --chart-4: #b0b0b0;
+  --chart-5: #3d3d3d;
+  --radius: 0rem;
+  --star: #c9a226;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(226, 226, 226, 0.8);
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --hero-glow: #d8e33e;
+  --chip-bg: #f2f2f2;
+  --chip-fg: #0a0a0a;
+  --theme-accent: #d8e33e;
+  --theme-accent-foreground: #0a0a0a;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+}
+
+[data-theme="la-roche-posay"] {
+  --background: #ffffff;
+  --foreground: #0e1c2a;
+  --card: #ffffff;
+  --card-foreground: #0e1c2a;
+  --popover: #ffffff;
+  --popover-foreground: #0e1c2a;
+  --primary: #0098d3;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf6fc;
+  --secondary-foreground: #0e4c6e;
+  --muted: #f2f7fa;
+  --muted-foreground: #5a6b7a;
+  --accent: #4cc3e6;
+  --accent-foreground: #062a3a;
+  --destructive: #d0442c;
+  --border: #dce8ef;
+  --input: #dce8ef;
+  --ring: #0098d3;
+  --chart-1: #0098d3;
+  --chart-2: #4cc3e6;
+  --chart-3: #7fb9d8;
+  --chart-4: #0e4c6e;
+  --chart-5: #062a3a;
+  --radius: 0.5rem;
+  --star: #0098d3;
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(220, 232, 239, 0.8);
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --hero-glow: #0098d3;
+  --chip-bg: #eaf6fc;
+  --chip-fg: #0e4c6e;
+  --theme-accent: #4cc3e6;
+  --theme-accent-foreground: #062a3a;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-inter);
+}
+
+[data-theme="rhode-glossier"] {
+  --background: #fdf6f1;
+  --foreground: #3a2430;
+  --card: #fffaf6;
+  --card-foreground: #3a2430;
+  --popover: #fffaf6;
+  --popover-foreground: #3a2430;
+  --primary: #d4869b;
+  --primary-foreground: #fffdfb;
+  --secondary: #f9e9ec;
+  --secondary-foreground: #7a3a50;
+  --muted: #faefe6;
+  --muted-foreground: #8a6a70;
+  --accent: #f2c7d1;
+  --accent-foreground: #7a3a50;
+  --destructive: #d4526b;
+  --border: #f0dadf;
+  --input: #f0dadf;
+  --ring: #d4869b;
+  --chart-1: #d4869b;
+  --chart-2: #f2c7d1;
+  --chart-3: #e7a94e;
+  --chart-4: #b86b85;
+  --chart-5: #7a3a50;
+  --radius: 1.25rem;
+  --star: #e7a94e;
+  --glass: rgba(255, 250, 246, 0.55);
+  --glass-border: rgba(240, 218, 223, 0.7);
+  --nav-bg: rgba(253, 246, 241, 0.82);
+  --hero-glow: #f2c7d1;
+  --chip-bg: #f9e9ec;
+  --chip-fg: #8a4a5a;
+  --theme-accent: #d4869b;
+  --theme-accent-foreground: #fffdfb;
+  --font-body: var(--font-manrope);
+  --font-heading: var(--font-manrope);
+}
+
+[data-theme="le-labo-apothecary"] {
+  --background: #1e2622;
+  --foreground: #ede4d4;
+  --card: #28332d;
+  --card-foreground: #ede4d4;
+  --popover: #28332d;
+  --popover-foreground: #ede4d4;
+  --primary: #c9a06b;
+  --primary-foreground: #1e2622;
+  --secondary: #2e3b34;
+  --secondary-foreground: #c9a06b;
+  --muted: #2e3b34;
+  --muted-foreground: #9aa89e;
+  --accent: #a9b7a0;
+  --accent-foreground: #141a17;
+  --destructive: #c2573c;
+  --border: #3a4a40;
+  --input: #3a4a40;
+  --ring: #c9a06b;
+  --chart-1: #c9a06b;
+  --chart-2: #a9b7a0;
+  --chart-3: #8a6a4a;
+  --chart-4: #e8d9bd;
+  --chart-5: #6a7a70;
+  --radius: 0.125rem;
+  --star: #c9a06b;
+  --glass: rgba(30, 38, 34, 0.55);
+  --glass-border: rgba(58, 74, 64, 0.6);
+  --nav-bg: rgba(30, 38, 34, 0.82);
+  --hero-glow: #c9a06b;
+  --chip-bg: #2e3b34;
+  --chip-fg: #c9a06b;
+  --theme-accent: #c9a06b;
+  --theme-accent-foreground: #1e2622;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-cormorant);
+}
+
+[data-theme="sk-ii-zen"] {
+  --background: #f5f3ee;
+  --foreground: #1c2733;
+  --card: #fbfaf6;
+  --card-foreground: #1c2733;
+  --popover: #fbfaf6;
+  --popover-foreground: #1c2733;
+  --primary: #2b3a4a;
+  --primary-foreground: #f5f3ee;
+  --secondary: #e9e7e0;
+  --secondary-foreground: #1c2733;
+  --muted: #eae8e2;
+  --muted-foreground: #6b7782;
+  --accent: #7fb4c9;
+  --accent-foreground: #0f2b3a;
+  --destructive: #b04a5a;
+  --border: #dcd8cf;
+  --input: #dcd8cf;
+  --ring: #7fb4c9;
+  --chart-1: #7fb4c9;
+  --chart-2: #2b3a4a;
+  --chart-3: #b06a8a;
+  --chart-4: #c9b78c;
+  --chart-5: #6b7782;
+  --radius: 0.375rem;
+  --star: #b06a8a;
+  --glass: rgba(245, 243, 238, 0.55);
+  --glass-border: rgba(220, 216, 207, 0.7);
+  --nav-bg: rgba(245, 243, 238, 0.82);
+  --hero-glow: #7fb4c9;
+  --chip-bg: #e9e7e0;
+  --chip-fg: #1c2733;
+  --theme-accent: #7fb4c9;
+  --theme-accent-foreground: #0f2b3a;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+}
+
+[data-theme="augustinus-bader"] {
+  --background: #0a1628;
+  --foreground: #e9eef4;
+  --card: #10213a;
+  --card-foreground: #e9eef4;
+  --popover: #10213a;
+  --popover-foreground: #e9eef4;
+  --primary: #c9a24b;
+  --primary-foreground: #0a1628;
+  --secondary: #132542;
+  --secondary-foreground: #c9a24b;
+  --muted: #12243f;
+  --muted-foreground: #8a9cb5;
+  --accent: #6e89b5;
+  --accent-foreground: #ffffff;
+  --destructive: #c8554a;
+  --border: #1c3450;
+  --input: #1c3450;
+  --ring: #c9a24b;
+  --chart-1: #c9a24b;
+  --chart-2: #6e89b5;
+  --chart-3: #3f6a9c;
+  --chart-4: #8a9cb5;
+  --chart-5: #e9eef4;
+  --radius: 0.125rem;
+  --star: #c9a24b;
+  --glass: rgba(10, 22, 40, 0.55);
+  --glass-border: rgba(28, 52, 80, 0.6);
+  --nav-bg: rgba(10, 22, 40, 0.82);
+  --hero-glow: #c9a24b;
+  --chip-bg: #132542;
+  --chip-fg: #c9a24b;
+  --theme-accent: #c9a24b;
+  --theme-accent-foreground: #0a1628;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-cormorant);
+}
+
+[data-theme="beauty-of-joseon"] {
+  --background: #fbf7f0;
+  --foreground: #2e3a33;
+  --card: #fffdf8;
+  --card-foreground: #2e3a33;
+  --popover: #fffdf8;
+  --popover-foreground: #2e3a33;
+  --primary: #51706b;
+  --primary-foreground: #fbfaf5;
+  --secondary: #f2eae0;
+  --secondary-foreground: #45645c;
+  --muted: #f4ede4;
+  --muted-foreground: #7e7a70;
+  --accent: #e6c3bb;
+  --accent-foreground: #5a3a33;
+  --destructive: #c46a5a;
+  --border: #e7ddd0;
+  --input: #e7ddd0;
+  --ring: #8fb0a4;
+  --chart-1: #8fb0a4;
+  --chart-2: #e6c3bb;
+  --chart-3: #c99a6b;
+  --chart-4: #51706b;
+  --chart-5: #7e7a70;
+  --radius: 1rem;
+  --star: #b78f6a;
+  --glass: rgba(251, 247, 240, 0.55);
+  --glass-border: rgba(231, 221, 208, 0.7);
+  --nav-bg: rgba(251, 247, 240, 0.82);
+  --hero-glow: #a9c2b9;
+  --chip-bg: #f2eae0;
+  --chip-fg: #45645c;
+  --theme-accent: #8fb0a4;
+  --theme-accent-foreground: #21342e;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-manrope);
+}
+
+[data-theme="youth-to-the-people"] {
+  --background: #f4f7ef;
+  --foreground: #24301f;
+  --card: #fafcf5;
+  --card-foreground: #24301f;
+  --popover: #fafcf5;
+  --popover-foreground: #24301f;
+  --primary: #4e6647;
+  --primary-foreground: #f4f7ef;
+  --secondary: #e6edda;
+  --secondary-foreground: #33442d;
+  --muted: #edf1e4;
+  --muted-foreground: #5f6e55;
+  --accent: #a8c44e;
+  --accent-foreground: #1c260f;
+  --destructive: #c0533c;
+  --border: #d9e1cc;
+  --input: #d9e1cc;
+  --ring: #7c9a6c;
+  --chart-1: #7c9a6c;
+  --chart-2: #a8c44e;
+  --chart-3: #c99b3c;
+  --chart-4: #4e6647;
+  --chart-5: #5f6e55;
+  --radius: 0.875rem;
+  --star: #c99b3c;
+  --glass: rgba(244, 247, 239, 0.6);
+  --glass-border: rgba(217, 225, 204, 0.7);
+  --nav-bg: rgba(244, 247, 239, 0.85);
+  --hero-glow: #a8c44e;
+  --chip-bg: #e6edda;
+  --chip-fg: #33442d;
+  --theme-accent: #a8c44e;
+  --theme-accent-foreground: #1c260f;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-manrope);
+}
+
+[data-theme="curology-direct"] {
+  --background: #ffffff;
+  --foreground: #221f3b;
+  --card: #ffffff;
+  --card-foreground: #221f3b;
+  --popover: #ffffff;
+  --popover-foreground: #221f3b;
+  --primary: #6c5ce7;
+  --primary-foreground: #ffffff;
+  --secondary: #f1effd;
+  --secondary-foreground: #4a3fb0;
+  --muted: #f5f4fb;
+  --muted-foreground: #6e6a8c;
+  --accent: #4dd0a4;
+  --accent-foreground: #0e2b22;
+  --destructive: #e05a5a;
+  --border: #e5e3f4;
+  --input: #e5e3f4;
+  --ring: #6c5ce7;
+  --chart-1: #6c5ce7;
+  --chart-2: #4dd0a4;
+  --chart-3: #f6a34c;
+  --chart-4: #8b7de8;
+  --chart-5: #221f3b;
+  --radius: 1.125rem;
+  --star: #f6a34c;
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(229, 227, 244, 0.7);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --hero-glow: #6c5ce7;
+  --chip-bg: #f1effd;
+  --chip-fg: #4a3fb0;
+  --theme-accent: #4dd0a4;
+  --theme-accent-foreground: #0e2b22;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-dm-sans);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    font-family: var(--font-body);
+  }
+}
+
+/* Animated theme switching */
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+  transition:
+    background-color 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    fill 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Reusable themed surfaces */
+.glass {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border, var(--border));
+}
+
+.hero-glow {
+  position: relative;
+}
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(60% 55% at 20% 20%, color-mix(in srgb, var(--hero-glow) 30%, transparent), transparent 70%),
+    radial-gradient(50% 50% at 80% 30%, color-mix(in srgb, var(--hero-glow) 16%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+.heading-case {
+  text-transform: var(--heading-transform, none);
+  letter-spacing: var(--heading-tracking, 0em);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Hide scrollbars for horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}

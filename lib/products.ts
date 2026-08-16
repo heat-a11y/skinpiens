@@ -1,0 +1,135 @@
+import type { Product } from "@/lib/types";
+
+export const FREE_SHIPPING_THRESHOLD = 150;
+
+export const PRODUCTS: Product[] = [
+  {
+    id: "fortress-plus",
+    slug: "fortress-plus-brightening-serum",
+    name: "Fortress+ Brightening Serum",
+    line: "Fortress+",
+    tagline: "with Illumys® · Clinical brightening that never stings",
+    category: "Skin",
+    price: 128,
+    rating: 4.9,
+    reviews: 1240,
+    format: "30 ml",
+    ingredients: ["Illumys®", "Tranexamic Acid 2%", "Niacinamide 5%", "Panthenol"],
+    badges: ["Hero", "Sensitive-safe", "Fragrance-free"],
+    concerns: ["Brightening", "Sensitive", "Barrier Repair"],
+    skinTypes: ["Sensitive", "Normal", "Combination"],
+    description:
+      "Our hero brightening active for sensitive skin. Illumys® delivers visible luminosity through a non-irritating pathway — no harsh acids, no stinging, no downtime. Backed by a 12-week dermatological study on Malaysian skin.",
+    hero: true,
+    art: { from: "#f7e8d8", to: "#e2b98f", accent: "#a65a2f", label: "I" },
+  },
+  {
+    id: "epsilon-cream",
+    slug: "epsilon-ultra-soothing-cream",
+    name: "Epsilon Ultra Soothing Cream",
+    line: "Epsilon Eczema",
+    tagline: "Eczema-grade ceramide barrier repair",
+    category: "Eczema Range",
+    price: 90,
+    rating: 4.8,
+    reviews: 986,
+    format: "50 ml",
+    ingredients: ["Ceramide NP", "Epsilon-Ferm Complex", "Panthenol 5%", "Shea Butter"],
+    badges: ["Eczema-friendly", "Dermatologist-tested", "Paraben-free"],
+    concerns: ["Redness / Eczema", "Barrier Repair", "Dehydration"],
+    skinTypes: ["Sensitive", "Dry"],
+    description:
+      "A medical-grade barrier repair cream for eczema-prone and reactive skin. Restores the lipid matrix with triple ceramides while clinically calming visible flare-ups in as little as 3 days.",
+    hero: true,
+    art: { from: "#dbeaf0", to: "#a8c9d6", accent: "#2f6a7d", label: "ε" },
+  },
+  {
+    id: "epsilon-mist",
+    slug: "epsilon-ultra-soothing-mist",
+    name: "Epsilon Ultra Soothing Mist",
+    line: "Epsilon Eczema",
+    tagline: "Instant redness relief, on the go",
+    category: "Eczema Range",
+    price: 60,
+    rating: 4.7,
+    reviews: 521,
+    format: "100 ml",
+    ingredients: ["Thermal Water", "Cica Complex", "Beta-Glucan", "Panthenol"],
+    badges: ["Instant relief", "On-the-go", "Non-comedogenic"],
+    concerns: ["Redness / Eczema", "Sensitive", "Dehydration"],
+    skinTypes: ["Sensitive", "Dry", "Normal"],
+    description:
+      "A fine calming mist that floods stressed skin with ceramides and beta-glucan. Spritz over irritation, post-peel sensitivity, or under makeup for an immediate barrier cushion.",
+    hero: false,
+    art: { from: "#e3f1f5", to: "#b7d9e4", accent: "#3c7c94", label: "ε" },
+  },
+  {
+    id: "epsilon-cleanser",
+    slug: "epsilon-cleanser",
+    name: "Epsilon Barrier Restoring Cleanser",
+    line: "Epsilon Eczema",
+    tagline: "Gentle sulfate-free daily wash, pH 5.5",
+    category: "Eczema Range",
+    price: 50,
+    rating: 4.6,
+    reviews: 743,
+    format: "150 ml",
+    ingredients: ["Amino Acid Surfactants", "Ceramide NP", "Glycerin 8%", "Allantoin"],
+    badges: ["Sulfate-free", "pH 5.5", "Soap-free"],
+    concerns: ["Barrier Repair", "Sensitive", "Redness / Eczema"],
+    skinTypes: ["Sensitive", "Dry", "Combination"],
+    description:
+      "A creamy, low-foam cleanser that removes the day without stripping the skin barrier. Formulated to the physiological pH of compromised skin — your AM/PM reset.",
+    hero: false,
+    art: { from: "#eef5f4", to: "#c9ddd8", accent: "#3f7a6d", label: "ε" },
+  },
+  {
+    id: "veragen-poog",
+    slug: "veragen-poog-collagen",
+    name: "Veragen POOG Collagen",
+    line: "Veragen Inner-Barrier",
+    tagline: "Pept-Oligo Glucan + marine collagen for inner support",
+    category: "Supplement",
+    price: 149,
+    compareAt: 179,
+    rating: 4.8,
+    reviews: 312,
+    format: "30 sachets",
+    ingredients: ["POOG™", "Marine Collagen Peptides", "Ceramide SL", "Vitamin C"],
+    badges: ["Bestseller", "Inner-barrier", "Sugar-free"],
+    concerns: ["Barrier Repair", "Aging", "Dehydration"],
+    skinTypes: ["All skin types"],
+    description:
+      "Ingestible inner-barrier support. Pept-Oligo Glucan primes the gut-skin axis while marine collagen peptides and skin-identical ceramides reinforce the barrier from within.",
+    hero: false,
+    art: { from: "#f3e8d8", to: "#d9bfa0", accent: "#8a6a4a", label: "V" },
+  },
+  {
+    id: "veragen-nuca",
+    slug: "veragen-nuca-supplements",
+    name: "Veragen NUCA Night Renewal",
+    line: "Veragen Inner-Barrier",
+    tagline: "Nicotinamide + botanical night complex",
+    category: "Supplement",
+    price: 119,
+    rating: 4.7,
+    reviews: 208,
+    format: "30 capsules",
+    ingredients: ["NUCA™", "NMN", "Resveratrol", "Ginkgo Biloba"],
+    badges: ["Night ritual", "Energy", "Vegan"],
+    concerns: ["Aging", "Brightening", "Dehydration"],
+    skinTypes: ["All skin types"],
+    description:
+      "A nocturnal nutraceutical blend that supports cellular turnover and circadian repair. Wake to brighter, more rested-looking skin.",
+    hero: false,
+    art: { from: "#ece6ef", to: "#c7bcd6", accent: "#6a5a8a", label: "N" },
+  },
+];
+
+export function getProduct(id: string): Product | undefined {
+  return PRODUCTS.find((p) => p.id === id);
+}
+
+export function formatMYR(value: number): string {
+  return `RM ${value.toFixed(2)}`;
+}
