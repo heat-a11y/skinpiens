@@ -53,7 +53,7 @@ export const metadata: Metadata = {
  * page never flashes the wrong theme, even on a fully static export.
  */
 const THEME_BOOT_SCRIPT = `(function(){try{
-var valid=["navy-cream","aesop","the-ordinary","la-roche-posay","rhode-glossier","le-labo-apothecary","sk-ii-zen","augustinus-bader","beauty-of-joseon","youth-to-the-people","curology-direct"];
+var valid=["navy-cream","aesop","the-ordinary","la-roche-posay","rhode-glossier","le-labo-apothecary","sk-ii-zen","augustinus-bader","beauty-of-joseon","youth-to-the-people","curology-direct","chanel","hermes","dior","kiehls","biotherm","sulwhasoo","shiseido","lamer","olay","fresh"];
 var m=location.search.match(/[?&]theme=([a-z0-9-]+)/);
 var t=m?m[1]:localStorage.getItem("skinpiens-theme")||"navy-cream";
 if(valid.indexOf(t)===-1)t="navy-cream";

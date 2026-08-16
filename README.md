@@ -2,9 +2,9 @@
 
 A modern e-commerce skincare showcase built with **Next.js 16 (App Router)**, TypeScript, Tailwind CSS v4, Framer Motion, and shadcn/Base UI.
 
-The storefront features an **11-in-1 Design Overhaul Switcher** — a floating toolbar that restyles the entire site under 11 distinct aesthetic architectures, with zero page reloads.
+The storefront features an **21-in-1 Design Overhaul Switcher** — a floating toolbar that restyles the entire site under 21 distinct aesthetic architectures, with zero page reloads.
 
-## 11-in-1 Theme Switcher
+## 21-in-1 Theme Switcher
 
 Click the palette button to preview Skinpiens under:
 
@@ -21,6 +21,16 @@ Click the palette button to preview Skinpiens under:
 | **Beauty of Joseon** | K-Beauty Glass Skin — frosted glass, routine carousels |
 | **Youth To The People** | Modern Botanical — eco-luxury sage, clean formula index |
 | **Curology** | Interactive Virtual Clinic — skin-quiz hero, tailored routines |
+| **Chanel** | Parisian Noir & Ivoire — sharp black-on-ivory, gold rules, editorial |
+| **Hermès** | Signature Orange — orange & cream, fashion 2-col grid |
+| **Dior** | Platinum Couture — pearl, silver, swipeable runway carousel |
+| **Kiehl's** | Apothecary Red — white clinical, heritage red, skincare FAQ |
+| **Biotherm** | Aqua Source — deep water blue, frosted glass |
+| **Sulwhasoo** | Hanbang Oxblood & Gold — ritual-first, vertical accents |
+| **Shiseido** | Rouge Minimal — white canvas, technical 4-up index |
+| **La Mer** | Oceanic Miracle — seafoam & champagne, luxury trial tables |
+| **Olay** | Gold & Clinical Blue — mainstream clinical glow |
+| **Fresh** | Sugar Botanical — sugar brown, botanical green, carousel |
 
 Each theme is a self-contained CSS system (`data-theme` attribute on `<html>`) swapping palettes, typography (6 Google fonts), radii, and surfaces. Selections persist to `localStorage`.
 

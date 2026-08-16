@@ -27,13 +27,14 @@ export function ProductArtwork({
         className,
       )}
       style={{
-        background: `radial-gradient(120% 90% at 50% 0%, ${art.from}, ${art.to})`,
+        // Standardised surface — every product sits on the same themed backdrop
+        background: `linear-gradient(165deg, color-mix(in srgb, var(--card) 88%, var(--muted)), color-mix(in srgb, var(--card) 55%, var(--muted)))`,
       }}
     >
       {/* ambient light */}
       <div
         className="absolute left-1/2 top-[-15%] h-1/2 w-2/3 -translate-x-1/2 rounded-full blur-2xl"
-        style={{ background: `color-mix(in srgb, ${art.accent} 40%, transparent)` }}
+        style={{ background: `color-mix(in srgb, var(--theme-accent) 14%, transparent)` }}
       />
 
       {image ? (
@@ -92,10 +93,7 @@ export function ProductArtwork({
       {/* brand chip */}
       {image && showBrand && (
         <div className="absolute bottom-3 left-3 z-30 flex items-center gap-1.5 rounded-full bg-background/80 px-2.5 py-1 backdrop-blur-sm">
-          <span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: art.accent }}
-          />
+          <span className="h-1.5 w-1.5 rounded-full bg-theme-accent" />
           <span className="font-sans text-[9px] font-semibold uppercase tracking-[0.16em] text-foreground/80">
             Skinpiens
           </span>
