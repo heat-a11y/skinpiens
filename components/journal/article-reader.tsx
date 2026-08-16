@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Clock, X } from "lucide-react";
 import {
   Dialog,
@@ -10,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { LocalImage } from "@/components/ui/local-image";
 import type { Article } from "@/lib/articles";
 import { useTheme } from "@/components/providers/theme-provider";
 
@@ -38,7 +38,7 @@ export function ArticleReader({
         </button>
 
         <div className="relative h-52 w-full shrink-0 overflow-hidden">
-          <Image src={article.cover} alt="" fill sizes="100vw" className="object-cover" priority />
+          <LocalImage src={article.cover} alt="" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
           <div className="absolute bottom-4 left-6 right-6">
             <Badge variant="secondary" className="glass mb-2">

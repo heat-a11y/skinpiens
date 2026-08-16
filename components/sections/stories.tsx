@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Beaker, Clock, FileText, Quote } from "lucide-react";
+import { LocalImage } from "@/components/ui/local-image";
 import {
   Accordion,
   AccordionContent,
@@ -96,7 +96,7 @@ export function StoriesSection() {
                   background: `radial-gradient(120% 100% at 50% 0%, ${story.art.from}, ${story.art.to})`,
                 }}
               >
-                <Image
+                <LocalImage
                   src={story.image}
                   alt={story.title}
                   fill

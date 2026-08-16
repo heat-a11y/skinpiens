@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { LocalImage } from "@/components/ui/local-image";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/types";
 
@@ -37,7 +37,7 @@ export function ProductArtwork({
       />
 
       {image ? (
-        <Image
+        <LocalImage
           src={image}
           alt={name}
           fill

@@ -5,6 +5,8 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
+  useState,
   useSyncExternalStore,
   type ReactNode,
 } from "react";
@@ -44,37 +46,50 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const theme = useSyncExternalStore(
-    subscribe,
-    readTheme,
-    () => DEFAULT_THEME,
-  );
+  const theme = useSyncExternalStore(subscribe, readTheme, () => DEFAULT_THEME);
+  const [veil, setVeil] = useState(false);
+  const timers = useRef<number[]>([]);
 
-  const setTheme = useCallback((id: string) => {
-    if (!THEMES.some((t) => t.id === id)) return;
-    writeTheme(id);
-  }, []);
-
+  // Apply the data-theme attribute to <html> whenever the store changes.
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.add("theme-anim");
-    root.setAttribute("data-theme", theme);
-    const t = window.setTimeout(() => root.classList.remove("theme-anim"), 700);
-    return () => window.clearTimeout(t);
+    document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
+  // Honour a ?theme= share link on first load (pre-paint script handles the
+  // initial attribute; this keeps the store in sync).
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("theme");
     if (requested && THEMES.some((t) => t.id === requested)) {
       writeTheme(requested);
     }
+    return () => {
+      timers.current.forEach((t) => window.clearTimeout(t));
+    };
+  }, []);
+
+  const setTheme = useCallback((id: string) => {
+    if (!THEMES.some((t) => t.id === id)) return;
+    if (id === readTheme()) return;
+
+    timers.current.forEach((t) => window.clearTimeout(t));
+    timers.current = [];
+
+    // Crossfade: fade the veil to opaque, swap the theme behind it, reveal.
+    setVeil(true);
+    timers.current.push(
+      window.setTimeout(() => writeTheme(id), 200),
+      window.setTimeout(() => setVeil(false), 240),
+    );
   }, []);
 
   return (
-    <ThemeContext.Provider
-      value={{ theme, themeDef: getTheme(theme), setTheme }}
-    >
+    <ThemeContext.Provider value={{ theme, themeDef: getTheme(theme), setTheme }}>
+      <div
+        className="theme-veil"
+        style={{ opacity: veil ? 1 : 0, pointerEvents: veil ? "auto" : "none" }}
+        aria-hidden
+      />
       {children}
     </ThemeContext.Provider>
   );

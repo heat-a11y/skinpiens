@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Minus, Plus, ShoppingBag, Sparkles, Wand2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Stars } from "@/components/ui/stars";
+import { LocalImage } from "@/components/ui/local-image";
 import { ProductArtwork } from "@/components/ui/product-artwork";
 import { ProductCard } from "@/components/ui/product-card";
 import { QuickViewDialog } from "@/components/ui/quick-view-dialog";
@@ -71,7 +71,7 @@ export function ProductDetail({ product }: { product: Product }) {
                     activeImage === i ? "border-primary" : "border-border hover:border-muted-foreground/50",
                   )}
                 >
-                  <Image src={img} alt="" fill sizes="80px" className="object-cover" />
+                  <LocalImage src={img} alt="" fill sizes="80px" className="object-cover" />
                 </button>
               ))}
             </div>

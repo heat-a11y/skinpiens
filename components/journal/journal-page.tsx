@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { LocalImage } from "@/components/ui/local-image";
 import { ArticleReader } from "@/components/journal/article-reader";
 import { ARTICLES, type Article } from "@/lib/articles";
 
@@ -27,7 +27,7 @@ export function JournalPage() {
       </div>
 
       <div className="relative mb-12 h-56 overflow-hidden rounded-3xl sm:h-64">
-        <Image
+        <LocalImage
           src="/editorial/hero.jpg"
           alt="Skinpiens atelier"
           fill
@@ -58,7 +58,7 @@ export function JournalPage() {
             className="group cursor-pointer overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-xl"
           >
             <div className="relative h-44 overflow-hidden">
-              <Image
+              <LocalImage
                 src={article.cover}
                 alt={article.title}
                 fill

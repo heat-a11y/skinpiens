@@ -467,18 +467,15 @@
   }
 }
 
-/* Animated theme switching */
-html.theme-anim,
-html.theme-anim *,
-html.theme-anim *::before,
-html.theme-anim *::after {
-  transition:
-    background-color 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    color 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    fill 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+/* Theme transition veil — a full-screen crossfade that masks colour +
+   layout changes during a design switch */
+.theme-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--background);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 
 /* Reusable themed surfaces */
