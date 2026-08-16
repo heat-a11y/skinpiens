@@ -49,7 +49,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   SKINPIENS — 10-in-1 Theme Architecture
+   SKINPIENS — 11-in-1 Theme Architecture
    Each block is a complete, self-contained visual system driven by
    data-theme on <html>. Switching is instant + animated, no reload.
 --------------------------------------------------------------------------- */
@@ -451,6 +451,68 @@
   --theme-accent-foreground: #0e2b22;
   --font-body: var(--font-inter);
   --font-heading: var(--font-dm-sans);
+}
+
+/* ---------------------------------------------------------------------------
+   SKINPIENS — Navy + Cream (locked brand system)
+   65% cream/ivory · 20% navy · 8% sand · 4% sage/cobalt · 3% champagne
+--------------------------------------------------------------------------- */
+[data-theme="navy-cream"] {
+  --background: #f7f3ea;
+  --foreground: #0b1f33;
+  --card: #fbf9f4;
+  --card-foreground: #0b1f33;
+  --popover: #fbf9f4;
+  --popover-foreground: #0b1f33;
+  --primary: #0b1f33;
+  --primary-foreground: #f7f3ea;
+  --secondary: #e8e0d3;
+  --secondary-foreground: #0b1f33;
+  --muted: #e9eef2;
+  --muted-foreground: #69727a;
+  --accent: #c9a45c;
+  --accent-foreground: #0b1f33;
+  --destructive: #b0413e;
+  --border: #e4dac8;
+  --input: #e4dac8;
+  --ring: #0b1f33;
+  --chart-1: #0b1f33;
+  --chart-2: #c9a45c;
+  --chart-3: #879b88;
+  --chart-4: #2d63a5;
+  --chart-5: #69727a;
+  --radius: 0.5rem;
+  --star: #c9a45c;
+  --glass: rgba(251, 249, 244, 0.72);
+  --glass-border: rgba(228, 220, 200, 0.6);
+  --nav-bg: rgba(247, 243, 234, 0.85);
+  --hero-glow: #c9a45c;
+  --chip-bg: #fbf9f4;
+  --chip-fg: #163a5a;
+  --theme-accent: #c9a45c;
+  --theme-accent-foreground: #0b1f33;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-playfair);
+  --heading-transform: none;
+  --heading-tracking: 0.01em;
+}
+
+/* Deep-navy footer band for the brand theme */
+[data-theme="navy-cream"] footer {
+  background: #071522;
+  color: #f7f3ea;
+}
+[data-theme="navy-cream"] footer .text-muted-foreground {
+  color: #aab4bd;
+}
+[data-theme="navy-cream"] footer .border-border {
+  border-color: rgba(247, 243, 234, 0.12);
+}
+[data-theme="navy-cream"] footer a {
+  color: #c3cbd3;
+}
+[data-theme="navy-cream"] footer a:hover {
+  color: #c9a45c;
 }
 
 @layer base {

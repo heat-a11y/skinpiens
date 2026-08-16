@@ -53,6 +53,20 @@ export interface ThemeDef {
 
 export const THEMES: ThemeDef[] = [
   {
+    id: "navy-cream",
+    name: "Skinpiens",
+    brand: "Navy + Cream",
+    tagline: "Clinical luxury · Cream canvas · Champagne accents",
+    description:
+      "The locked Skinpiens brand system — cream canvas, navy typography and CTAs, champagne-gold accents. Product packaging supplies the colour.",
+    hero: "editorial",
+    products: "grid-3",
+    tone: "editorial",
+    order: ["hero", "trust", "products", "ingredients", "stories", "quiz", "newsletter"],
+    swatches: ["#f7f3ea", "#0b1f33", "#c9a45c", "#e8e0d3"],
+    fonts: "Playfair Display / Inter",
+  },
+  {
     id: "aesop",
     name: "Aesop",
     brand: "The Apothecary Archival",

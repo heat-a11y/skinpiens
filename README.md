@@ -2,14 +2,15 @@
 
 A modern e-commerce skincare showcase built with **Next.js 16 (App Router)**, TypeScript, Tailwind CSS v4, Framer Motion, and shadcn/Base UI.
 
-The storefront features a **10-in-1 Design Overhaul Switcher** — a floating toolbar that restyles the entire site under 10 distinct aesthetic architectures inspired by global skincare leaders, with zero page reloads.
+The storefront features an **11-in-1 Design Overhaul Switcher** — a floating toolbar that restyles the entire site under 11 distinct aesthetic architectures, with zero page reloads.
 
-## 10-in-1 Theme Switcher
+## 11-in-1 Theme Switcher
 
-Click the floating palette button (bottom-right) to preview Skinpiens under:
+Click the palette button to preview Skinpiens under:
 
 | Theme | Architecture |
 | --- | --- |
+| **Skinpiens (Navy + Cream)** | The locked brand system — cream canvas, navy type/CTAs, champagne accents |
 | **Aesop** | The Apothecary Archival — earthy beige, editorial serif, pharmacist narrative |
 | **The Ordinary** | Clinical Formulation Lab — monochrome, active-ingredient callouts |
 | **La Roche-Posay** | Dermatological Barrier — medical white/cyan, eczema indicators |

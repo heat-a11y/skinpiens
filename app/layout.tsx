@@ -53,10 +53,10 @@ export const metadata: Metadata = {
  * page never flashes the wrong theme, even on a fully static export.
  */
 const THEME_BOOT_SCRIPT = `(function(){try{
-var valid=["aesop","the-ordinary","la-roche-posay","rhode-glossier","le-labo-apothecary","sk-ii-zen","augustinus-bader","beauty-of-joseon","youth-to-the-people","curology-direct"];
+var valid=["navy-cream","aesop","the-ordinary","la-roche-posay","rhode-glossier","le-labo-apothecary","sk-ii-zen","augustinus-bader","beauty-of-joseon","youth-to-the-people","curology-direct"];
 var m=location.search.match(/[?&]theme=([a-z0-9-]+)/);
-var t=m?m[1]:localStorage.getItem("skinpiens-theme")||"aesop";
-if(valid.indexOf(t)===-1)t="aesop";
+var t=m?m[1]:localStorage.getItem("skinpiens-theme")||"navy-cream";
+if(valid.indexOf(t)===-1)t="navy-cream";
 document.documentElement.setAttribute("data-theme",t);
 }catch(e){}})();`;
 
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      data-theme="aesop"
+      data-theme="navy-cream"
       className={`${inter.variable} ${spaceGrotesk.variable} ${playfair.variable} ${cormorant.variable} ${manrope.variable} ${dmSans.variable} h-full antialiased`}
     >
       <head>

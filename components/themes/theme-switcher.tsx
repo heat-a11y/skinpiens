@@ -37,7 +37,7 @@ export function ThemeSwitcher() {
                   </span>
                   <div className="min-w-0">
                     <p className="truncate text-[11px] font-bold leading-tight">
-                      10-in-1 Design
+                      11-in-1 Design
                     </p>
                     <p className="truncate text-[10px] text-muted-foreground leading-tight">
                       {themeDef.name} · {themeDef.brand}
@@ -111,7 +111,7 @@ export function ThemeSwitcher() {
               <Palette className="h-3 w-3" />
             </span>
             <p className="min-w-0 truncate text-[11px] font-bold">
-              10-in-1 Design ·{" "}
+              11-in-1 Design ·{" "}
               <span className="font-medium text-theme-accent">{themeDef.name}</span>
             </p>
           </div>

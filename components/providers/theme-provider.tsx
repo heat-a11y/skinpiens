@@ -13,7 +13,7 @@ import {
 import { getTheme, THEMES, type ThemeDef } from "@/lib/themes";
 
 const THEME_STORAGE_KEY = "skinpiens-theme";
-const DEFAULT_THEME = "aesop";
+const DEFAULT_THEME = "navy-cream";
 
 function readTheme(): string {
   if (typeof window === "undefined") return DEFAULT_THEME;
