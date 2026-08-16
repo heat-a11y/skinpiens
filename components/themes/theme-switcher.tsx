@@ -45,7 +45,11 @@ export function ThemeSwitcher() {
             />
           </button>
         </div>
-
+        {!open && (
+          <p className="px-3 py-1.5 text-[10px] font-medium text-muted-foreground">
+            10 designs · click a theme to preview it
+          </p>
+        )}
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
@@ -55,8 +59,8 @@ export function ThemeSwitcher() {
               transition={{ duration: 0.25, ease: "easeInOut" }}
               className="overflow-hidden"
             >
-              {/* Theme chips */}
-              <div className="no-scrollbar flex min-w-0 gap-1.5 overflow-x-auto px-3 py-2.5">
+              {/* Theme chips — all 10 visible on desktop (wrapping rows), scroll on mobile */}
+              <div className="no-scrollbar flex min-w-0 items-center gap-1.5 overflow-x-auto px-3 py-2.5 md:flex-wrap md:justify-center md:overflow-x-visible">
                 {THEMES.map((t) => {
                   const active = t.id === theme;
                   return (
@@ -65,13 +69,13 @@ export function ThemeSwitcher() {
                       onClick={() => setTheme(t.id)}
                       title={`${t.brand} — ${t.tagline}`}
                       className={cn(
-                        "flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[11px] font-medium transition-colors",
+                        "flex max-w-full shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap transition-colors",
                         active
                           ? "border-primary bg-primary text-primary-foreground"
                           : "border-border bg-background/70 text-muted-foreground hover:bg-muted hover:text-foreground",
                       )}
                     >
-                      <span className="flex -space-x-0.5">
+                      <span className="flex shrink-0 -space-x-0.5">
                         {t.swatches.slice(0, 3).map((s) => (
                           <span
                             key={s}
@@ -80,15 +84,15 @@ export function ThemeSwitcher() {
                           />
                         ))}
                       </span>
-                      {t.name}
-                      {active && <Check className="h-3 w-3" />}
+                      <span className="truncate">{t.name}</span>
+                      {active && <Check className="h-3 w-3 shrink-0" />}
                     </button>
                   );
                 })}
               </div>
 
               {/* Active theme description */}
-              <p className="border-t border-border px-4 py-2 text-[11px] text-muted-foreground">
+              <p className="border-t border-border px-4 py-2 text-balance text-[11px] text-muted-foreground">
                 <span className="font-semibold text-foreground">{themeDef.name}</span>
                 {" · "}
                 {themeDef.tagline}
