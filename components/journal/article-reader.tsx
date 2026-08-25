@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Bookmark, BookmarkCheck, ChevronRight, Link2, Share2, X } from "lucide-react";
+import { ArrowUpRight, Bookmark, BookmarkCheck, ChevronRight, FileUp, Link2, Share2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { LocalImage } from "@/components/ui/local-image";
@@ -33,10 +33,12 @@ export function ArticleReader({
   article,
   open,
   onOpenChange,
+  onPublish,
 }: {
   article: Article | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onPublish?: (a: Article) => void;
 }) {
   const { themeDef } = useTheme();
   const { toggle, has } = useBookmarks();
@@ -292,6 +294,15 @@ export function ArticleReader({
             )}
           </div>
         </div>
+
+        {onPublish && article.slug.startsWith("generated-") && (
+          <button
+            onClick={() => onPublish(article)}
+            className="absolute bottom-4 left-4 z-20 inline-flex items-center gap-2 rounded-full bg-theme-accent px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-theme-accent/30 transition-all hover:scale-[1.04] hover:shadow-xl active:scale-95"
+          >
+            <FileUp className="h-4 w-4" /> Publish to Journal
+          </button>
+        )}
       </DialogContent>
     </Dialog>
   );

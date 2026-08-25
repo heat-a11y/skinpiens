@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Bookmark, BookmarkCheck, Clock, Search } from "lucide-react";
+import { Bookmark, BookmarkCheck, Clock, FileUp, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { LocalImage } from "@/components/ui/local-image";
 import { ArticleReader } from "@/components/journal/article-reader";
@@ -15,25 +15,28 @@ const CATEGORIES = ["All", "Editorial", "Clinical", "Ingredient", "Supplement"] 
 
 export function JournalPage() {
   const [reading, setReading] = useState<Article | null>(null);
+  const [generated, setGenerated] = useState<Article[]>([]);
   const [category, setCategory] = useState<(typeof CATEGORIES)[number]>("All");
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [bookmarksOnly, setBookmarksOnly] = useState(false);
   const bk = useBookmarks();
 
+  const allArticles = useMemo(() => [...generated, ...ARTICLES], [generated]);
+
   const tagCounts = useMemo(() => {
     const m = new Map<string, number>();
-    for (const a of ARTICLES) {
+    for (const a of allArticles) {
       for (const t of getArticleMeta(a.slug).tags) m.set(t, (m.get(t) ?? 0) + 1);
     }
     return [...m.entries()]
       .sort((a, b) => b[1] - a[1])
       .slice(0, 14);
-  }, []);
+  }, [allArticles]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
-    return ARTICLES.filter((a) => {
+    return allArticles.filter((a) => {
       if (category !== "All" && a.category !== category) return false;
       if (bookmarksOnly && !bk.has(a.slug)) return false;
       const meta = getArticleMeta(a.slug);
@@ -44,7 +47,7 @@ export function JournalPage() {
       }
       return true;
     });
-  }, [category, activeTag, query, bookmarksOnly, bk]);
+  }, [allArticles, category, activeTag, query, bookmarksOnly, bk]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-20">
@@ -181,6 +184,11 @@ export function JournalPage() {
                   >
                     {article.category}
                   </Badge>
+                  {article.slug.startsWith("generated-") && (
+                    <span className="glass absolute left-3 top-11 inline-flex items-center gap-1 rounded-full bg-theme-accent/90 px-2.5 py-0.5 text-[10px] font-bold text-white">
+                      <FileUp className="h-2.5 w-2.5" /> Published
+                    </span>
+                  )}
                 </div>
                 <div className="p-5">
                   <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-theme-accent">
@@ -229,6 +237,10 @@ export function JournalPage() {
         article={reading}
         open={reading !== null}
         onOpenChange={(o) => !o && setReading(null)}
+        onPublish={(a) => {
+          setGenerated((prev) => [a, ...prev]);
+          setReading(null);
+        }}
       />
     </div>
   );
