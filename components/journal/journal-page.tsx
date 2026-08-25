@@ -6,10 +6,16 @@ import { Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { LocalImage } from "@/components/ui/local-image";
 import { ArticleReader } from "@/components/journal/article-reader";
+import { ArticleGenerator } from "@/components/journal/article-generator";
 import { ARTICLES, type Article } from "@/lib/articles";
+
+const CATEGORIES = ["All", "Editorial", "Clinical", "Ingredient", "Supplement"] as const;
 
 export function JournalPage() {
   const [reading, setReading] = useState<Article | null>(null);
+  const [category, setCategory] = useState<(typeof CATEGORIES)[number]>("All");
+  const filtered =
+    category === "All" ? ARTICLES : ARTICLES.filter((a) => a.category === category);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-20">
@@ -41,13 +47,31 @@ export function JournalPage() {
             From the atelier
           </p>
           <p className="mt-2 font-heading text-2xl font-bold leading-snug">
-            Six stories from the Skinpiens lab
+            Kris&apos; notes, from the lab to your shelf
           </p>
         </div>
       </div>
 
+      <ArticleGenerator onGenerated={setReading} />
+
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        {CATEGORIES.map((c) => (
+          <button
+            key={c}
+            onClick={() => setCategory(c)}
+            className={`rounded-full border px-4 py-1.5 font-sans text-xs font-semibold transition-colors ${
+              category === c
+                ? "border-transparent bg-theme-accent text-white"
+                : "border-border bg-card text-muted-foreground hover:text-theme-accent"
+            }`}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {ARTICLES.map((article, i) => (
+        {filtered.map((article, i) => (
           <motion.article
             key={article.slug}
             initial={{ opacity: 0, y: 24 }}

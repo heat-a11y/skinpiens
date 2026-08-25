@@ -71,10 +71,20 @@ export function ArticleReader({
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="space-y-5">
             {article.body.map((block, i) => (
               <div key={i}>
-                {block.heading && (
-                  <h3 className="mb-1.5 font-heading text-lg font-semibold">{block.heading}</h3>
+                {block.text && block.text !== block.heading ? (
+                  <>
+                    {block.heading && (
+                      <h3 className="mb-1.5 font-heading text-lg font-semibold">{block.heading}</h3>
+                    )}
+                    <p className="text-sm leading-relaxed text-muted-foreground text-pretty">{block.text}</p>
+                  </>
+                ) : (
+                  block.heading && (
+                    <h3 className={i === 0 ? "font-heading text-lg font-semibold" : "mt-5 font-heading text-lg font-semibold"}>
+                      {block.heading}
+                    </h3>
+                  )
                 )}
-                <p className="text-sm leading-relaxed text-muted-foreground text-pretty">{block.text}</p>
               </div>
             ))}
           </motion.div>
