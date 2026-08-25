@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProductArtwork } from "@/components/ui/product-artwork";
 import { PRODUCTS } from "@/lib/products";
+import { withBase } from "@/lib/base-path";
 import type { Category } from "@/lib/types";
 import { useCart } from "@/components/providers/cart-provider";
 import { cn } from "@/lib/utils";
@@ -138,7 +139,7 @@ export function Header({ onConsult }: { onConsult: () => void }) {
               ))}
               <li>
                 <a
-                  href="/journal"
+                  href={withBase("/journal")}
                   className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
                 >
                   Journal
@@ -146,7 +147,7 @@ export function Header({ onConsult }: { onConsult: () => void }) {
               </li>
               <li>
                 <a
-                  href="/routine"
+                  href={withBase("/routine")}
                   className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
                 >
                   Routine
@@ -310,14 +311,14 @@ export function Header({ onConsult }: { onConsult: () => void }) {
               </div>
             ))}
             <a
-              href="/journal"
+              href={withBase("/journal")}
               onClick={() => setMobileOpen(false)}
               className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-muted"
             >
               Journal
             </a>
             <a
-              href="/routine"
+              href={withBase("/routine")}
               onClick={() => setMobileOpen(false)}
               className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-muted"
             >

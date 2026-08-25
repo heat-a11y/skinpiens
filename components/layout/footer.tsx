@@ -1,4 +1,5 @@
 import { AtSign, Mail, MapPin, MessageCircle, Play } from "lucide-react";
+import { withBase } from "@/lib/base-path";
 
 const COLUMNS = [
   {
@@ -69,7 +70,7 @@ export function Footer() {
               {col.links.map((link) => (
                 <li key={link.label}>
                   <a
-                    href={link.href}
+                    href={withBase(link.href)}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {link.label}
