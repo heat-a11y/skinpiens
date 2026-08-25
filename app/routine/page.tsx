@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { RoutineBuilder } from "@/components/routine/routine-builder";
+import { SiteChrome } from "@/components/layout/site-chrome";
 
 export const metadata: Metadata = {
   title: "Build Your Ritual | SKINPIENS",
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Routine() {
-  return <RoutineBuilder />;
+  return <SiteChrome>{<RoutineBuilder />}</SiteChrome>;
 }

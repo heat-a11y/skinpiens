@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductDetail } from "@/components/product/product-detail";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { getProductBySlug, PRODUCTS } from "@/lib/products";
 
 interface Props {
@@ -25,5 +26,5 @@ export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) notFound();
-  return <ProductDetail product={product} />;
+  return <SiteChrome>{<ProductDetail product={product} />}</SiteChrome>;
 }

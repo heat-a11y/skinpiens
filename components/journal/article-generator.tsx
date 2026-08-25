@@ -4,18 +4,23 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Sparkles } from "lucide-react";
 import type { Article } from "@/lib/articles";
-import { generateArticle } from "@/lib/generator";
+import { generateWithFallback } from "@/lib/llm";
 
 export function ArticleGenerator({ onGenerated }: { onGenerated: (a: Article) => void }) {
   const [busy, setBusy] = useState(false);
+  const [source, setSource] = useState<string | null>(null);
 
-  const run = () => {
+  const run = async () => {
     if (busy) return;
     setBusy(true);
-    window.setTimeout(() => {
-      onGenerated(generateArticle());
+    setSource(null);
+    try {
+      const result = await generateWithFallback();
+      setSource(result.source);
+      onGenerated(result.article);
+    } finally {
       setBusy(false);
-    }, 700);
+    }
   };
 
   return (
@@ -24,7 +29,7 @@ export function ArticleGenerator({ onGenerated }: { onGenerated: (a: Article) =>
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="relative mb-10 overflow-hidden rounded-3xl border border-dashed border-border bg-card/60 p-6 sm:p-8"
+      className="relative overflow-hidden rounded-3xl border border-dashed border-border bg-card/60 p-6 sm:p-8"
     >
       <div
         aria-hidden
@@ -37,9 +42,14 @@ export function ArticleGenerator({ onGenerated }: { onGenerated: (a: Article) =>
         <div className="min-w-0 flex-1">
           <h2 className="font-heading text-xl font-bold">Style Lab — generate a journal draft</h2>
           <p className="mt-1 text-sm text-muted-foreground text-pretty">
-            A tiny on-device model trained on every Kris note in this journal. Each click recomposes
-            hooks, facts and pharmacist tips into a brand-new draft — for inspiration, not medical advice.
+            Trained on every Kris note in this journal. Click to recompose a brand-new draft in
+            the same voice — via AI when an API key is set, otherwise on-device.
           </p>
+          {source && (
+            <p className="mt-1 text-[11px] text-muted-foreground">
+              Source: {source === "local" ? "on-device style model" : `live LLM (${source})`}
+            </p>
+          )}
         </div>
         <button
           onClick={run}

@@ -16,7 +16,7 @@ export function Newsletter() {
   };
 
   return (
-    <section className="border-t border-border bg-muted/40">
+    <section id="newsletter" className="border-t border-border bg-muted/40">
       <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:py-20">
         <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-theme-accent">
           The Skinpiens Journal
