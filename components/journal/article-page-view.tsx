@@ -112,7 +112,7 @@ export function ArticlePageView({ article }: { article: Article }) {
         <div className="mb-6 flex items-center gap-2">
           <Globe className="h-3.5 w-3.5 text-muted-foreground" />
           <div className="flex gap-1">
-            {(["en", "ms", "ta"] as TranslateLang[]).map((l) => (
+            {(["zh", "en", "ms", "ta"] as TranslateLang[]).map((l) => (
               <button
                 key={l}
                 onClick={() => {
@@ -129,7 +129,7 @@ export function ArticlePageView({ article }: { article: Article }) {
               </button>
             ))}
           </div>
-          {lang && !translating && (
+          {lang && lang !== "zh" && !translating && (
             <span className="text-[11px] text-muted-foreground">via Google Translate</span>
           )}
           {translating && (

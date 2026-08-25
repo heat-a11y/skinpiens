@@ -2,18 +2,20 @@
 
 import { useState, useCallback, useRef } from "react";
 
-export type TranslateLang = "en" | "ms" | "ta";
+export type TranslateLang = "en" | "ms" | "ta" | "zh";
 
 const LANG_LABELS: Record<TranslateLang, string> = {
   en: "EN",
   ms: "BM",
   ta: "TA",
+  zh: "ZH",
 };
 
 const LANG_NAMES: Record<TranslateLang, string> = {
   en: "English",
   ms: "Bahasa Melayu",
   ta: "Tamil",
+  zh: "中文",
 };
 
 const cache = new Map<string, string>();
@@ -50,6 +52,11 @@ export function useTranslate() {
     abortRef.current?.abort();
     abortRef.current = new AbortController();
     setLang(target);
+    if (target === "zh") {
+      setTranslated(null);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
       const results: TranslatedBlock[] = [];

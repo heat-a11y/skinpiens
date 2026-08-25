@@ -10,6 +10,7 @@ import { ArticleGenerator } from "@/components/journal/article-generator";
 import { ARTICLES, type Article } from "@/lib/articles";
 import { getArticleMeta } from "@/lib/article-meta";
 import { useBookmarks } from "@/lib/use-bookmarks";
+import { generateFromPool } from "@/lib/generator";
 
 const CATEGORIES = ["All", "Editorial", "Clinical", "Ingredient", "Supplement"] as const;
 
@@ -237,6 +238,7 @@ export function JournalPage() {
         article={reading}
         open={reading !== null}
         onOpenChange={(o) => !o && setReading(null)}
+        onRefresh={() => setReading(generateFromPool())}
         onPublish={(a) => {
           setGenerated((prev) => [a, ...prev]);
           setReading(null);

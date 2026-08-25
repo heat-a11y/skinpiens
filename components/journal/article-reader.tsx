@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Bookmark, BookmarkCheck, ChevronRight, FileUp, Globe, Link2, Share2, X } from "lucide-react";
+import { ArrowUpRight, Bookmark, BookmarkCheck, ChevronRight, FileUp, Globe, Link2, RefreshCw, Share2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { LocalImage } from "@/components/ui/local-image";
@@ -35,11 +35,13 @@ export function ArticleReader({
   open,
   onOpenChange,
   onPublish,
+  onRefresh,
 }: {
   article: Article | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onPublish?: (a: Article) => void;
+  onRefresh?: () => void;
 }) {
   const { themeDef } = useTheme();
   const { toggle, has } = useBookmarks();
@@ -64,6 +66,7 @@ export function ArticleReader({
     setProgress(0);
     setFontIdx(1);
     setSummaryLang("off");
+    clearTranslate();
     el.addEventListener("scroll", syncProgress, { passive: true });
     return () => el.removeEventListener("scroll", syncProgress);
   }, [article?.slug, open, syncProgress]);
@@ -210,7 +213,7 @@ export function ArticleReader({
             <div className="mb-5 flex items-center gap-2">
               <Globe className="h-3.5 w-3.5 text-muted-foreground" />
               <div className="flex gap-1">
-                {(["en", "ms", "ta"] as TranslateLang[]).map((l) => (
+                {(["zh", "en", "ms", "ta"] as TranslateLang[]).map((l) => (
                   <button
                     key={l}
                     onClick={() => {
@@ -227,7 +230,7 @@ export function ArticleReader({
                   </button>
                 ))}
               </div>
-              {lang && !translating && (
+              {lang && lang !== "zh" && !translating && (
                 <span className="text-[11px] text-muted-foreground">via Google Translate</span>
               )}
               {translating && (
@@ -332,6 +335,15 @@ export function ArticleReader({
             className="absolute bottom-4 left-4 z-20 inline-flex items-center gap-2 rounded-full bg-theme-accent px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-theme-accent/30 transition-all hover:scale-[1.04] hover:shadow-xl active:scale-95"
           >
             <FileUp className="h-4 w-4" /> Publish to Journal
+          </button>
+        )}
+
+        {onRefresh && (
+          <button
+            onClick={onRefresh}
+            className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-xs font-bold text-muted-foreground shadow-lg transition-all hover:scale-[1.04] hover:text-theme-accent hover:shadow-xl active:scale-95"
+          >
+            <RefreshCw className="h-3.5 w-3.5" /> Next article
           </button>
         )}
       </DialogContent>
