@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowUpRight, Bookmark, BookmarkCheck, ChevronRight, Link2, Share2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Bookmark, BookmarkCheck, ChevronRight, Globe, Link2, Share2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { LocalImage } from "@/components/ui/local-image";
 import type { Article } from "@/lib/articles";
@@ -10,6 +10,7 @@ import { getArticleMeta } from "@/lib/article-meta";
 import { useBookmarks } from "@/lib/use-bookmarks";
 import { withBase } from "@/lib/base-path";
 import { useTheme } from "@/components/providers/theme-provider";
+import { useTranslate, type TranslateLang } from "@/lib/use-translate";
 
 const FONT_SIZES = ["text-sm", "text-base", "text-lg"] as const;
 const RELATED: Record<string, { slug: string; label: string }[]> = {
@@ -25,6 +26,7 @@ const RELATED: Record<string, { slug: string; label: string }[]> = {
 export function ArticlePageView({ article }: { article: Article }) {
   const { themeDef } = useTheme();
   const { toggle, has } = useBookmarks();
+  const { lang, translated, loading: translating, translate, clear: clearTranslate, LANG_LABELS } = useTranslate();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [fontIdx, setFontIdx] = useState(1);
@@ -106,6 +108,35 @@ export function ArticlePageView({ article }: { article: Article }) {
 
         <p className="mb-6 text-base leading-relaxed text-muted-foreground text-pretty">{article.excerpt}</p>
 
+        {/* language translate bar */}
+        <div className="mb-6 flex items-center gap-2">
+          <Globe className="h-3.5 w-3.5 text-muted-foreground" />
+          <div className="flex gap-1">
+            {(["en", "ms", "ta"] as TranslateLang[]).map((l) => (
+              <button
+                key={l}
+                onClick={() => {
+                  if (lang === l) { clearTranslate(); } else { translate(article.body, l); }
+                }}
+                disabled={translating}
+                className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-wide transition-colors ${
+                  lang === l
+                    ? "border-theme-accent bg-theme-accent/10 text-theme-accent"
+                    : "border-border bg-card text-muted-foreground hover:text-theme-accent"
+                } disabled:opacity-50`}
+              >
+                {LANG_LABELS[l]}
+              </button>
+            ))}
+          </div>
+          {lang && !translating && (
+            <span className="text-[11px] text-muted-foreground">via Google Translate</span>
+          )}
+          {translating && (
+            <span className="text-[11px] text-muted-foreground animate-pulse">Translating…</span>
+          )}
+        </div>
+
         {headings.length >= 3 && (
           <nav className="mb-8 flex flex-wrap gap-1.5">
             {headings.map((h) => (
@@ -117,7 +148,7 @@ export function ArticlePageView({ article }: { article: Article }) {
         )}
 
         <div className={`space-y-5 ${FONT_SIZES[fontIdx]}`}>
-          {article.body.map((block, i) => {
+          {(translated ?? article.body).map((block, i) => {
             if (block.heading && block.text === block.heading) return <h3 key={i} className="mt-6 font-heading text-lg font-semibold">{block.heading}</h3>;
             return (
               <div key={i}>

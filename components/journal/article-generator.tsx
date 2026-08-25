@@ -4,20 +4,17 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Sparkles } from "lucide-react";
 import type { Article } from "@/lib/articles";
-import { generateWithFallback } from "@/lib/llm";
+import { generateFromPool } from "@/lib/generator";
 
 export function ArticleGenerator({ onGenerated }: { onGenerated: (a: Article) => void }) {
   const [busy, setBusy] = useState(false);
-  const [source, setSource] = useState<string | null>(null);
 
   const run = async () => {
     if (busy) return;
     setBusy(true);
-    setSource(null);
     try {
-      const result = await generateWithFallback();
-      setSource(result.source);
-      onGenerated(result.article);
+      const result = generateFromPool();
+      onGenerated(result);
     } finally {
       setBusy(false);
     }
@@ -43,13 +40,8 @@ export function ArticleGenerator({ onGenerated }: { onGenerated: (a: Article) =>
           <h2 className="font-heading text-xl font-bold">Style Lab — generate a journal draft</h2>
           <p className="mt-1 text-sm text-muted-foreground text-pretty">
             Trained on every Kris note in this journal. Click to recompose a brand-new draft in
-            the same voice — via AI when an API key is set, otherwise on-device.
+            the same voice — pulled from a pool of 100 pre-generated articles.
           </p>
-          {source && (
-            <p className="mt-1 text-[11px] text-muted-foreground">
-              Source: {source === "local" ? "on-device style model" : `live LLM (${source})`}
-            </p>
-          )}
         </div>
         <button
           onClick={run}

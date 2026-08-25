@@ -1,4 +1,5 @@
 import { ARTICLES, type Article } from "./articles";
+import { POOLED_ARTICLES } from "./article-pool";
 
 type Block = Article["body"][number];
 
@@ -133,5 +134,30 @@ export function generateArticle(): Article {
     cover: pick(COVERS),
     accent: pick(ACCENTS),
     body,
+  };
+}
+
+let poolIndex = 0;
+const usedPoolSlugs = new Set<string>();
+
+export function generateFromPool(): Article {
+  const available = POOLED_ARTICLES.filter((a) => !usedPoolSlugs.has(a.slug));
+  if (available.length === 0) {
+    usedPoolSlugs.clear();
+    poolIndex = 0;
+    return generateFromPool();
+  }
+  const idx = Math.floor(Math.random() * available.length);
+  const picked = available[idx];
+  usedPoolSlugs.add(picked.slug);
+  const today = new Date();
+  const date = `${String(today.getDate()).padStart(2, "0")} ${
+    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][today.getMonth()]
+  } ${today.getFullYear()}`;
+  return {
+    ...picked,
+    slug: `generated-${Date.now()}-${poolIndex++}`,
+    date,
+    kicker: "AI draft · trained on Kris notes",
   };
 }
