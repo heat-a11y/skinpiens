@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
+  ArrowUpRight,
   Beaker,
   Droplets,
   FlaskConical,
@@ -15,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProductArtwork } from "@/components/ui/product-artwork";
 import { Stars } from "@/components/ui/stars";
+import { SplitLines } from "@/components/studio/primitives";
 import { PRODUCTS } from "@/lib/products";
 import { useTheme } from "@/components/providers/theme-provider";
 import { useCart } from "@/components/providers/cart-provider";
@@ -40,6 +43,10 @@ export function Hero({ onConsult }: { onConsult: () => void }) {
     addToCart(hero.id);
     openCart();
   };
+
+  if (variant === "kinetic") {
+    return <Kinetic onConsult={onConsult} add={add} hero={hero} />;
+  }
 
   return (
     <section id="top" className="relative overflow-hidden">
@@ -930,5 +937,200 @@ function Clinic({
         </div>
       </motion.div>
     </div>
+  );
+}
+
+/* ------------------- 0 · Studio — kinetic display hero ------------------- */
+
+function Kinetic({
+  onConsult,
+  add,
+  hero,
+}: {
+  onConsult: () => void;
+  add: () => void;
+  hero: (typeof PRODUCTS)[number];
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const yArt = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const scaleArt = useTransform(scrollYProgress, [0, 1], [1, 1.09]);
+
+  return (
+    <section
+      id="top"
+      ref={ref}
+      className="relative overflow-hidden border-b border-foreground/15"
+    >
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 pt-5 sm:px-6 lg:px-10">
+        <p className="micro text-muted-foreground">Skinpiens — Clinical Botanical</p>
+        <p className="micro hidden text-muted-foreground sm:block">
+          Est. MMXVI · Kuala Lumpur
+        </p>
+        <p className="micro hidden text-muted-foreground sm:block">
+          03°08′N 101°41′E
+        </p>
+      </div>
+
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-12 px-4 pb-10 pt-8 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-10 lg:pb-14 lg:pt-12">
+        {/* -------------------------------- type -------------------------------- */}
+        <div className="lg:col-span-7 lg:pr-6">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="micro flex items-center gap-3 text-muted-foreground"
+          >
+            <span className="inline-block h-px w-10 bg-foreground/40" />
+            01 / The Illumys® Doctrine
+          </motion.p>
+
+          <h1 className="display mt-5 text-[clamp(3.3rem,10vw,8.8rem)]">
+            <SplitLines
+              delay={0.15}
+              lines={[
+                <>Brightness</>,
+                <>
+                  <em className="text-accent">without</em>
+                </>,
+                <>the burn.</>,
+              ]}
+            />
+          </h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 grid gap-6 border-t border-foreground/15 pt-5 sm:grid-cols-12"
+          >
+            <p className="max-w-md text-[15px] leading-relaxed text-foreground/80 text-pretty sm:col-span-8">
+              Pharmacist-formulated skincare with high-potency actives, balanced by
+              soothing botanicals. Barrier-first brightening for sensitive, reactive
+              skin — no acids, no stinging, no downtime.
+            </p>
+            <div className="micro space-y-1.5 text-muted-foreground sm:col-span-4 sm:text-right">
+              <p>Fortress+ · 30 ml</p>
+              <p>Illumys® 0.3%</p>
+              <p className="text-foreground">RM 128.00</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch"
+          >
+            <button
+              onClick={add}
+              className="group flex items-center justify-between gap-8 bg-foreground px-5 py-4 text-background transition-colors hover:bg-accent hover:text-accent-foreground"
+            >
+              <span className="micro">Shop Fortress+ · RM 128</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </button>
+            <button
+              onClick={onConsult}
+              className="group flex items-center justify-between gap-6 border border-foreground/30 px-5 py-4 transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
+            >
+              <span className="micro flex items-center gap-2">
+                <Stethoscope className="h-3.5 w-3.5" />
+                Take the skin quiz
+              </span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </motion.div>
+
+          <motion.dl
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, delay: 0.85 }}
+            className="mt-12 grid grid-cols-2 gap-6 border-t border-foreground/15 pt-5 sm:grid-cols-4"
+          >
+            {[
+              ["+18.2%", "Luminosity ΔE · 12wk"],
+              ["0%", "Stinging reports"],
+              ["3 days", "Flare calming"],
+              ["3:1:1", "Ceramide ratio"],
+            ].map(([value, label]) => (
+              <div key={label}>
+                <dt className="display text-3xl text-foreground sm:text-4xl">{value}</dt>
+                <dd className="micro mt-2 text-muted-foreground">{label}</dd>
+              </div>
+            ))}
+          </motion.dl>
+        </div>
+
+        {/* -------------------------------- visual ------------------------------- */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="relative lg:col-span-5"
+        >
+          <div
+            className="relative aspect-[4/5] overflow-hidden border border-foreground/20 bg-card"
+            data-cursor="View"
+          >
+            <motion.div style={{ y: yArt, scale: scaleArt }} className="absolute inset-0">
+              <ProductArtwork product={hero} className="h-full w-full" priority />
+            </motion.div>
+
+            <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4">
+              <div className="flex items-start justify-between">
+                <span className="micro rounded-full bg-background/80 px-2.5 py-1 backdrop-blur">
+                  Hero formula
+                </span>
+                <span className="micro text-foreground/70">Fig. 01</span>
+              </div>
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="display text-2xl leading-none">Fortress+</p>
+                  <p className="micro mt-1 text-foreground/70">Brightening serum</p>
+                </div>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-foreground/25 bg-background/70 backdrop-blur">
+                  <Sparkles className="h-4 w-4" />
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-3 flex items-center justify-between border-t border-foreground/15 pt-3">
+            <p className="micro text-muted-foreground">
+              Illumys® · L. plantarum · TXA
+            </p>
+            <p className="micro text-muted-foreground">30 ml</p>
+          </div>
+
+          <div className="mt-6 hidden items-center gap-4 lg:flex">
+            <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border border-foreground/20">
+              <ProductArtwork product={PRODUCTS[1]} className="h-full w-full" showBrand={false} />
+            </div>
+            <div>
+              <p className="micro text-muted-foreground">Pairs with</p>
+              <p className="mt-1 text-sm">Epsilon Ultra Soothing Cream</p>
+            </div>
+            <span className="micro ml-auto border border-foreground/25 px-2 py-1">
+              + RM 90
+            </span>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between border-t border-foreground/15 px-4 py-4 sm:px-6 lg:px-10">
+        <p className="micro text-muted-foreground">Scroll to explore</p>
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="text-muted-foreground"
+        >
+          ↓
+        </motion.span>
+        <p className="micro text-muted-foreground">Next — The Formulary</p>
+      </div>
+    </section>
   );
 }

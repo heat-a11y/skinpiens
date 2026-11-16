@@ -1,152 +1,111 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, ChevronLeft, ChevronRight, Palette } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { THEMES } from "@/lib/themes";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
 
 /**
- * Design overhaul switcher.
- * Desktop: slim always-open left rail listing all 10 themes.
- * Mobile:  bottom strip with wrapping chips.
+ * Design index — a quiet launcher for the 22 art directions.
+ * Collapsed it is a single hairline chip; open it lists every system.
  */
 export function ThemeSwitcher() {
   const { theme, themeDef, setTheme } = useTheme();
-  const [railOpen, setRailOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const openPanel = () => setOpen(true);
+    window.addEventListener("skinpiens:design-index", openPanel);
+    return () => window.removeEventListener("skinpiens:design-index", openPanel);
+  }, []);
 
   return (
     <>
-      {/* Desktop left rail */}
-      <div className="fixed left-3 top-1/2 z-[45] hidden -translate-y-1/2 md:block">
-        <div className="glass overflow-hidden rounded-2xl shadow-2xl shadow-primary/15">
-          <AnimatePresence initial={false}>
-            {railOpen ? (
-              <motion.div
-                key="open"
-                initial={{ width: 0, opacity: 0 }}
-                animate={{ width: 176, opacity: 1 }}
-                exit={{ width: 0, opacity: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                <div className="flex items-center gap-2 border-b border-border px-3 py-2.5">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-theme-accent">
-                    <Palette className="h-3.5 w-3.5" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="truncate text-[11px] font-bold leading-tight">
-                      21-in-1 Design
-                    </p>
-                    <p className="truncate text-[10px] text-muted-foreground leading-tight">
-                      {themeDef.name} · {themeDef.brand}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setRailOpen(false)}
-                    aria-label="Collapse theme rail"
-                    className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted"
-                  >
-                    <ChevronLeft className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-                <div className="no-scrollbar max-h-[52vh] overflow-y-auto p-1.5">
-                  {THEMES.map((t) => {
-                    const active = t.id === theme;
-                    return (
-                      <button
-                        key={t.id}
-                        onClick={() => setTheme(t.id)}
-                        title={`${t.brand} — ${t.tagline}`}
-                        className={cn(
-                          "flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[10px] font-medium transition-colors",
-                          active
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                        )}
-                      >
-                        <span className="flex shrink-0 -space-x-1">
-                          {t.swatches.slice(0, 3).map((s) => (
-                            <span
-                              key={s}
-                              className="h-3 w-3 rounded-full border border-background"
-                              style={{ background: s }}
-                            />
-                          ))}
-                        </span>
-                        <span className="truncate">{t.name}</span>
-                        {active && <Check className="ml-auto h-3 w-3 shrink-0" />}
-                      </button>
-                    );
-                  })}
-                </div>
-                <p className="border-t border-border px-3 py-2 text-[10px] leading-snug text-muted-foreground">
-                  {themeDef.tagline}
-                </p>
-              </motion.div>
-            ) : (
-              <motion.button
-                key="closed"
-                initial={{ width: 0, opacity: 0 }}
-                animate={{ width: 40, opacity: 1 }}
-                exit={{ width: 0, opacity: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                onClick={() => setRailOpen(true)}
-                aria-label="Expand theme rail"
-                className="flex items-center justify-center py-3"
-              >
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </motion.button>
-            )}
-          </AnimatePresence>
-        </div>
+      <div className="fixed left-0 top-1/2 z-[65] hidden -translate-y-1/2 lg:block print:hidden">
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label="Open design index"
+          className="flex flex-col items-center gap-3 border-y border-r border-foreground/25 bg-background/85 px-1.5 py-3 backdrop-blur-xl transition-colors hover:bg-foreground hover:text-background"
+        >
+          <span className="flex flex-col gap-1">
+            {themeDef.swatches.slice(0, 3).map((s) => (
+              <span
+                key={s}
+                className="inline-block h-2.5 w-2.5 border border-foreground/20"
+                style={{ background: s }}
+              />
+            ))}
+          </span>
+          <span className="micro v-label">Design index</span>
+        </button>
       </div>
 
-      {/* Mobile bottom strip */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[45] flex justify-center px-3 pb-3 md:hidden">
-        <div className="glass pointer-events-auto min-w-0 w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl shadow-primary/15">
-          <div className="flex min-w-0 items-center gap-2 border-b border-border px-3 py-2">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-theme-accent">
-              <Palette className="h-3 w-3" />
-            </span>
-            <p className="min-w-0 truncate text-[11px] font-bold">
-              21-in-1 Design ·{" "}
-              <span className="font-medium text-theme-accent">{themeDef.name}</span>
-            </p>
-          </div>
-          <div className="no-scrollbar flex min-w-0 items-center gap-1.5 overflow-x-auto px-3 py-2">
-            {THEMES.map((t) => {
-              const active = t.id === theme;
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => setTheme(t.id)}
-                  title={`${t.brand} — ${t.tagline}`}
-                  className={cn(
-                    "flex max-w-full shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap transition-colors",
-                    active
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-background/70 text-muted-foreground hover:bg-muted hover:text-foreground",
-                  )}
-                >
-                  <span className="flex shrink-0 -space-x-0.5">
-                    {t.swatches.slice(0, 3).map((s) => (
-                      <span
-                        key={s}
-                        className="h-3 w-3 rounded-full border border-background"
-                        style={{ background: s }}
-                      />
-                    ))}
-                  </span>
-                  <span className="truncate">{t.name}</span>
-                  {active && <Check className="h-3 w-3 shrink-0" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed left-2 top-1/2 z-[66] w-[min(92vw,26rem)] -translate-y-1/2 border border-foreground/20 bg-background shadow-2xl sm:left-12 print:hidden"
+          >
+            <div className="flex items-start justify-between border-b border-foreground/15 px-4 py-3">
+              <div>
+                <p className="micro">Design index</p>
+                <p className="micro-sm mt-1 text-muted-foreground">
+                  {THEMES.length} art directions · one storefront
+                </p>
+              </div>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close design index"
+                className="flex h-7 w-7 items-center justify-center border border-foreground/20 hover:bg-foreground hover:text-background"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
+
+            <div className="no-scrollbar max-h-[58vh] overflow-y-auto">
+              {THEMES.map((t) => {
+                const active = t.id === theme;
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => {
+                      setTheme(t.id);
+                      setOpen(false);
+                    }}
+                    className={cn(
+                      "flex w-full items-center gap-3 border-b border-foreground/10 px-4 py-2.5 text-left transition-colors hover:bg-muted",
+                      active && "bg-muted",
+                    )}
+                  >
+                    <span className="flex shrink-0 -space-x-1">
+                      {t.swatches.map((s) => (
+                        <span
+                          key={s}
+                          className="inline-block h-3.5 w-3.5 rounded-full border border-foreground/20"
+                          style={{ background: s }}
+                        />
+                      ))}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm">{t.name}</span>
+                      <span className="micro-sm block truncate text-muted-foreground">
+                        {t.brand}
+                      </span>
+                    </span>
+                    {active && <Check className="h-3.5 w-3.5 shrink-0 text-accent" />}
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

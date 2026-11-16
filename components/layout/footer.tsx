@@ -1,4 +1,3 @@
-import { AtSign, Mail, MapPin, MessageCircle, Play } from "lucide-react";
 import { withBase } from "@/lib/base-path";
 
 const COLUMNS = [
@@ -33,65 +32,74 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-5">
-        <div className="lg:col-span-2">
-          <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-heading text-base font-bold text-primary-foreground">
-              S
-            </span>
-            <span className="font-heading text-xl font-bold tracking-[0.08em]">SKINPIENS</span>
+    <footer className="border-t border-foreground/15">
+      <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10">
+        <div className="grid gap-10 py-12 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-4">
+            <p className="micro text-muted-foreground">The house</p>
+            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-foreground/80 text-pretty">
+              Clinical skincare and botanical science, formulated for sensitive and
+              eczema-prone skin. Brightening that never hurts — engineered in
+              Malaysia, dermatologist-tested.
+            </p>
+            <div className="mt-6 flex gap-2">
+              {["Instagram", "TikTok", "YouTube"].map((label) => (
+                <a
+                  key={label}
+                  href="#"
+                  className="micro border border-foreground/20 px-3 py-2 transition-colors hover:bg-foreground hover:text-background"
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
           </div>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground text-pretty">
-            Clinical skincare and botanical science, formulated for sensitive and
-            eczema-prone skin. Brightening that never hurts — engineered in
-            Malaysia, dermatologist-tested.
-          </p>
-          <div className="mt-5 flex gap-2">
-            {[AtSign, MessageCircle, Play].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                aria-label="Social link"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
+
+          {COLUMNS.map((col, i) => (
+            <div key={col.title} className="lg:col-span-2">
+              <p className="micro flex items-baseline gap-2 text-muted-foreground">
+                <span className="opacity-50">0{i + 1}</span>
+                {col.title}
+              </p>
+              <ul className="mt-4 space-y-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={withBase(link.href)}
+                      className="link-draw text-sm text-foreground/75 hover:text-foreground"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div className="lg:col-span-2">
+            <p className="micro text-muted-foreground">Kuala Lumpur</p>
+            <p className="micro mt-4 text-foreground/60">03°08′N</p>
+            <p className="micro text-foreground/60">101°41′E</p>
           </div>
         </div>
 
-        {COLUMNS.map((col) => (
-          <div key={col.title}>
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              {col.title}
-            </p>
-            <ul className="mt-4 space-y-2.5">
-              {col.links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={withBase(link.href)}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+        <div className="border-t border-foreground/15 pt-4 pb-14">
+          <p className="display select-none text-[clamp(3.4rem,14.2vw,14rem)] leading-[0.78] tracking-[-0.05em]">
+            Skinpiens<span className="align-top text-[0.22em]">®</span>
+          </p>
+        </div>
 
-      <div className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Skinpiens Sdn. Bhd. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <Mail className="h-3.5 w-3.5" /> hello@skinpiens.com
-            </span>
-            <span className="flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5" /> Kuala Lumpur, MY
-            </span>
+        <div className="flex flex-col gap-3 border-t border-foreground/15 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="micro text-muted-foreground">
+            © {new Date().getFullYear()} Skinpiens Sdn. Bhd.
+          </p>
+          <div className="micro flex flex-wrap gap-x-5 gap-y-2 text-muted-foreground">
+            <a href="mailto:hello@skinpiens.com" className="link-draw">
+              hello@skinpiens.com
+            </a>
+            <span>Privacy</span>
+            <span>Terms</span>
+            <span className="text-foreground">Made in Malaysia</span>
           </div>
         </div>
       </div>

@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ClipboardCheck, SlidersHorizontal, Target } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight, ClipboardCheck, SlidersHorizontal, Target } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
 
 const STEPS = [
@@ -16,70 +15,61 @@ export function QuizBanner({ onConsult }: { onConsult: () => void }) {
   const clinic = themeDef.hero === "clinic";
 
   return (
-    <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:pb-24">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-        className="relative overflow-hidden rounded-[2rem] border border-border bg-card p-8 shadow-2xl shadow-primary/10 sm:p-12"
-      >
-        <div
-          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full blur-3xl"
-          style={{ background: "color-mix(in srgb, var(--theme-accent) 25%, transparent)" }}
-        />
-        <div className="relative grid items-center gap-10 lg:grid-cols-2">
-          <div>
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-theme-accent">
-              {clinic ? "Virtual Clinic" : "Personalised Skincare"}
+    <section className="border-b border-foreground/15 bg-muted/30">
+      <div className="mx-auto max-w-[1600px] px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="micro text-muted-foreground">
+              [07] {clinic ? "Virtual clinic" : "Personalised skincare"}
             </p>
-            <h2 className="mt-3 font-heading text-3xl font-bold sm:text-4xl">
-              {clinic
-                ? "Start with your skin — 3 questions in."
-                : "Not sure where to start? Ask your skin."}
+            <h2 className="display mt-5 text-[clamp(2.4rem,5.6vw,4.6rem)]">
+              Not sure where
+              <br />
+              to start? <em className="text-accent">Ask your skin.</em>
             </h2>
-            <p className="mt-4 max-w-md text-muted-foreground text-pretty">
-              Answer three quick questions and our diagnostic builds a Skinpiens
-              regimen tailored to your barrier, concerns and routine — with one-tap
-              add-to-bag.
+            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted-foreground text-pretty">
+              Three questions. Our diagnostic reads your barrier, concerns and
+              routine, then builds a Skinpiens regimen with one-tap add-to-bag.
             </p>
-            <Button
-              size="lg"
-              className="mt-6 gap-2 rounded-full"
+            <button
               onClick={onConsult}
+              className="group mt-8 flex items-center justify-between gap-12 bg-foreground px-5 py-4 text-background transition-colors hover:bg-accent hover:text-accent-foreground"
+              data-cursor="Start"
             >
-              Take the Skin Quiz
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+              <span className="micro">Take the skin quiz · 60 seconds</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </button>
           </div>
 
-          <div className="grid gap-3">
-            {STEPS.map(({ icon: Icon, title, sub }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, x: 24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.12 }}
-                className="glass flex items-center gap-4 rounded-2xl p-4"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-theme-accent">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <div className="flex-1">
-                  <p className="font-heading text-sm font-semibold">
-                    {i + 1}. {title}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{sub}</p>
-                </div>
-                <span className="font-heading text-2xl font-bold text-muted-foreground/25">
-                  0{i + 1}
-                </span>
-              </motion.div>
-            ))}
+          <div className="lg:col-span-5 lg:pl-8">
+            <div className="border-t border-foreground/20">
+              {STEPS.map(({ icon: Icon, title, sub }, i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group flex items-start gap-4 border-b border-foreground/15 py-5"
+                >
+                  <span className="micro mt-1 text-muted-foreground">
+                    0{i + 1}
+                  </span>
+                  <Icon className="mt-0.5 h-4 w-4 text-accent" />
+                  <div className="flex-1">
+                    <p className="text-base">{title}</p>
+                    <p className="text-sm text-muted-foreground">{sub}</p>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
+                </motion.div>
+              ))}
+            </div>
+            <p className="micro mt-5 text-muted-foreground">
+              No account needed · Results in 60 seconds
+            </p>
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

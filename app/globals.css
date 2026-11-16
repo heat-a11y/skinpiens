@@ -36,6 +36,9 @@
   --color-chip-foreground: var(--chip-fg);
   --color-theme-accent: var(--theme-accent);
   --color-theme-accent-foreground: var(--theme-accent-foreground);
+  --color-signal: var(--signal, var(--theme-accent));
+  --color-ink: var(--ink, var(--foreground));
+  --color-paper: var(--paper, var(--background));
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
   --font-mono: var(--font-geist-mono);
@@ -994,6 +997,228 @@
   --sidebar-accent-foreground: var(--muted-foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
+}
+
+/* ---------------------------------------------------------------------------
+   STUDIO — the award-site art direction.
+   Bone paper, ink, champagne + a chartreuse signal accent. Zero radius,
+   hairline rules, oversized display serif, mono micro-labels.
+--------------------------------------------------------------------------- */
+[data-theme="studio"] {
+  --background: #e8e3d8;
+  --foreground: #0d0d0c;
+  --card: #eeeadf;
+  --card-foreground: #0d0d0c;
+  --popover: #f1ede3;
+  --popover-foreground: #0d0d0c;
+  --primary: #0d0d0c;
+  --primary-foreground: #f1ede3;
+  --secondary: #ddd7c8;
+  --secondary-foreground: #0d0d0c;
+  --muted: #ded8ca;
+  --muted-foreground: #605a4f;
+  --accent: #b8863b;
+  --accent-foreground: #0d0d0c;
+  --destructive: #a8362a;
+  --border: #c6bfae;
+  --input: #c6bfae;
+  --ring: #0d0d0c;
+  --chart-1: #b8863b;
+  --chart-2: #0d0d0c;
+  --chart-3: #605a4f;
+  --chart-4: #c8ff3d;
+  --chart-5: #8a7a5c;
+  --radius: 0rem;
+  --star: #b8863b;
+  --glass: rgba(232, 227, 216, 0.72);
+  --glass-border: rgba(13, 13, 12, 0.18);
+  --nav-bg: rgba(232, 227, 216, 0.82);
+  --hero-glow: #b8863b;
+  --chip-bg: transparent;
+  --chip-fg: #0d0d0c;
+  --theme-accent: #b8863b;
+  --theme-accent-foreground: #0d0d0c;
+  --signal: #c8ff3d;
+  --ink: #0d0d0c;
+  --paper: #e8e3d8;
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-instrument);
+  --heading-transform: none;
+  --heading-tracking: -0.03em;
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--muted-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* Studio caps every radius — the design language is ruled, not rounded. */
+[data-theme="studio"] .rounded-full {
+  border-radius: 1px;
+}
+[data-theme="studio"] .rounded-3xl,
+[data-theme="studio"] .rounded-2xl,
+[data-theme="studio"] .rounded-xl,
+[data-theme="studio"] .rounded-lg,
+[data-theme="studio"] .rounded-md,
+[data-theme="studio"] .rounded {
+  border-radius: 0;
+}
+
+/* Display + micro type primitives. Theme-agnostic with graceful fallbacks. */
+.display {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.display em,
+.display .it {
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+.micro {
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+  font-size: 10px;
+  line-height: 1.25;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.micro-sm {
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+  font-size: 9px;
+  line-height: 1.25;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Full-bleed hairline grid used by the studio layout */
+.hairline {
+  border-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+.hairline-t {
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+/* Film grain — a single fixed layer above the page, below UI overlays. */
+.grain-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 62;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+}
+.grain-layer::after {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  animation: grain-shift 6s steps(5) infinite;
+}
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -2%); }
+  80% { transform: translate(3%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Cursor ring — only on precise pointers, studio theme */
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 80;
+  display: none;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 9999px;
+  border: 1px solid var(--foreground);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+    background-color 0.25s ease, opacity 0.2s ease;
+}
+.cursor-ring[data-active="true"] {
+  width: 76px;
+  height: 76px;
+  margin: -38px 0 0 -38px;
+  background: var(--signal);
+  border-color: var(--signal);
+  mix-blend-mode: normal;
+}
+.cursor-ring[data-active="true"]::after {
+  content: attr(data-label);
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+@media (pointer: fine) {
+  [data-theme="studio"] .cursor-ring {
+    display: flex;
+  }
+  [data-theme="studio"][data-cursor="on"],
+  [data-theme="studio"][data-cursor="on"] a,
+  [data-theme="studio"][data-cursor="on"] button {
+    cursor: none;
+  }
+  [data-theme="studio"][data-cursor="on"] input,
+  [data-theme="studio"][data-cursor="on"] textarea {
+    cursor: auto;
+  }
+}
+
+/* Vertical labels for the studio margins */
+.v-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Underline that draws in on hover */
+.link-draw {
+  position: relative;
+  display: inline-block;
+}
+.link-draw::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.link-draw:hover::after {
+  transform: scaleX(1);
+}
+
+/* Editorial index row — hover reveals a floating artwork chip */
+.index-row {
+  position: relative;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+.index-row:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+.index-row:hover .index-row-muted {
+  color: color-mix(in srgb, var(--background) 72%, transparent);
 }
 
 @layer base {

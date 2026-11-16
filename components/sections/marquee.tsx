@@ -1,64 +1,53 @@
-import { Leaf, ShieldCheck, Sparkle, TestTube2, Truck } from "lucide-react";
+import { Ticker } from "@/components/studio/primitives";
+import { Leaf, ShieldCheck, Sparkle, Truck } from "lucide-react";
 
 const ACTIVES = [
   "ILLUMYS®",
   "CERAMIDE NP",
-  "TRANEXAMIC ACID 2%",
+  "TRANEXAMIC 2%",
   "POOG™",
   "NIACINAMIDE 5%",
-  "EPSILON-FERM COMPLEX",
+  "EPSILON-FERM",
   "BETA-GLUCAN",
-  "CICA COMPLEX",
+  "CICA",
   "MARINE COLLAGEN",
   "PANTENOL 5%",
 ];
 
 export function ActivesMarquee() {
   return (
-    <section className="border-y border-border bg-muted/40 py-3" aria-hidden>
-      <div className="relative overflow-hidden">
-        <div className="flex w-max animate-marquee gap-8 whitespace-nowrap">
-          {[0, 1].map((dup) => (
-            <div key={dup} className="flex items-center gap-8">
-              {ACTIVES.map((a) => (
-                <span
-                  key={`${dup}-${a}`}
-                  className="flex items-center gap-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
-                >
-                  <TestTube2 className="h-3.5 w-3.5 text-theme-accent" />
-                  {a}
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+    <section
+      className="border-b border-foreground/15 bg-background py-5"
+      aria-label="Key actives"
+    >
+      <Ticker items={ACTIVES} speed={46} />
     </section>
   );
 }
 
 const TRUST = [
   { icon: ShieldCheck, title: "Eczema-grade", sub: "Dermatologist-tested" },
-  { icon: Leaf, title: "Clinical Botanicals", sub: "Non-irritating actives" },
+  { icon: Leaf, title: "Clinical botanicals", sub: "Non-irritating actives" },
   { icon: Sparkle, title: "Sensitive-safe", sub: "No harsh acids" },
-  { icon: Truck, title: "Free Shipping", sub: "Over RM 150" },
+  { icon: Truck, title: "Free shipping", sub: "On orders over RM 150" },
 ];
 
 export function TrustBar() {
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6">
-      <div className="grid grid-cols-2 gap-4 py-10 lg:grid-cols-4">
-        {TRUST.map(({ icon: Icon, title, sub }) => (
+    <section className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10">
+      <div className="grid grid-cols-2 border-b border-foreground/15 lg:grid-cols-4">
+        {TRUST.map(({ icon: Icon, title, sub }, i) => (
           <div
             key={title}
-            className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4"
+            className="flex items-start gap-3 border-foreground/15 py-8 pr-4 sm:pr-8 [&:not(:nth-child(2n))]:border-r lg:[&:not(:last-child)]:border-r lg:[&:nth-child(2n)]:border-r"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-theme-accent">
-              <Icon className="h-5 w-5" />
-            </span>
+            <Icon className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
             <div>
-              <p className="font-heading text-sm font-semibold">{title}</p>
-              <p className="text-xs text-muted-foreground">{sub}</p>
+              <p className="micro text-foreground">{title}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{sub}</p>
+              <p className="micro-sm mt-3 text-muted-foreground/60">
+                0{i + 1} — 04
+              </p>
             </div>
           </div>
         ))}

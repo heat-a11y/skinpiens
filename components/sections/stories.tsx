@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Beaker, Clock, FileText, Quote } from "lucide-react";
 import { LocalImage } from "@/components/ui/local-image";
 import {
   Accordion,
@@ -10,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
+import { SectionHead } from "@/components/studio/primitives";
 
 const STORIES = [
   {
@@ -19,7 +18,8 @@ const STORIES = [
     title: "Why Brightening Shouldn't Hurt",
     excerpt:
       "For decades, brightening meant acids, stinging and downtime. We rebuilt the pathway from the skin barrier up — luminosity without a single day of regret.",
-    art: { from: "#f7e8d8", to: "#d9b98f", accent: "#a65a2f", label: "Illumys®" },
+    accent: "#a65a2f",
+    label: "Illumys®",
     image: "/editorial/story-brightening.png",
     chapters: [
       {
@@ -42,7 +42,8 @@ const STORIES = [
     title: "The Epsilon Eczema Science",
     excerpt:
       "Eczema is a barrier disease, not a surface one. Our Epsilon range rebuilds the missing lipid matrix — ceramide by ceramide.",
-    art: { from: "#dbeaf0", to: "#a8c9d6", accent: "#2f6a7d", label: "ε" },
+    accent: "#2f6a7d",
+    label: "ε",
     image: "/editorial/story-epsilon.jpg",
     chapters: [
       {
@@ -62,82 +63,67 @@ const STORIES = [
 ];
 
 export function StoriesSection() {
-  const [openItem, setOpenItem] = useState<Record<string, string | null>>({});
-  return (
-    <section id="science" className="border-y border-border bg-muted/40">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-24">
-        <div className="mb-12 max-w-2xl">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-theme-accent">
-            Editorial & Clinical
-          </p>
-          <h2 className="mt-3 font-heading text-3xl font-bold sm:text-4xl">
-            The science behind the glow
-          </h2>
-          <p className="mt-4 text-muted-foreground text-pretty">
-            Two stories define Skinpiens: brightening that honours the barrier, and
-            eczema science that treats the cause — not just the symptom.
-          </p>
-        </div>
+  const [openItem, setOpenItem] = useState<Record<string, string | null>>({
+    brightening: "brightening-0",
+  });
 
-        <div className="grid gap-6 lg:grid-cols-2">
+  return (
+    <section id="science" className="border-b border-foreground/15">
+      <div className="mx-auto max-w-[1600px] px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+        <SectionHead
+          index="05"
+          kicker="Editorial & clinical"
+          title={
+            <>
+              The science behind
+              <br />
+              <em className="text-accent">the glow.</em>
+            </>
+          }
+          note="Two stories define Skinpiens: brightening that honours the barrier, and eczema science that treats the cause — not just the symptom."
+        />
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-8">
           {STORIES.map((story, idx) => (
             <motion.article
               key={story.id}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="overflow-hidden rounded-3xl border border-border bg-card"
+              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className={idx === 1 ? "lg:mt-16" : undefined}
             >
-              {/* Art header */}
-              <div
-                className="relative flex h-52 items-center justify-center overflow-hidden"
-                style={{
-                  background: `radial-gradient(120% 100% at 50% 0%, ${story.art.from}, ${story.art.to})`,
-                }}
-              >
+              <div className="group relative aspect-[4/3] overflow-hidden border border-foreground/15">
                 <LocalImage
                   src={story.image}
                   alt={story.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
                 />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, rgba(0,0,0,0.05), color-mix(in srgb, var(--card) 85%, transparent))",
-                  }}
-                />
-                <div className="relative flex flex-col items-center gap-2">
-                  <span
-                    className="rounded-full bg-background/85 px-4 py-1 font-heading text-xl font-semibold backdrop-blur-sm"
-                    style={{ color: story.art.accent }}
-                  >
-                    {story.art.label}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+                <div className="absolute inset-0 flex items-start justify-between p-4">
+                  <span className="micro bg-background/85 px-2.5 py-1 text-foreground backdrop-blur">
+                    {story.kicker}
                   </span>
-                  <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.24em] text-foreground/80">
-                    Skinpiens Research · MMXXVI
+                  <span className="display bg-foreground/80 px-2.5 py-0.5 text-2xl text-background backdrop-blur">
+                    0{idx + 1}
                   </span>
                 </div>
-                <Quote
-                  className="absolute right-4 top-4 h-10 w-10"
-                  style={{ color: story.art.accent, opacity: 0.4 }}
-                />
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                  <span
+                    className="display text-2xl text-background"
+                    style={{ textShadow: "0 1px 20px rgba(0,0,0,.35)" }}
+                  >
+                    {story.label}
+                  </span>
+                  <span className="micro text-background/80">Skinpiens Research · MMXXVI</span>
+                </div>
               </div>
 
-              <div className="p-6 sm:p-8">
-                <Badge variant="secondary" className="gap-1.5">
-                  {story.id === "brightening" ? (
-                    <Beaker className="h-3 w-3 text-theme-accent" />
-                  ) : (
-                    <FileText className="h-3 w-3 text-theme-accent" />
-                  )}
-                  {story.kicker}
-                </Badge>
-                <h3 className="mt-3 font-heading text-2xl font-bold">{story.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-pretty">
+              <div className="mt-5">
+                <h3 className="display text-3xl sm:text-4xl">{story.title}</h3>
+                <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground text-pretty">
                   {story.excerpt}
                 </p>
 
@@ -146,17 +132,23 @@ export function StoriesSection() {
                   onValueChange={(v) =>
                     setOpenItem((prev) => ({ ...prev, [story.id]: v[0] ?? null }))
                   }
-                  className="mt-5"
+                  className="mt-6 border-t border-foreground/15"
                 >
                   {story.chapters.map((ch, i) => (
-                    <AccordionItem key={ch.q} value={`${story.id}-${i}`}>
-                      <AccordionTrigger className="text-sm font-medium">
-                        <span className="flex items-center gap-2">
-                          <Clock className="h-3.5 w-3.5 text-theme-accent" />
-                          {ch.q}
+                    <AccordionItem
+                      key={ch.q}
+                      value={`${story.id}-${i}`}
+                      className="border-b border-foreground/15"
+                    >
+                      <AccordionTrigger className="py-4 text-sm hover:no-underline">
+                        <span className="flex items-baseline gap-3 text-left">
+                          <span className="micro-sm text-accent">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span>{ch.q}</span>
                         </span>
                       </AccordionTrigger>
-                      <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                      <AccordionContent className="pb-5 pl-8 text-sm leading-relaxed text-muted-foreground">
                         {ch.a}
                       </AccordionContent>
                     </AccordionItem>

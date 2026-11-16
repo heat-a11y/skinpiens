@@ -1,4 +1,5 @@
 export type HeroVariant =
+  | "kinetic" // Studio — award-site display typography, kinetic reveal
   | "editorial" // YTTP — clean western botanical
   | "editorial-center" // Aesop — apothecary serif, centered
   | "split" // The Ordinary — technical lab
@@ -10,7 +11,7 @@ export type HeroVariant =
   | "frosted" // Beauty of Joseon — glass skin
   | "clinic"; // Curology — interactive clinic
 
-export type ProductLayout = "grid-2" | "grid-3" | "grid-4" | "carousel";
+export type ProductLayout = "grid-2" | "grid-3" | "grid-4" | "carousel" | "index";
 
 export type SectionId =
   | "hero"
@@ -52,6 +53,30 @@ export interface ThemeDef {
 }
 
 export const THEMES: ThemeDef[] = [
+  {
+    id: "studio",
+    name: "Skinpiens",
+    brand: "Studio Index",
+    tagline: "Bone paper · Instrument serif · Chartreuse signal",
+    description:
+      "The award-site art direction: oversized serif display, hairline grids, kinetic reveals, a cursor-tracked formulary index and editorial numbering at every seam.",
+    hero: "kinetic",
+    products: "index",
+    tone: "editorial",
+    order: [
+      "hero",
+      "marquee",
+      "products",
+      "ritual",
+      "ingredients",
+      "stories",
+      "manifesto",
+      "quiz",
+      "newsletter",
+    ],
+    swatches: ["#e8e3d8", "#0d0d0c", "#b8863b", "#c8ff3d"],
+    fonts: "Instrument Serif / Inter / JetBrains Mono",
+  },
   {
     id: "navy-cream",
     name: "Skinpiens",

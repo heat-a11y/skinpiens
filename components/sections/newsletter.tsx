@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Check, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { ArrowRight, Check } from "lucide-react";
+import { withBase } from "@/lib/base-path";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
@@ -16,47 +15,65 @@ export function Newsletter() {
   };
 
   return (
-    <section id="newsletter" className="border-t border-border bg-muted/40">
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:py-20">
-        <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-theme-accent">
-          The Skinpiens Journal
-        </p>
-        <h2 className="mt-3 font-heading text-3xl font-bold sm:text-4xl">
-          Clinical insights, without the clinical jargon
-        </h2>
-        <p className="mx-auto mt-4 max-w-lg text-muted-foreground text-pretty">
-          Barrier science, eczema research and new formulation drops. One email a
-          month. No stinging, ever.
-        </p>
-
-        {done ? (
-          <div className="mx-auto mt-8 flex max-w-sm items-center justify-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm font-medium">
-            <Check className="h-4 w-4 text-theme-accent" />
-            Welcome to the Journal — check your inbox.
+    <section id="newsletter" className="border-b border-foreground/15">
+      <div className="mx-auto max-w-[1600px] px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+        <div className="grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-2">
+            <p className="micro text-muted-foreground">[09] The Journal</p>
           </div>
-        ) : (
-          <form
-            onSubmit={submit}
-            className="mx-auto mt-8 flex max-w-sm flex-col gap-3 sm:flex-row"
-          >
-            <Input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@skinpiens.com"
-              className="h-11 rounded-full px-4"
-              aria-label="Email address"
-            />
-            <Button type="submit" className="h-11 gap-2 rounded-full">
-              <Send className="h-4 w-4" />
-              Subscribe
-            </Button>
-          </form>
-        )}
-        <p className="mt-4 text-xs text-muted-foreground">
-          By subscribing you agree to our privacy policy. Unsubscribe anytime.
-        </p>
+
+          <div className="lg:col-span-7">
+            <h2 className="display text-[clamp(2.4rem,5.6vw,4.8rem)]">
+              Clinical insights,
+              <br />
+              <em className="text-accent">without the jargon.</em>
+            </h2>
+
+            {done ? (
+              <p className="micro mt-10 flex items-center gap-3 border-t border-foreground/20 pt-5 text-foreground">
+                <Check className="h-4 w-4 text-accent" />
+                Welcome to the Journal — check your inbox.
+              </p>
+            ) : (
+              <form onSubmit={submit} className="mt-10 max-w-xl">
+                <div className="flex items-center gap-4 border-b border-foreground/40 pb-3 focus-within:border-foreground">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@skinpiens.com"
+                    aria-label="Email address"
+                    className="w-full bg-transparent text-lg outline-none placeholder:text-muted-foreground/60"
+                  />
+                  <button
+                    type="submit"
+                    aria-label="Subscribe"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center border border-foreground/30 transition-colors hover:bg-foreground hover:text-background"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+                <p className="micro mt-4 text-muted-foreground">
+                  One email a month · Barrier science & new drops · No stinging
+                </p>
+              </form>
+            )}
+          </div>
+
+          <div className="lg:col-span-3">
+            <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
+              Barrier science, eczema research and new formulation drops — written
+              by the pharmacists who compound them.
+            </p>
+            <a
+              href={withBase("/journal")}
+              className="micro link-draw mt-6 inline-flex items-center gap-2 whitespace-nowrap text-foreground"
+            >
+              Read the Journal <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

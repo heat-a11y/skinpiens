@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ShieldCheck } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -10,7 +8,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-/** La Roche-Posay — dermatological FAQ. */
 const FAQS = [
   {
     q: "Is Fortress+ safe for eczema-prone skin?",
@@ -26,48 +23,49 @@ const FAQS = [
   },
   {
     q: "Does it contain fragrance or essential oils?",
-    a: "No. Illumys® formula is 100% fragrance-free, essential-oil-free and free of harsh acids. It will not trigger fragrance-sensitive skin.",
+    a: "No. The Illumys® formula is 100% fragrance-free, essential-oil-free and free of harsh acids. It will not trigger fragrance-sensitive skin.",
   },
 ];
 
 export function FAQSection() {
   const [openItem, setOpenItem] = useState<string | null>(FAQS[0].q);
+
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:py-24">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="mb-8 flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <ShieldCheck className="h-5 w-5" />
-          </span>
-          <div>
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              Dermatological Advice
-            </p>
-            <h2 className="mt-1 font-heading text-3xl font-bold">Frequently asked</h2>
+    <section className="border-b border-foreground/15">
+      <div className="mx-auto max-w-[1600px] px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-3">
+            <p className="micro text-muted-foreground">[08] Dermatological advice</p>
+          </div>
+          <div className="lg:col-span-9">
+            <h2 className="display mb-8 text-[clamp(2rem,4.4vw,3.6rem)]">
+              Frequently <em className="text-accent">asked.</em>
+            </h2>
+
+            <Accordion
+              value={openItem ? [openItem] : []}
+              onValueChange={(v) => setOpenItem(v[0] ?? null)}
+              className="border-t border-foreground/25"
+            >
+              {FAQS.map((f, i) => (
+                <AccordionItem key={f.q} value={f.q} className="border-b border-foreground/15">
+                  <AccordionTrigger className="py-5 text-base hover:no-underline">
+                    <span className="flex items-baseline gap-4 text-left">
+                      <span className="micro-sm text-muted-foreground">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="display text-xl sm:text-2xl">{f.q}</span>
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="max-w-2xl pb-6 pl-9 text-sm leading-relaxed text-muted-foreground">
+                    {f.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
-
-        <div className="rounded-2xl border border-border bg-card px-5">
-          <Accordion
-            value={openItem ? [openItem] : []}
-            onValueChange={(v) => setOpenItem(v[0] ?? null)}
-          >
-            {FAQS.map((f) => (
-              <AccordionItem key={f.q} value={f.q}>
-                <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
-                <AccordionContent className="leading-relaxed text-muted-foreground">
-                  {f.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -12,8 +12,8 @@ import {
 } from "react";
 import { getTheme, THEMES, type ThemeDef } from "@/lib/themes";
 
-const THEME_STORAGE_KEY = "skinpiens-theme";
-const DEFAULT_THEME = "navy-cream";
+const THEME_STORAGE_KEY = "skinpiens-theme-v2";
+const DEFAULT_THEME = "studio";
 
 function readTheme(): string {
   if (typeof window === "undefined") return DEFAULT_THEME;

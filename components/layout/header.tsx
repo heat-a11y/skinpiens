@@ -2,21 +2,13 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  ChevronDown,
-  Flower2,
-  Menu,
-  Search,
-  ShoppingBag,
-  Stethoscope,
-} from "lucide-react";
+import { Menu, Search, ShoppingBag } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProductArtwork } from "@/components/ui/product-artwork";
 import { PRODUCTS } from "@/lib/products";
@@ -40,7 +32,7 @@ const NAV_ITEMS: NavItem[] = [
     links: ["Fortress+ Serum", "Vitamin C Layer", "Daily Moisturisers", "Night Actives"],
   },
   {
-    label: "Eczema Range",
+    label: "Eczema",
     category: "Eczema Range",
     blurb: "Dermatologist-grade barrier repair",
     links: ["Epsilon Science", "Ceramide Cream", "Soothing Mist", "Gentle Cleanser"],
@@ -71,6 +63,11 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
+const UTILITY = [
+  { label: "Journal", href: "/journal", n: "07" },
+  { label: "Routine", href: "/routine", n: "08" },
+];
+
 export function Header({ onConsult }: { onConsult: () => void }) {
   const { count, openCart } = useCart();
   const [active, setActive] = useState<string | null>(null);
@@ -82,22 +79,23 @@ export function Header({ onConsult }: { onConsult: () => void }) {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Announcement bar */}
-      <div className="bg-primary px-4 py-2 text-center text-xs font-medium text-primary-foreground">
-        <span className="hidden sm:inline">
-          Free shipping on orders over RM 150 · Eczema-grade barrier science, powered by clinical botanicals.
-        </span>
-        <span className="sm:hidden">
-          Free shipping over RM 150 · Clinical botanicals.
-        </span>
+      {/* Announcement */}
+      <div className="bg-foreground text-background">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-1.5 sm:px-6 lg:px-10">
+          <p className="micro-sm">Free shipping over RM 150</p>
+          <p className="micro-sm hidden text-background/60 sm:block">
+            Eczema-grade · Pharmacist-formulated · Kuala Lumpur
+          </p>
+          <p className="micro-sm">Apotik · MMXXVI</p>
+        </div>
       </div>
 
       {/* Primary nav */}
       <div
-        className="glass border-b border-border"
+        className="border-b border-foreground/15 bg-background/80 backdrop-blur-xl"
         onMouseLeave={() => setActive(null)}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:px-10">
           <button
             className="lg:hidden"
             onClick={() => setMobileOpen(true)}
@@ -106,70 +104,61 @@ export function Header({ onConsult }: { onConsult: () => void }) {
             <Menu className="h-5 w-5" />
           </button>
 
-          <a href="#top" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary font-heading text-sm font-bold text-primary-foreground">
-              S
+          <a href="#top" className="flex items-baseline gap-3">
+            <span className="display text-[26px] leading-none tracking-[-0.045em]">
+              Skinpiens
             </span>
-            <span className="font-heading text-lg font-bold tracking-[0.08em]">
-              SKINPIENS
-            </span>
-            <span className="hidden text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground md:inline">
+            <span className="micro hidden text-muted-foreground md:inline">
               Clinical · Botanical
             </span>
           </a>
 
-          <nav className="hidden flex-1 items-center justify-center lg:flex">
-            <ul className="flex items-center gap-1">
-              {NAV_ITEMS.map((item) => (
-                <li
-                  key={item.label}
-                  onMouseEnter={() => setActive(item.label)}
-                >
+          <nav className="ml-auto hidden items-center lg:flex">
+            <ul className="flex items-stretch">
+              {NAV_ITEMS.map((item, i) => (
+                <li key={item.label} onMouseEnter={() => setActive(item.label)}>
                   <button
                     className={cn(
-                      "flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
-                      active === item.label && "bg-muted",
+                      "micro flex h-16 items-center gap-1.5 border-l border-transparent px-4 transition-colors hover:border-foreground/25 hover:bg-foreground hover:text-background",
+                      active === item.label && "border-foreground/25 bg-foreground text-background",
                     )}
                     onClick={() => item.label === "Consult" && onConsult()}
                   >
+                    <span className="text-[8px] opacity-50">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     {item.label}
-                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
                   </button>
                 </li>
               ))}
-              <li>
-                <a
-                  href={withBase("/journal")}
-                  className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
-                >
-                  Journal
-                </a>
-              </li>
-              <li>
-                <a
-                  href={withBase("/routine")}
-                  className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
-                >
-                  Routine
-                </a>
-              </li>
+              {UTILITY.map((item, i) => (
+                <li key={item.label}>
+                  <a
+                    href={withBase(item.href)}
+                    className="micro flex h-16 items-center gap-1.5 border-l border-foreground/15 px-4 transition-colors hover:bg-foreground hover:text-background"
+                  >
+                    <span className="text-[8px] opacity-50">{item.n}</span>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
 
-          <div className="ml-auto flex items-center gap-1.5">
-            <Button variant="ghost" size="icon" aria-label="Search" className="rounded-full">
-              <Search className="h-5 w-5" />
+          <div className="ml-auto flex items-center gap-1 lg:ml-2">
+            <Button variant="ghost" size="icon" aria-label="Search" className="rounded-none">
+              <Search className="h-[18px] w-[18px]" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
               aria-label={`Open bag, ${count} items`}
-              className="relative rounded-full"
+              className="relative rounded-none"
               onClick={openCart}
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="h-[18px] w-[18px]" />
               {count > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+                <span className="absolute right-0 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-foreground px-1 text-[9px] font-semibold text-background">
                   {count}
                 </span>
               )}
@@ -182,57 +171,63 @@ export function Header({ onConsult }: { onConsult: () => void }) {
           {active && (
             <motion.div
               key={active}
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="absolute inset-x-0 top-full hidden border-b border-border bg-background/95 backdrop-blur-xl lg:block"
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-x-0 top-full hidden border-b border-foreground/15 bg-background lg:block"
             >
-              <div className="mx-auto grid max-w-7xl grid-cols-4 gap-8 px-6 py-8">
+              <div className="mx-auto grid max-w-[1600px] grid-cols-12 gap-8 px-10 py-10">
                 {(() => {
                   const item = NAV_ITEMS.find((n) => n.label === active)!;
                   const products = categoryProducts(item.category);
                   return (
                     <>
-                      <div className="col-span-2">
-                        <p className="font-heading text-xl font-semibold">{item.label}</p>
-                        <p className="mt-1 text-sm text-muted-foreground">{item.blurb}</p>
-                        <div className="mt-4 space-y-1">
-                          {item.links.map((link) => (
-                            <a
-                              key={link}
-                              href="#products"
-                              onClick={() => setActive(null)}
-                              className="block rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                            >
-                              {link}
-                            </a>
-                          ))}
-                        </div>
+                      <div className="col-span-4">
+                        <p className="micro text-muted-foreground">The Index</p>
+                        <p className="display mt-3 text-6xl leading-[0.9]">{item.label}</p>
+                        <p className="mt-4 max-w-xs text-sm text-muted-foreground">
+                          {item.blurb}
+                        </p>
                       </div>
-                      <div className="col-span-2 grid grid-cols-2 gap-3">
+                      <div className="col-span-3 border-l border-foreground/15 pl-6">
+                        <p className="micro text-muted-foreground">Within</p>
+                        <ul className="mt-4 space-y-2">
+                          {item.links.map((link) => (
+                            <li key={link}>
+                              <a
+                                href="#products"
+                                onClick={() => setActive(null)}
+                                className="link-draw text-sm text-foreground/80 hover:text-foreground"
+                              >
+                                {link}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="col-span-5 grid grid-cols-2 gap-3">
                         {products.length > 0 ? (
                           products.slice(0, 4).map((p) => (
                             <a
                               key={p.id}
                               href="#products"
                               onClick={() => setActive(null)}
-                              className="group flex items-center gap-3 rounded-xl border border-border p-2 transition-colors hover:bg-muted"
+                              className="group flex items-center gap-3 border border-foreground/15 p-2 transition-colors hover:border-foreground/50"
                             >
-                              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg">
+                              <div className="h-16 w-14 shrink-0 overflow-hidden">
                                 <ProductArtwork product={p} className="h-full w-full" />
                               </div>
                               <div className="min-w-0">
-                                <p className="truncate text-sm font-medium">{p.name}</p>
-                                <p className="text-xs text-muted-foreground">
+                                <p className="truncate text-sm">{p.name}</p>
+                                <p className="micro mt-1 text-muted-foreground">
                                   RM {p.price.toFixed(2)}
                                 </p>
                               </div>
                             </a>
                           ))
                         ) : (
-                          <div className="col-span-2 flex items-center gap-3 rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
-                            <Stethoscope className="h-5 w-5 shrink-0" />
+                          <div className="col-span-2 flex items-center gap-3 border border-dashed border-foreground/25 p-4 text-sm text-muted-foreground">
                             {active === "Consult"
                               ? "Answer 3 questions and we’ll tailor your regimen."
                               : `${active} collection arriving soon.`}
@@ -250,16 +245,15 @@ export function Header({ onConsult }: { onConsult: () => void }) {
 
       {/* Mobile drawer */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent side="left" className="w-full max-w-xs p-0">
-          <SheetHeader className="border-b border-border px-4 py-4">
-            <SheetTitle className="flex items-center gap-2 font-heading">
-              <Flower2 className="h-4 w-4 text-theme-accent" />
-              SKINPIENS
+        <SheetContent side="left" className="w-full max-w-sm rounded-none p-0">
+          <SheetHeader className="border-b border-foreground/15 px-5 py-5">
+            <SheetTitle className="display text-left text-2xl font-normal">
+              Skinpiens
             </SheetTitle>
           </SheetHeader>
-          <nav className="overflow-y-auto px-2 py-2">
-            {NAV_ITEMS.map((item) => (
-              <div key={item.label}>
+          <nav className="overflow-y-auto">
+            {NAV_ITEMS.map((item, i) => (
+              <div key={item.label} className="border-b border-foreground/10">
                 <button
                   onClick={() => {
                     if (item.label === "Consult") {
@@ -269,15 +263,17 @@ export function Header({ onConsult }: { onConsult: () => void }) {
                     }
                     setMobileNav(mobileNav === item.label ? null : item.label);
                   }}
-                  className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-muted"
+                  className="flex w-full items-center justify-between px-5 py-4"
                 >
-                  {item.label}
-                  <ChevronDown
-                    className={cn(
-                      "h-4 w-4 transition-transform",
-                      mobileNav === item.label && "rotate-180",
-                    )}
-                  />
+                  <span className="flex items-baseline gap-3">
+                    <span className="micro-sm text-muted-foreground">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="display text-xl font-normal">{item.label}</span>
+                  </span>
+                  <span className="micro text-muted-foreground">
+                    {mobileNav === item.label ? "−" : "+"}
+                  </span>
                 </button>
                 <AnimatePresence initial={false}>
                   {mobileNav === item.label && (
@@ -287,18 +283,17 @@ export function Header({ onConsult }: { onConsult: () => void }) {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="space-y-1 px-3 pb-3">
+                      <div className="space-y-2 px-5 pb-4">
                         {categoryProducts(item.category)
-                          .concat(categoryProducts(item.category).slice(0, 1))
                           .slice(0, 4)
                           .map((p) => (
                             <a
                               key={`${item.label}-${p.id}`}
                               href="#products"
                               onClick={() => setMobileOpen(false)}
-                              className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                              className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground"
                             >
-                              <span className="h-6 w-6 overflow-hidden rounded-md">
+                              <span className="h-9 w-8 overflow-hidden">
                                 <ProductArtwork product={p} className="h-full w-full" />
                               </span>
                               {p.name}
@@ -310,25 +305,38 @@ export function Header({ onConsult }: { onConsult: () => void }) {
                 </AnimatePresence>
               </div>
             ))}
-            <a
-              href={withBase("/journal")}
-              onClick={() => setMobileOpen(false)}
-              className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-muted"
+            {UTILITY.map((item) => (
+              <a
+                key={item.label}
+                href={withBase(item.href)}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between border-b border-foreground/10 px-5 py-4"
+              >
+                <span className="flex items-baseline gap-3">
+                  <span className="micro-sm text-muted-foreground">{item.n}</span>
+                  <span className="display text-xl font-normal">{item.label}</span>
+                </span>
+                <span className="micro text-muted-foreground">↗</span>
+              </a>
+            ))}
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                window.dispatchEvent(new Event("skinpiens:design-index"));
+              }}
+              className="flex w-full items-center justify-between border-b border-foreground/10 px-5 py-4"
             >
-              Journal
-            </a>
-            <a
-              href={withBase("/routine")}
-              onClick={() => setMobileOpen(false)}
-              className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-muted"
-            >
-              Routine Builder
-            </a>
+              <span className="flex items-baseline gap-3">
+                <span className="micro-sm text-muted-foreground">09</span>
+                <span className="display text-xl font-normal">Design index</span>
+              </span>
+              <span className="micro text-muted-foreground">22</span>
+            </button>
           </nav>
-          <div className="border-t border-border p-4">
-            <Badge variant="secondary" className="w-full justify-center py-2">
+          <div className="p-5">
+            <p className="micro text-muted-foreground">
               Eczema-grade · Clinical · Botanical
-            </Badge>
+            </p>
           </div>
         </SheetContent>
       </Sheet>
